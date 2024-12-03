@@ -758,7 +758,7 @@ void ExecutionDirector_WaitForTrafficStops(
 } /* End of action function: ExecutionDirector_WaitForTrafficStops */
 
 /* The implementation of the Persistency Functions */
-void ExecutionDirector_Store_Operational(
+void ExecutionDirector_Store_Shallow_Operational(
   __attribute__( ( unused ) ) E_ExecutionDirector_Main_States_t state,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pInstance )
 {
@@ -781,9 +781,9 @@ void ExecutionDirector_Store_Operational(
     fwrite( &sdata, sizeof( sdata ), 1, fd );
     fclose( fd );
   }
-} /* End of action function: ExecutionDirector_Store_Operational */
+} /* End of action function: ExecutionDirector_Store_Shallow_Operational */
 
-E_ExecutionDirector_Main_States_t ExecutionDirector_Load_Operational(
+E_ExecutionDirector_Main_States_t ExecutionDirector_Load_Shallow_Operational(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pInstance )
 {
   E_ExecutionDirector_Main_States_t result = E_ExecutionDirector_init;
@@ -810,7 +810,7 @@ E_ExecutionDirector_Main_States_t ExecutionDirector_Load_Operational(
   }
 
   return result;
-} /* End of loader function: ExecutionDirector_Load_Operational */
+} /* End of loader function: ExecutionDirector_Load_Shallow_Operational */
 
 /* internal functions */
 static void TellLaneAvailability(

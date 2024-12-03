@@ -12,4 +12,4 @@ set(MAIN_HEADER
 )
 
 add_executable(paroot ${MAIN_SOURCE} ${MAIN_HEADER})
-target_link_libraries(paroot PUBLIC LIBRParoot_Static )
+target_link_libraries(paroot PUBLIC LIBRParoot_Static)

@@ -47,7 +47,7 @@ bool Lane_IsCheckAndGo(
 } /* End of guard function: Lane_IsCheckAndGo */
 
 /* The implementation of the Persistency Functions */
-void Lane_Store_Availability(
+void Lane_Store_Shallow_Availability(
   __attribute__( ( unused ) ) E_Lane_Availability_States_t state,
   __attribute__( ( unused ) ) S_SM_Lane_DataType_t* const pInstance )
 {
@@ -72,9 +72,9 @@ void Lane_Store_Availability(
     fwrite( &sdata, sizeof( sdata ), 1, fd );
     fclose( fd );
   }
-} /* End of action function: Lane_Store_Availability */
+} /* End of action function: Lane_Store_Shallow_Availability */
 
-E_Lane_Availability_States_t Lane_Load_Availability(
+E_Lane_Availability_States_t Lane_Load_Shallow_Availability(
   __attribute__( ( unused ) ) S_SM_Lane_DataType_t* const pInstance )
 {
   E_Lane_Availability_States_t result = E_Lane_Availability_init;
@@ -103,6 +103,6 @@ E_Lane_Availability_States_t Lane_Load_Availability(
   }
 
   return result;
-} /* End of loader function: Lane_Load_Availability */
+} /* End of loader function: Lane_Load_Shallow_Availability */
 
 /* End of Lane_Auxilary.c */
