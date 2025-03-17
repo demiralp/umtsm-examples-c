@@ -31,31 +31,37 @@
  *  SOFTWARE.
  */
 
-#ifndef KeyPressEventGenerator_DataType_h__INCLUDED
-#define KeyPressEventGenerator_DataType_h__INCLUDED
+#ifndef Execution_director_Types_h__INCLUDED
+#define Execution_director_Types_h__INCLUDED
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
  
-typedef struct S_SM_KeyPress S_SM_KeyPress_t;
-
-typedef struct S_SM_KeyPressEventGenerator_DataType
+/* ----- Enumeration Type definitions ----- */
+typedef enum E_ControlMode
 {
-  S_SM_KeyPress_t *sm_keypress;
-} S_SM_KeyPressEventGenerator_DataType_t;
+  PERSISTENT_CONTROL_MODE,
+  CONTROLLED,
+  UNCONTROLLED
+} E_ControlMode_t;
 
-void KeyPressEventGenerator_DataType_Initialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
-void KeyPressEventGenerator_DataType_Deinitialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
+typedef enum E_Lane_Command
+{
+  E_CMD_NOPE,
+  E_CMD_DISABLE_LANE,
+  E_CMD_ENABLE_LANE
+} E_Lane_Command_t;
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* KeyPressEventGenerator_DataType_h__INCLUDED */
+#endif /* Execution_director_Types_h__INCLUDED */
 
-/* End of KeyPressEventGenerator_DataType.h */
+/* End of Execution-director_Types.h */

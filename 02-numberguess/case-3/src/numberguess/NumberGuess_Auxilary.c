@@ -45,6 +45,10 @@ SOFTWARE.
 #include <time.h>
 #include <unistd.h>
 
+#define GAME_TIME (1U*60U)
+#define ESTIMATION_TIME (20U)
+#define WARNING_TIME (10U)
+
 /* The implementation of the guards */
 bool NumberGuess_AreNumbersEqual(
   __attribute__((unused)) S_SM_NumberGuess_t* const smInfo,

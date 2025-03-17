@@ -1,12 +1,12 @@
 /*==============================================================================
- * Created by Fehmi Demiralp (Fedem) on 2024-07-29 GMT.
- * Copyright (C) 2023-2024 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
+ * Created by Fehmi Demiralp (Fedem) on 2025-03-17 GMT.
+ * Copyright (C) 2023-2025 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
  *
  * Released under the MIT License:
  *============================================================================*/
 
 /*
-Copyright (c) 2023-2024 Fedem (Fehmi Demiralp)
+Copyright (c) 2023-2025 Fedem (Fehmi Demiralp)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+enumeration Calculator_Error
+{
+    E_NO_ERROR,
+    E_OVERFLOW,
+    E_DIVISION_BY_ZERO,
+    E_FAULTY
+}
+
+enumeration Calculator_Operator
+{
+    E_OP_NONE,
+    E_OP_PLUS,
+    E_OP_MINUS,
+    E_OP_MULTIPLY,
+    E_OP_DIVIDE,
+    E_OP_ENTER
+}
+
 //
 // Calculator
 //
 sm Calculator
 {
+    properties
+    {
+        float64 Accumulator;
+        Calculator_Operator Operator;
+        Calculator_Error ErrorNo;
+    }
+
     init -> Start;
 
     fork Start
@@ -146,6 +171,12 @@ sm Calculator
 //
 sm Keypad
 {
+    properties
+    {
+        int LastInputKey;
+        optional Calculator pCalculator;
+    }
+
     do / ReadKey;
 
     Notify [IsReset] / NotifyReset;
@@ -167,6 +198,17 @@ sm Keypad
 //
 sm Display
 {
+    properties
+    {
+        char BaseDigits[16];
+        char FractionalDigits[16];
+        char ExponantionalDigits[5];
+        boolean BaseSignaturePositive;
+        boolean ExponantionalSignaturePositive;
+        boolean FractinalStart;
+        boolean ExponentStart;
+    }
+
     init -> DisplayEntry;
 
     state DisplayEntry

@@ -1,12 +1,12 @@
 /*==============================================================================
- * Created by Fehmi Demiralp (Fedem) on 2024-07-29 GMT.
- * Copyright (C) 2023-2024 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
+ * Created by Fehmi Demiralp (Fedem) on 2025-03-17 GMT.
+ * Copyright (C) 2023-2025 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
  *
  * Released under the MIT License:
  *============================================================================*/
 
 /*
-Copyright (c) 2023-2024 Fedem (Fehmi Demiralp)
+Copyright (c) 2023-2025 Fedem (Fehmi Demiralp)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,12 +27,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+type sm Crossroad;
+type sm Monitor;
+type external object time_t;
+
+enumeration ControlMode
+{
+    PERSISTENT_CONTROL_MODE,
+    CONTROLLED,
+    UNCONTROLLED
+}
+
+enumeration Lane_Command
+{
+    E_CMD_NOPE,
+    E_CMD_DISABLE_LANE,
+    E_CMD_ENABLE_LANE
+}
+
 //*********************************************************
 // ExecutionDirector
 //*********************************************************
 
 sm ExecutionDirector
 {
+    properties
+    {
+        ControlMode ControlMode;
+        time_t StartSwitchingTime;
+        boolean LaneClosingCompleted;
+        optional Crossroad pCrossroad;
+        optional Monitor pMonitor;
+        int LaneRequested;
+        int NextLane;
+        Lane_Command LaneCmd1;
+        Lane_Command LaneCmd2;
+        Lane_Command LaneCmd3;
+        Lane_Command LaneCmd4;
+    }
+
     init -> StandBy;
 
     state StandBy

@@ -31,8 +31,8 @@
  *  SOFTWARE.
  */
 
-#ifndef KeyPressEventGenerator_DataType_h__INCLUDED
-#define KeyPressEventGenerator_DataType_h__INCLUDED
+#ifndef Lane_Types_h__INCLUDED
+#define Lane_Types_h__INCLUDED
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -42,20 +42,17 @@ extern "C"
 {
 #endif /* __cplusplus */
  
-typedef struct S_SM_KeyPress S_SM_KeyPress_t;
-
-typedef struct S_SM_KeyPressEventGenerator_DataType
+/* ----- Enumeration Type definitions ----- */
+typedef enum E_UncontrolModeType
 {
-  S_SM_KeyPress_t *sm_keypress;
-} S_SM_KeyPressEventGenerator_DataType_t;
-
-void KeyPressEventGenerator_DataType_Initialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
-void KeyPressEventGenerator_DataType_Deinitialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
+  E_STOP_AND_CHECK,
+  E_CHECK
+} E_UncontrolModeType_t;
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* KeyPressEventGenerator_DataType_h__INCLUDED */
+#endif /* Lane_Types_h__INCLUDED */
 
-/* End of KeyPressEventGenerator_DataType.h */
+/* End of Lane_Types.h */

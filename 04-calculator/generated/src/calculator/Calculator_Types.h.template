@@ -31,8 +31,8 @@
  *  SOFTWARE.
  */
 
-#ifndef KeyPressEventGenerator_DataType_h__INCLUDED
-#define KeyPressEventGenerator_DataType_h__INCLUDED
+#ifndef Calculator_Types_h__INCLUDED
+#define Calculator_Types_h__INCLUDED
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -42,20 +42,29 @@ extern "C"
 {
 #endif /* __cplusplus */
  
-typedef struct S_SM_KeyPress S_SM_KeyPress_t;
-
-typedef struct S_SM_KeyPressEventGenerator_DataType
+/* ----- Enumeration Type definitions ----- */
+typedef enum E_Calculator_Error
 {
-  S_SM_KeyPress_t *sm_keypress;
-} S_SM_KeyPressEventGenerator_DataType_t;
+  E_NO_ERROR,
+  E_OVERFLOW,
+  E_DIVISION_BY_ZERO,
+  E_FAULTY
+} E_Calculator_Error_t;
 
-void KeyPressEventGenerator_DataType_Initialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
-void KeyPressEventGenerator_DataType_Deinitialize( S_SM_KeyPressEventGenerator_DataType_t* const instance );
+typedef enum E_Calculator_Operator
+{
+  E_OP_NONE,
+  E_OP_PLUS,
+  E_OP_MINUS,
+  E_OP_MULTIPLY,
+  E_OP_DIVIDE,
+  E_OP_ENTER
+} E_Calculator_Operator_t;
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* KeyPressEventGenerator_DataType_h__INCLUDED */
+#endif /* Calculator_Types_h__INCLUDED */
 
-/* End of KeyPressEventGenerator_DataType.h */
+/* End of Calculator_Types.h */

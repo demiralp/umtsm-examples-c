@@ -1,12 +1,12 @@
 /*==============================================================================
- * Created by Fehmi Demiralp (Fedem) on 2024-07-29 GMT.
- * Copyright (C) 2023-2024 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
+ * Created by Fehmi Demiralp (Fedem) on 2025-03-17 GMT.
+ * Copyright (C) 2023-2025 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
  *
  * Released under the MIT License:
  *============================================================================*/
 
 /*
-Copyright (c) 2023-2024 Fedem (Fehmi Demiralp)
+Copyright (c) 2023-2025 Fedem (Fehmi Demiralp)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,12 +27,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+enumeration UncontrolModeType
+{
+    E_STOP_AND_CHECK,
+    E_CHECK
+}
+
 //*********************************************************
 // Lane
 //*********************************************************
 
+assume shallow history is implicit;
+
 sm Lane
 {
+    properties 
+    {
+        char Id[ 16 ];
+        UncontrolModeType UncontrolMode;
+    }
+
     init -> Unmanaged;
 
     region Availability
