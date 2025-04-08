@@ -88,8 +88,15 @@ sm Lane
 
                 StartControlling -> Controlled;
 
-                state CheckAndGo {}
-                state StopAndCheck {}
+                state CheckAndGo
+                {
+                    // blank
+                }
+
+                state StopAndCheck 
+                {
+                    // blank
+                }
             }
 
             state Controlled
@@ -110,6 +117,7 @@ sm Lane
             
             state Ready
             {
+                // blank
             }
         }
 
@@ -120,6 +128,7 @@ sm Lane
 
             state PrepareToStop
             {
+                // blank
             }
         }
     }
