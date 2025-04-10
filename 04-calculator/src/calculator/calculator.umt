@@ -102,7 +102,7 @@ sm Calculator
                 Exponents [ ! IsBaseZero  ] -> EnterExponents;
                 ChangeSign / ChangeBaseSign, NotifyDisplayUpdate;
 
-                
+
             }
 
             state EnterFractions
@@ -115,7 +115,7 @@ sm Calculator
                 Exponents [ (! IsBaseZero || ! IsFractionZero ) && IsThereSpaceForExponent ] -> EnterExponents / RemoveZerosFromFraction;
                 ChangeSign / ChangeBaseSign, NotifyDisplayUpdate;
             }
-            
+
             state EnterExponents
             {
                 entry / SetExponentEntry, NotifyDisplayUpdate;
@@ -135,10 +135,10 @@ sm Calculator
             [IsFaulty] -> Faulty;
         }
 
-        state Error 
+        state Error
         {
             exit / NotifyReset;
-    
+
             Clear, Reset ->  Process / DrawSpliteLine;
 
             state Faulty
@@ -157,7 +157,7 @@ sm Calculator
             }
         }
     }
-    
+
     region Output
     {
         state CalculatorDisplay instantiate Display;
@@ -223,24 +223,24 @@ sm Display
     }
 
     state ErrorMessages
-    {    
+    {
         Clear, Reset -> DisplayEntry;
 
         state OverflowError
         {
             entry / DisplayOverflowError;
         }
-    
+
         state DivisionByZeroError
         {
             entry / DisplayDivisionByZeroError;
         }
-    
+
         state FaultyError
         {
             entry / DisplayFaultyError;
         }
     }
-    
+
     SwitchOff -> terminate;
 }

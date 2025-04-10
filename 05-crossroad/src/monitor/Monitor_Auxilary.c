@@ -267,7 +267,7 @@ void Monitor_DisplayStatusOfLanes(
     printw( "%s\n", pInputData->Message );
     attroff( COLOR_PAIR( 2 ) );
 
-    PrintHelp(smInfo, pInputData ); 
+    PrintHelp(smInfo, pInputData );
 
     refresh( );
     pOutputData->UpdateStatus = false;
@@ -319,7 +319,7 @@ static void PrintHelp(
   pLane[ 1 ] = Crossroad_GetSubSM_Lane2( pInstanceData->pCrossroad );
   pLane[ 2 ] = Crossroad_GetSubSM_Lane3( pInstanceData->pCrossroad );
   pLane[ 3 ] = Crossroad_GetSubSM_Lane4( pInstanceData->pCrossroad );
-   
+
   printw("\n");
   printw("Keys for controlling the lanes\n");
 
@@ -351,9 +351,9 @@ static void PrintHelp(
   {
     char key[8];
     char summary[128];
-    
+
     bool const available = Lane_IsIn_Available_State( pLane[ lane ] );
-    
+
     if( available )
     {
       sprintf( key, "D-%d", lane+1 );
@@ -373,9 +373,9 @@ static void PrintHelp(
     {
       char key[8];
       char summary[128];
-      
+
       bool const available = Lane_IsIn_Available_State( pLane[ lane ] );
-      
+
       if( available )
       {
         sprintf( key, "%d", lane+1 );

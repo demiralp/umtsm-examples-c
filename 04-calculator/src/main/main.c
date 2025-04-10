@@ -1,7 +1,7 @@
 /*==============================================================================
  * Created by Fehmi Demiralp (Fedem) on 2024-07-28 GMT.
  * Copyright (C) 2023-2024 FEDEM (Fehmi Demiralp) <f.demiralp@gmail.com>.
- * 
+ *
  * Released under the MIT License:
  *============================================================================*/
 
@@ -55,7 +55,7 @@ int main()
     refresh();
 
     Calculator_Initialize(&calculator);
-    
+
     calculator.subsm.CalculatorKeypad.instanceData.pCalculator= &calculator;
 
     Calculator_Start( &calculator );
@@ -68,7 +68,7 @@ int main()
     printw("Exited!\n");
 
     Calculator_Deinitialize(&calculator);
-    
+
     endwin();
 
     return EXIT_SUCCESS;

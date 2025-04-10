@@ -100,7 +100,7 @@ sm TrafficLight
         state Black
         {
             entry / SwitchRedLightOff;
-            
+
             SystemEnabled[! IsLaneAvailable] -> On;
             SystemEnabled -> On:Flashing;
         }
@@ -154,7 +154,7 @@ sm TrafficLight
         state Black
         {
             entry / SwitchAmberLightOff;
-            
+
             SystemEnabled [! IsLaneAvailable] -> Off;
             SystemEnabled -> On:Flashing;
         }
@@ -208,7 +208,7 @@ sm TrafficLight
         state Black
         {
             entry / SwitchGreenLightOff;
-            
+
             SystemEnabled[! IsLaneAvailable] -> Off;
             SystemEnabled -> On:Flashing;
         }

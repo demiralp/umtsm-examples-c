@@ -103,7 +103,7 @@ void Calculator_CalculateAccumulator(
         break;
       }
     }
-  
+
     if ( pOutputData->ErrorNo == E_NO_ERROR)
     {
       if(isinf(pOutputData->Accumulator))
@@ -115,7 +115,7 @@ void Calculator_CalculateAccumulator(
         printw("%-20.15LG%c", pOutputData->Accumulator, OpChar[currentOp]);
       }
     }
-  
+
     if ( pOutputData->ErrorNo == E_NO_ERROR)
     {
       if (currentOp == E_OP_ENTER)
@@ -126,10 +126,10 @@ void Calculator_CalculateAccumulator(
       {
         printw("\n");
       }
-  
+
       pOutputData->Operator = currentOp;
     }
-    else if (pOutputData->Operator == E_OP_NONE ) 
+    else if (pOutputData->Operator == E_OP_NONE )
     {
       Calculator_DrawSpliteLine(smInfo, pInputData, pOutputData);
     }

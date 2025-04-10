@@ -29,7 +29,7 @@ SOFTWARE.
 
 /**********************************************/
 /*               CASE 1                       */
-/**********************************************/ 
+/**********************************************/
 
 sm NumberGuess
 {
@@ -59,7 +59,7 @@ sm NumberGuess
 
         choice CheckReadings
         {
-            [!IsANumberRead] -> / PrintNoNumberIsRead; 
+            [!IsANumberRead] -> / PrintNoNumberIsRead;
             [!IsNumberInRange] -> / PrintNumberIsNotInRange;
             [AreNumbersEqual] -> AskNewDeal / PrintConguratulation;
             -> / PrintHints;
@@ -72,7 +72,7 @@ sm NumberGuess
         do / ReadAnswerToContinue;
 
         -> CheckNewDeal;
-    } 
+    }
 
     choice CheckNewDeal
     {

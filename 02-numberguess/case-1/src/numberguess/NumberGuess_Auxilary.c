@@ -29,7 +29,7 @@ SOFTWARE.
 
 /**********************************************/
 /*               CASE 1                       */
-/**********************************************/ 
+/**********************************************/
 
 #include "NumberGuess_Auxilary.h"
 
@@ -133,7 +133,7 @@ void NumberGuess_PrintHints(
    else if ( pInputData->number < pInputData->guess )
    {
      printf( "Your guess, %u, is bigger\n", pInputData->guess );
-   } 
+   }
 }
 
 void NumberGuess_PrintNoNumberIsRead(

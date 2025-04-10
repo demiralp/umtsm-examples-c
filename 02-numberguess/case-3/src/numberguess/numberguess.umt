@@ -29,7 +29,7 @@ SOFTWARE.
 
 /**********************************************/
 /*               CASE 3                       */
-/**********************************************/ 
+/**********************************************/
 
 type external time_t;
 
@@ -62,7 +62,7 @@ sm NumberGuess
             do / ReadEstimation;
 
             clock1sec [IsAnsweringTimeUp] -> AskNewDeal / PrintTimeIsUp;
-            clock1sec [IsTimeRunOut] / PrintHurryUp, AskEstimation; 
+            clock1sec [IsTimeRunOut] / PrintHurryUp, AskEstimation;
 
             -> CheckReadings;
         }
@@ -71,7 +71,7 @@ sm NumberGuess
         {
             [IsDraw] -> AskNewDeal / PrintShowNumber;
             [IsOnLeave] -> terminate / PrintGoodBye;
-            [not IsANumberRead] -> GetEstimation / PrintNoNumberIsRead; 
+            [not IsANumberRead] -> GetEstimation / PrintNoNumberIsRead;
             [not IsNumberInRange] -> GetEstimation / PrintNumberIsNotInRange;
             [AreNumbersEqual] -> AskNewDeal / PrintConguratulation;
             -> GetEstimation / PrintHints;

@@ -123,7 +123,7 @@ bool Calculator_IsThereSpaceForExponent(
   size_t const baseLen = greatest(1, strlen( smInfo->subsm.CalculatorDisplay.instanceData.BaseDigits ) ) + 1;
   bool const isFracZero = Calculator_IsFractionZero(smInfo, pInstance );
   size_t const fractionLen = isFracZero? 0 : ( strlen( smInfo->subsm.CalculatorDisplay.instanceData.FractionalDigits ) + 1 );
-  
+
   bool result = (baseLen+fractionLen) < 18;
   return result;
 }
@@ -335,7 +335,7 @@ void Calculator_PushBaseDigit(
     smInfo->subsm.CalculatorDisplay.instanceData.BaseDigits[baseLen]= (char)smInfo->subsm.CalculatorKeypad.instanceData.LastInputKey;
     smInfo->subsm.CalculatorDisplay.instanceData.BaseDigits[baseLen+1]= '\0';
   }
-  else 
+  else
   {
     /* do nothing */
   }

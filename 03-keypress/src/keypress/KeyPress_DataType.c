@@ -39,7 +39,7 @@ void KeyPress_DataType_Initialize(
   instance->countC=
   instance->countOdd=
   instance->countEven= 0;
-  
+
   for(size_t i=0; i < sizeof(instance->countDigit)/sizeof(instance->countDigit[0]); ++i)
   {
     instance->countDigit[i]= 0;

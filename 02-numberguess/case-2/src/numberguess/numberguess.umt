@@ -29,7 +29,7 @@ SOFTWARE.
 
 /**********************************************/
 /*               CASE 2                       */
-/**********************************************/ 
+/**********************************************/
 
 sm NumberGuess
 {
@@ -61,7 +61,7 @@ sm NumberGuess
         {
             [IsDraw] -> AskNewDeal / PrintShowNumber;
             [IsOnLeave] -> terminate / PrintGoodBye;
-            [not IsANumberRead] -> GetEstimation / PrintNoNumberIsRead; 
+            [not IsANumberRead] -> GetEstimation / PrintNoNumberIsRead;
             [not IsNumberInRange] -> GetEstimation / PrintNumberIsNotInRange;
             [AreNumbersEqual] -> AskNewDeal / PrintConguratulation;
             -> GetEstimation / PrintHints;

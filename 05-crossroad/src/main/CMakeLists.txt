@@ -18,7 +18,7 @@ set(MAIN_HEADER
 )
 
 add_executable(crossroad ${MAIN_SOURCE} ${MAIN_HEADER})
-target_link_libraries(crossroad PUBLIC 
+target_link_libraries(crossroad PUBLIC
     LIBRCrossroad_Static
     LIBRDashboard_Static
     LIBRExecutionDirector_Static

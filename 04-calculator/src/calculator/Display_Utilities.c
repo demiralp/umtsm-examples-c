@@ -39,21 +39,21 @@ void Display_GetAccumulatorData( S_SM_Display_DataType_t const * const data, cha
     size_t len = 0;
     size_t tlen;
     char * ptr= accdata;
-  
+
     if ( ! data->BaseSignaturePositive)
     {
       *ptr= '-';
       ptr++;
       len++;
     }
-  
+
     tlen= strlen(data->BaseDigits);
     if ( tlen > 0 )
     {
       snprintf(ptr, datalen-len, "%s", data->BaseDigits);
       ptr += tlen;
       len += tlen;
-  
+
       tlen = strlen(data->FractionalDigits);
       if (tlen > 0 || data->FractinalStart )
       {
@@ -61,21 +61,21 @@ void Display_GetAccumulatorData( S_SM_Display_DataType_t const * const data, cha
         ptr++;
         len++;
       }
-  
+
       if ( tlen > 0 )
       {
         snprintf( ptr, datalen-len, "%s", data->FractionalDigits);
         ptr += tlen;
         len += tlen;
       }
-  
+
       tlen = strlen(data->ExponantionalDigits);
       if ( tlen > 0 || data->ExponentStart)
       {
         *ptr = 'E';
         ptr++;
         len++;
-  
+
         if ( !data->ExponantionalSignaturePositive)
         {
           *ptr = '-';
@@ -83,7 +83,7 @@ void Display_GetAccumulatorData( S_SM_Display_DataType_t const * const data, cha
           len++;
         }
       }
-  
+
       if (tlen > 0 )
       {
         snprintf( ptr, datalen-len, "%s", data->ExponantionalDigits);

@@ -119,7 +119,7 @@ static void FindTheRoots( )
     double deltaSq = sqrt( -delta);
     root1Real = -paramB / (2.0*paramA);
     root1Imag = -deltaSq / (2.0*paramA);
-    root2Real = -paramB / (2.0*paramA);    
+    root2Real = -paramB / (2.0*paramA);
     root2Imag = deltaSq/(2.0*paramA);
     solutionType = COMPLEX;
   }
@@ -157,7 +157,7 @@ static bool ReadParameter( double * const param)
 {
   char buffer[256];
   int readByte= read( 0, buffer, sizeof(buffer)-1 );
-  bool result = (readByte > 0); 
+  bool result = (readByte > 0);
   if (result)
   {
     buffer[readByte]= '\0';

@@ -95,7 +95,7 @@ int main( )
 
   clear( );
   refresh( );
-  
+
   endwin( );
 
   return EXIT_SUCCESS;

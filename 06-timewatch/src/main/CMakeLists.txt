@@ -14,7 +14,7 @@ set(MAIN_HEADER
 
 add_executable(timewatch ${MAIN_SOURCE} ${MAIN_HEADER})
 target_link_libraries(timewatch PUBLIC
-    LIBRTimewatch_Static 
+    LIBRTimewatch_Static
     LIBRCommand_Static
     -lncurses
 )

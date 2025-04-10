@@ -99,7 +99,7 @@ sm ExecutionDirector
         {
             do / WaitForSystemSwitchingTimer;
 
-            SystemEnabled -> GoesToOperational;           
+            SystemEnabled -> GoesToOperational;
             TakeControl -> GoesToOperational / SetControlledMode;
             ReleaseControl -> GoesToOperational / SetUncontrolledMode;
 
@@ -111,7 +111,7 @@ sm ExecutionDirector
     {
         entry / StopTraffic;
         do / WaitForTrafficStops;
-     
+
         SystemDisabled -> GoesToStandby;
         TakeControl / SetControlledMode;
         ReleaseControl / SetUncontrolledMode;
@@ -139,7 +139,7 @@ sm ExecutionDirector
 
             state CheckRequests
             {
-                entry / CheckRouteRequest, Update;  
+                entry / CheckRouteRequest, Update;
                 do / WaitForInterval;
 
                 -->;
@@ -149,7 +149,7 @@ sm ExecutionDirector
         state Controlled
         {
             entry / StartControlMode, NotifyCrossroad;
-            init -> OnClosePedestrianLanes / StopTraffic; 
+            init -> OnClosePedestrianLanes / StopTraffic;
 
             // ------------------------------- 1 ----------------------------
             state OpenLane1

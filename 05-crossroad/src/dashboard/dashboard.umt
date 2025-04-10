@@ -50,7 +50,7 @@ sm Dashboard
     state SimpleRead
     {
         do / ReadCommand;
-        
+
         [IsKey_R] --> / RunTheSystem;
         [IsKey_S] --> / StandbyTheSystem;
         [IsKey_C] --> / SwitchToControlledProgram;
@@ -79,7 +79,7 @@ sm Dashboard
 
         [IsKey_Space] -> SimpleRead / UpdateScreen;
 
-        -> SimpleRead; 
+        -> SimpleRead;
     }
 
     state ReadDisableLane
@@ -93,6 +93,6 @@ sm Dashboard
 
         [IsKey_Space] -> SimpleRead / UpdateScreen;
 
-        -> SimpleRead; 
+        -> SimpleRead;
     }
 }

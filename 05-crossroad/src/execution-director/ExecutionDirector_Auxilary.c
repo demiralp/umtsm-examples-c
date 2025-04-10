@@ -645,7 +645,7 @@ void ExecutionDirector_StopTraffic(
   Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );
   Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_PedestrianLanes );
   Crossroad_Run_Check( pOutputData->pCrossroad );
-  Monitor_Run_Update( pOutputData->pMonitor );  
+  Monitor_Run_Update( pOutputData->pMonitor );
 } /* End of action function: ExecutionDirector_StopTraffic */
 
 void ExecutionDirector_Update(

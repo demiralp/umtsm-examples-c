@@ -46,7 +46,7 @@ sm Command
     state WaitForInput
     {
         do / ReadKey;
-        
+
         -> CheckKey;
     }
 

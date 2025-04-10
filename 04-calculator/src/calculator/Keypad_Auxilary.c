@@ -249,11 +249,11 @@ void Keypad_ReadKey(
     int ch;
     pOutputData->LastInputKey = ch = wgetch(stdscr);
 
-    if ( isdigit(ch) || 
-         strchr(keyChar, ch) != NULL || 
-         ch == '\n' || 
+    if ( isdigit(ch) ||
+         strchr(keyChar, ch) != NULL ||
+         ch == '\n' ||
          ch == KEY_ENTER ||
-         ch == KEY_BACKSPACE || 
+         ch == KEY_BACKSPACE ||
          ch == KEY_DC )
     {
       Keypad_Run_Notify( smInfo );

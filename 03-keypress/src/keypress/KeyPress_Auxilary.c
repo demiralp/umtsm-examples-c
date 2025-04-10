@@ -42,7 +42,7 @@ bool KeyPress_IsCountingFinished(
   __attribute__( ( unused ) ) S_SM_KeyPress_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_KeyPress_DataType_t const * const pInstance )
 {
-  bool const result = ! KeyPress_IsIn_Numeric_Region(smInfo) && 
+  bool const result = ! KeyPress_IsIn_Numeric_Region(smInfo) &&
                       ! KeyPress_IsIn_Alpha_Region(smInfo);
   return result;
 } /* End of guard function: KeyPress_IsCountingFinished */
@@ -165,12 +165,12 @@ void KeyPress_LogCounters(
   __attribute__( ( unused ) ) S_SM_KeyPress_DataType_t const * const pInputData,
   __attribute__( ( unused ) ) S_SM_KeyPress_DataType_t * const pOutputData )
 {
-  printw("\r%5u %-4zu %-4zu %-4zu %-4zu %-4zu", 
-    pInputData->issueId, 
-    pInputData->countA, 
-    pInputData->countB, 
-    pInputData->countC, 
-    pInputData->countOdd, 
+  printw("\r%5u %-4zu %-4zu %-4zu %-4zu %-4zu",
+    pInputData->issueId,
+    pInputData->countA,
+    pInputData->countB,
+    pInputData->countC,
+    pInputData->countOdd,
     pInputData->countEven );
   for(size_t i=0; i < sizeof(pInputData->countDigit)/sizeof(pInputData->countDigit[0]); ++i)
   {
@@ -202,7 +202,7 @@ void KeyPress_LogCounters(
   }
 
   printw(" %-2c %-2c", alphaStatus, numericStatus );
-  
+
   pOutputData->issueId = pInputData->issueId + 1;
 } /* End of action function: KeyPress_LogCounters */
 
@@ -211,7 +211,7 @@ void KeyPress_LogHeaders(
   __attribute__( ( unused ) ) S_SM_KeyPress_DataType_t const * const pInputData,
   __attribute__( ( unused ) ) S_SM_KeyPress_DataType_t * const pOutputData )
 {
-  printw("\n%5s %-4s %-4s %-4s %-4s %-4s", "Issue", "A", "B", "C", "Odd", "Even" ); 
+  printw("\n%5s %-4s %-4s %-4s %-4s %-4s", "Issue", "A", "B", "C", "Odd", "Even" );
   for(size_t i=0; i < sizeof(pInputData->countDigit)/sizeof(pInputData->countDigit[0]); ++i)
   {
     printw(" %-4zu", i+1 );
@@ -274,7 +274,7 @@ void KeyPress_ResetNumericCounters(
 {
   pOutputData->countOdd=
   pOutputData->countEven= 0;
-  
+
   for(size_t i=0; i < sizeof(pOutputData->countDigit)/sizeof(pOutputData->countDigit[0]); ++i)
   {
     pOutputData->countDigit[i]= 0;

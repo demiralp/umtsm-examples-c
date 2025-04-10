@@ -42,8 +42,8 @@ sm KeyPressEventGenerator
     region KeyBaseEvent
     {
         init -> KeyEvent;
-        
-        state KeyEvent 
+
+        state KeyEvent
         {
             do / ReadKey;
 
@@ -55,7 +55,7 @@ sm KeyPressEventGenerator
     {
         init -> TimeCounter;
 
-        state TimeCounter 
+        state TimeCounter
         {
             do / TimeBaseEventGenerator;
 
@@ -120,14 +120,14 @@ sm KeyPress
             key5 / CountOdd, Count5;
             key7 / CountOdd, Count7;
             key9 / CountOdd, Count9;
-            
+
             key2 / CountEven, Count2;
             key4 / CountEven, Count4;
             key6 / CountEven, Count6;
             key8 / CountEven, Count8;
-            
+
             keyBackspace, keyDelete / ResetNumericCounters;
-            
+
             keyF2 -> Syncronize;
         }
     }
@@ -136,7 +136,7 @@ sm KeyPress
     {
         init -> PrintLog;
 
-        state PrintLog 
+        state PrintLog
         {
             entry / LogHeaders, LogCounters;
 

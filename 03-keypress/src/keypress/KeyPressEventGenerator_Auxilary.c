@@ -52,7 +52,7 @@ void KeyPressEventGenerator_ReadKey(
   while( true )
   {
     int c = wgetch(stdscr);
-    
+
     clrtoeol();
     refresh();
 

@@ -70,7 +70,7 @@ int main()
 
     KeyPressEventGenerator_Deinitialize(&eventgenerator);
     KeyPress_Deinitialize(&keypress);
-    
+
     endwin();
 
     return EXIT_SUCCESS;
