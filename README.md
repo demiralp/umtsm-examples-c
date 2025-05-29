@@ -31,11 +31,14 @@ Build configuration files (`CMakeLists.txt`) required to compile the examples ar
 The repository includes the following sample applications:
 
 - **01-paroot** — Solves parabolic equations  
-  - `case-0`: A classical approach before introducing state machines  
-  - `case-1`, `case-2`: Variants using state machine modeling
+  - `case-0`: A classical approach before introducing state machines. 
+  - `case-1`: The basic state machine modeling converted from case-0.
+  - `case-2`: Detailed state machine model of the problem.
 
 - **02-numberguess** — A number guessing game (between 1 and 99)  
-  - `case-1`, `case-2`, `case-3`: Different implementations and state modeling approaches
+  - `case-1`: Computer takes a number between 1 and 99 and the player guess it.
+  - `case-2`: The improved version of the case-1. The player can be drow, cancel the game any time.
+  - `case-3`: The improved version of case-2. Computer applies some time box to enter a guees and complete the game. 
 
 - **03-keypress** — Tracks and sorts pressed keys
 
@@ -44,6 +47,11 @@ The repository includes the following sample applications:
 - **05-crossroad** — Manages a four-lane junction and pedestrian crossings in both controlled and uncontrolled modes
 
 - **06-timewatch** — A stopwatch application that tracks elapsed time
+
+- **07-door** — A door application that simulates an door in automatic and manual modes.
+  - `case-1`: The manualy operated door example.
+  - `case-2`: The automatical operated door example. The door is closed after given a time passed.
+  - `case-3`: The complete example for door that can be switched between manual and automatic modes.
 
 ---
 
