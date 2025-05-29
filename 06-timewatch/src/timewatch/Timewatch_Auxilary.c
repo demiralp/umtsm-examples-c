@@ -1,14 +1,12 @@
-/*
- *  ==============================================================================
+/*  ==============================================================================
  *  Created by Fehmi Demiralp(Fedem) on 2025-04-05 GMT
  *  Copyright (C) 2023-2025 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
  *
  *  Released under the MIT License
- *  ============================================================================
+ *  ==============================================================================
  */
 
-/*
- *  Copyright (C) 2023-2025 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
+/*  Copyright (C) 2023-2025 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal

@@ -1,11 +1,9 @@
-#
 #  ==============================================================================
 #  Created by Fehmi Demiralp(Fedem) on 2024-11-02 GMT
 #  Copyright (C) 2023-2024 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
 #
 #  Released under the MIT License
 #  ============================================================================
-#
 
 #
 # Calculator

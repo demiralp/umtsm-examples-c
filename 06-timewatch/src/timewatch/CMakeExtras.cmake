@@ -1,3 +1,10 @@
+#  ==============================================================================
+#  Created by Fehmi Demiralp(Fedem) on 2025-05-29 GMT
+#  Copyright (C) 2023-2025 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
+#
+#  Released under the MIT License
+#  ============================================================================
+
 #
 # Timewatch
 #
