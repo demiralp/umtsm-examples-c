@@ -92,8 +92,8 @@ sm Door
         {
             entry / engineRunACCW;
 
-            DoorClosed -> Close / engineStop;
             ButtonPressed -> Opening / engineStop;
+            DoorClosed -> Close / engineStop;
             Automatic -> AutomaticMode:Closing;
         }
 
