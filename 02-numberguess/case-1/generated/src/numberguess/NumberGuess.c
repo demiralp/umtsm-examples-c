@@ -61,7 +61,7 @@ static void NumberGuess_Exit_AskNewDeal( S_SM_NumberGuess_t* pStateMachine );
 static void NumberGuess_Init_Main( S_SM_NumberGuess_t* pStateMachine );
 static void NumberGuess_Init_PlayGame( S_SM_NumberGuess_t* pStateMachine );
 
-static pthread_t NumberGuess_LanchDoAction( void *(*threadStart)(void *), S_SM_NumberGuess_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t NumberGuess_LaunchDoAction( void *(*threadStart)(void *), S_SM_NumberGuess_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void NumberGuess_HaltDoAction( pthread_t thr );
 
 void NumberGuess_Initialize( S_SM_NumberGuess_t* const pStateMachine )
@@ -325,7 +325,7 @@ static void NumberGuess_Enter_GetEstimation(S_SM_NumberGuess_t* pStateMachine )
 
   NumberGuess_AskEstimation( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.GetEstimation.threadHandle = NumberGuess_LanchDoAction( NumberGuess_DoAction_GetEstimation, pStateMachine, pStateMachine->doFunctionHandler.GetEstimation.stack, sizeof( pStateMachine->doFunctionHandler.GetEstimation.stack) );
+  pStateMachine->doFunctionHandler.GetEstimation.threadHandle = NumberGuess_LaunchDoAction( NumberGuess_DoAction_GetEstimation, pStateMachine, pStateMachine->doFunctionHandler.GetEstimation.stack, sizeof( pStateMachine->doFunctionHandler.GetEstimation.stack) );
 }
 
 static void NumberGuess_Enter_AskNewDeal(S_SM_NumberGuess_t* pStateMachine )
@@ -334,7 +334,7 @@ static void NumberGuess_Enter_AskNewDeal(S_SM_NumberGuess_t* pStateMachine )
 
   NumberGuess_PrintAskNewDeal( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.AskNewDeal.threadHandle = NumberGuess_LanchDoAction( NumberGuess_DoAction_AskNewDeal, pStateMachine, pStateMachine->doFunctionHandler.AskNewDeal.stack, sizeof( pStateMachine->doFunctionHandler.AskNewDeal.stack) );
+  pStateMachine->doFunctionHandler.AskNewDeal.threadHandle = NumberGuess_LaunchDoAction( NumberGuess_DoAction_AskNewDeal, pStateMachine, pStateMachine->doFunctionHandler.AskNewDeal.stack, sizeof( pStateMachine->doFunctionHandler.AskNewDeal.stack) );
 }
 
 static void NumberGuess_Exit_GetEstimation(S_SM_NumberGuess_t* pStateMachine )
@@ -353,7 +353,7 @@ static void NumberGuess_Exit_AskNewDeal(S_SM_NumberGuess_t* pStateMachine )
   pStateMachine->doFunctionHandler.AskNewDeal.threadHandle = 0;
 }
 
-static pthread_t NumberGuess_LanchDoAction( void *(*threadStart)(void *), S_SM_NumberGuess_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t NumberGuess_LaunchDoAction( void *(*threadStart)(void *), S_SM_NumberGuess_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

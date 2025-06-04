@@ -60,7 +60,7 @@ static void Door_Exit_AutomaticMode_Open( S_SM_Door_t* pStateMachine );
 
 static void Door_Init_Main( S_SM_Door_t* pStateMachine );
 
-static pthread_t Door_LanchDoAction( void *(*threadStart)(void *), S_SM_Door_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Door_LaunchDoAction( void *(*threadStart)(void *), S_SM_Door_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Door_HaltDoAction( pthread_t thr );
 
 void Door_Initialize( S_SM_Door_t* const pStateMachine )
@@ -584,7 +584,7 @@ static void Door_Enter_AutomaticMode_Open(S_SM_Door_t* pStateMachine )
 
   Door_resetWaitingTime( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.AutomaticMode_Open.threadHandle = Door_LanchDoAction( Door_DoAction_AutomaticMode_Open, pStateMachine, pStateMachine->doFunctionHandler.AutomaticMode_Open.stack, sizeof( pStateMachine->doFunctionHandler.AutomaticMode_Open.stack) );
+  pStateMachine->doFunctionHandler.AutomaticMode_Open.threadHandle = Door_LaunchDoAction( Door_DoAction_AutomaticMode_Open, pStateMachine, pStateMachine->doFunctionHandler.AutomaticMode_Open.stack, sizeof( pStateMachine->doFunctionHandler.AutomaticMode_Open.stack) );
 }
 
 static void Door_Enter_AutomaticMode_Closing(S_SM_Door_t* pStateMachine )
@@ -623,7 +623,7 @@ static void Door_Exit_AutomaticMode_Open(S_SM_Door_t* pStateMachine )
   pStateMachine->doFunctionHandler.AutomaticMode_Open.threadHandle = 0;
 }
 
-static pthread_t Door_LanchDoAction( void *(*threadStart)(void *), S_SM_Door_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Door_LaunchDoAction( void *(*threadStart)(void *), S_SM_Door_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

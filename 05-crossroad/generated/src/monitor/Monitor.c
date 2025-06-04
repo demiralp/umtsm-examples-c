@@ -54,7 +54,7 @@ static void Monitor_Enter_Main( S_SM_Monitor_t* pStateMachine );
 static void Monitor_Exit_Main( S_SM_Monitor_t* pStateMachine );
 
 
-static pthread_t Monitor_LanchDoAction( void *(*threadStart)(void *), S_SM_Monitor_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Monitor_LaunchDoAction( void *(*threadStart)(void *), S_SM_Monitor_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Monitor_HaltDoAction( pthread_t thr );
 
 void Monitor_Initialize( S_SM_Monitor_t* const pStateMachine )
@@ -193,7 +193,7 @@ static void Monitor_Enter_Main(S_SM_Monitor_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Monitor_Main;
 
-  pStateMachine->doFunctionHandler.Main.threadHandle = Monitor_LanchDoAction( Monitor_DoAction_Main, pStateMachine, pStateMachine->doFunctionHandler.Main.stack, sizeof( pStateMachine->doFunctionHandler.Main.stack) );
+  pStateMachine->doFunctionHandler.Main.threadHandle = Monitor_LaunchDoAction( Monitor_DoAction_Main, pStateMachine, pStateMachine->doFunctionHandler.Main.stack, sizeof( pStateMachine->doFunctionHandler.Main.stack) );
 }
 
 static void Monitor_Exit_Main(S_SM_Monitor_t* pStateMachine )
@@ -204,7 +204,7 @@ static void Monitor_Exit_Main(S_SM_Monitor_t* pStateMachine )
   pStateMachine->doFunctionHandler.Main.threadHandle = 0;
 }
 
-static pthread_t Monitor_LanchDoAction( void *(*threadStart)(void *), S_SM_Monitor_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Monitor_LaunchDoAction( void *(*threadStart)(void *), S_SM_Monitor_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

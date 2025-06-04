@@ -61,7 +61,7 @@ static void Paroot_Exit_Report( S_SM_Paroot_t* pStateMachine );
 
 static void Paroot_Init_Main( S_SM_Paroot_t* pStateMachine );
 
-static pthread_t Paroot_LanchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Paroot_LaunchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Paroot_HaltDoAction( pthread_t thr );
 
 void Paroot_Initialize( S_SM_Paroot_t* const pStateMachine )
@@ -276,21 +276,21 @@ static void Paroot_Enter_Read(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_Read;
 
-  pStateMachine->doFunctionHandler.Read.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_Read, pStateMachine, pStateMachine->doFunctionHandler.Read.stack, sizeof( pStateMachine->doFunctionHandler.Read.stack) );
+  pStateMachine->doFunctionHandler.Read.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_Read, pStateMachine, pStateMachine->doFunctionHandler.Read.stack, sizeof( pStateMachine->doFunctionHandler.Read.stack) );
 }
 
 static void Paroot_Enter_Solve(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_Solve;
 
-  pStateMachine->doFunctionHandler.Solve.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_Solve, pStateMachine, pStateMachine->doFunctionHandler.Solve.stack, sizeof( pStateMachine->doFunctionHandler.Solve.stack) );
+  pStateMachine->doFunctionHandler.Solve.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_Solve, pStateMachine, pStateMachine->doFunctionHandler.Solve.stack, sizeof( pStateMachine->doFunctionHandler.Solve.stack) );
 }
 
 static void Paroot_Enter_Report(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_Report;
 
-  pStateMachine->doFunctionHandler.Report.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_Report, pStateMachine, pStateMachine->doFunctionHandler.Report.stack, sizeof( pStateMachine->doFunctionHandler.Report.stack) );
+  pStateMachine->doFunctionHandler.Report.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_Report, pStateMachine, pStateMachine->doFunctionHandler.Report.stack, sizeof( pStateMachine->doFunctionHandler.Report.stack) );
 }
 
 static void Paroot_Exit_Read(S_SM_Paroot_t* pStateMachine )
@@ -317,7 +317,7 @@ static void Paroot_Exit_Report(S_SM_Paroot_t* pStateMachine )
   pStateMachine->doFunctionHandler.Report.threadHandle = 0;
 }
 
-static pthread_t Paroot_LanchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Paroot_LaunchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

@@ -72,7 +72,7 @@ static void PedestrianLights_Exit_Green_On_Flashing( S_SM_PedestrianLights_t* pS
 
 static void PedestrianLights_Init_Main( S_SM_PedestrianLights_t* pStateMachine );
 
-static pthread_t PedestrianLights_LanchDoAction( void *(*threadStart)(void *), S_SM_PedestrianLights_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t PedestrianLights_LaunchDoAction( void *(*threadStart)(void *), S_SM_PedestrianLights_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void PedestrianLights_HaltDoAction( pthread_t thr );
 
 void PedestrianLights_Initialize( S_SM_PedestrianLights_t* const pStateMachine )
@@ -894,7 +894,7 @@ static void PedestrianLights_Enter_Red_Off_Flashing(S_SM_PedestrianLights_t* pSt
 {
   pStateMachine->runningState.Top = E_PedestrianLights_Red_Off_Flashing;
 
-  pStateMachine->doFunctionHandler.Red_Off_Flashing.threadHandle = PedestrianLights_LanchDoAction( PedestrianLights_DoAction_Red_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_Off_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Red_Off_Flashing.threadHandle = PedestrianLights_LaunchDoAction( PedestrianLights_DoAction_Red_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_Off_Flashing.stack) );
 }
 
 static void PedestrianLights_Enter_Red_On(S_SM_PedestrianLights_t* pStateMachine )
@@ -908,7 +908,7 @@ static void PedestrianLights_Enter_Red_On_Flashing(S_SM_PedestrianLights_t* pSta
 {
   pStateMachine->runningState.Top = E_PedestrianLights_Red_On_Flashing;
 
-  pStateMachine->doFunctionHandler.Red_On_Flashing.threadHandle = PedestrianLights_LanchDoAction( PedestrianLights_DoAction_Red_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_On_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Red_On_Flashing.threadHandle = PedestrianLights_LaunchDoAction( PedestrianLights_DoAction_Red_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_On_Flashing.stack) );
 }
 
 static void PedestrianLights_Enter_Top_Black(S_SM_PedestrianLights_t* pStateMachine )
@@ -929,7 +929,7 @@ static void PedestrianLights_Enter_Green_Off_Flashing(S_SM_PedestrianLights_t* p
 {
   pStateMachine->runningState.Bottom = E_PedestrianLights_Green_Off_Flashing;
 
-  pStateMachine->doFunctionHandler.Green_Off_Flashing.threadHandle = PedestrianLights_LanchDoAction( PedestrianLights_DoAction_Green_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_Off_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Green_Off_Flashing.threadHandle = PedestrianLights_LaunchDoAction( PedestrianLights_DoAction_Green_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_Off_Flashing.stack) );
 }
 
 static void PedestrianLights_Enter_Green_On(S_SM_PedestrianLights_t* pStateMachine )
@@ -943,7 +943,7 @@ static void PedestrianLights_Enter_Green_On_Flashing(S_SM_PedestrianLights_t* pS
 {
   pStateMachine->runningState.Bottom = E_PedestrianLights_Green_On_Flashing;
 
-  pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = PedestrianLights_LanchDoAction( PedestrianLights_DoAction_Green_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_On_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = PedestrianLights_LaunchDoAction( PedestrianLights_DoAction_Green_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_On_Flashing.stack) );
 }
 
 static void PedestrianLights_Enter_Bottom_Black(S_SM_PedestrianLights_t* pStateMachine )
@@ -985,7 +985,7 @@ static void PedestrianLights_Exit_Green_On_Flashing(S_SM_PedestrianLights_t* pSt
   pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = 0;
 }
 
-static pthread_t PedestrianLights_LanchDoAction( void *(*threadStart)(void *), S_SM_PedestrianLights_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t PedestrianLights_LaunchDoAction( void *(*threadStart)(void *), S_SM_PedestrianLights_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

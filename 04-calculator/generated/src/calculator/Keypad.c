@@ -54,7 +54,7 @@ static void Keypad_Enter_Main( S_SM_Keypad_t* pStateMachine );
 static void Keypad_Exit_Main( S_SM_Keypad_t* pStateMachine );
 
 
-static pthread_t Keypad_LanchDoAction( void *(*threadStart)(void *), S_SM_Keypad_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Keypad_LaunchDoAction( void *(*threadStart)(void *), S_SM_Keypad_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Keypad_HaltDoAction( pthread_t thr );
 
 void Keypad_Initialize( S_SM_Keypad_t* const pStateMachine )
@@ -227,7 +227,7 @@ static void Keypad_Enter_Main(S_SM_Keypad_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Keypad_Main;
 
-  pStateMachine->doFunctionHandler.Main.threadHandle = Keypad_LanchDoAction( Keypad_DoAction_Main, pStateMachine, pStateMachine->doFunctionHandler.Main.stack, sizeof( pStateMachine->doFunctionHandler.Main.stack) );
+  pStateMachine->doFunctionHandler.Main.threadHandle = Keypad_LaunchDoAction( Keypad_DoAction_Main, pStateMachine, pStateMachine->doFunctionHandler.Main.stack, sizeof( pStateMachine->doFunctionHandler.Main.stack) );
 }
 
 static void Keypad_Exit_Main(S_SM_Keypad_t* pStateMachine )
@@ -238,7 +238,7 @@ static void Keypad_Exit_Main(S_SM_Keypad_t* pStateMachine )
   pStateMachine->doFunctionHandler.Main.threadHandle = 0;
 }
 
-static pthread_t Keypad_LanchDoAction( void *(*threadStart)(void *), S_SM_Keypad_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Keypad_LaunchDoAction( void *(*threadStart)(void *), S_SM_Keypad_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

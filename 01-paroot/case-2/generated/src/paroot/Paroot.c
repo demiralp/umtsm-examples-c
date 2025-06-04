@@ -75,7 +75,7 @@ static void Paroot_Init_Main( S_SM_Paroot_t* pStateMachine );
 static void Paroot_Init_Read( S_SM_Paroot_t* pStateMachine );
 static void Paroot_Init_Report( S_SM_Paroot_t* pStateMachine );
 
-static pthread_t Paroot_LanchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Paroot_LaunchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Paroot_HaltDoAction( pthread_t thr );
 
 void Paroot_Initialize( S_SM_Paroot_t* const pStateMachine )
@@ -512,49 +512,49 @@ static void Paroot_Enter_ReadA(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_ReadA;
 
-  pStateMachine->doFunctionHandler.ReadA.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_ReadA, pStateMachine, pStateMachine->doFunctionHandler.ReadA.stack, sizeof( pStateMachine->doFunctionHandler.ReadA.stack) );
+  pStateMachine->doFunctionHandler.ReadA.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_ReadA, pStateMachine, pStateMachine->doFunctionHandler.ReadA.stack, sizeof( pStateMachine->doFunctionHandler.ReadA.stack) );
 }
 
 static void Paroot_Enter_ReadB(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_ReadB;
 
-  pStateMachine->doFunctionHandler.ReadB.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_ReadB, pStateMachine, pStateMachine->doFunctionHandler.ReadB.stack, sizeof( pStateMachine->doFunctionHandler.ReadB.stack) );
+  pStateMachine->doFunctionHandler.ReadB.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_ReadB, pStateMachine, pStateMachine->doFunctionHandler.ReadB.stack, sizeof( pStateMachine->doFunctionHandler.ReadB.stack) );
 }
 
 static void Paroot_Enter_ReadC(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_ReadC;
 
-  pStateMachine->doFunctionHandler.ReadC.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_ReadC, pStateMachine, pStateMachine->doFunctionHandler.ReadC.stack, sizeof( pStateMachine->doFunctionHandler.ReadC.stack) );
+  pStateMachine->doFunctionHandler.ReadC.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_ReadC, pStateMachine, pStateMachine->doFunctionHandler.ReadC.stack, sizeof( pStateMachine->doFunctionHandler.ReadC.stack) );
 }
 
 static void Paroot_Enter_Solve(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_Solve;
 
-  pStateMachine->doFunctionHandler.Solve.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_Solve, pStateMachine, pStateMachine->doFunctionHandler.Solve.stack, sizeof( pStateMachine->doFunctionHandler.Solve.stack) );
+  pStateMachine->doFunctionHandler.Solve.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_Solve, pStateMachine, pStateMachine->doFunctionHandler.Solve.stack, sizeof( pStateMachine->doFunctionHandler.Solve.stack) );
 }
 
 static void Paroot_Enter_ComplexSolution(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_ComplexSolution;
 
-  pStateMachine->doFunctionHandler.ComplexSolution.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_ComplexSolution, pStateMachine, pStateMachine->doFunctionHandler.ComplexSolution.stack, sizeof( pStateMachine->doFunctionHandler.ComplexSolution.stack) );
+  pStateMachine->doFunctionHandler.ComplexSolution.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_ComplexSolution, pStateMachine, pStateMachine->doFunctionHandler.ComplexSolution.stack, sizeof( pStateMachine->doFunctionHandler.ComplexSolution.stack) );
 }
 
 static void Paroot_Enter_SingleSolution(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_SingleSolution;
 
-  pStateMachine->doFunctionHandler.SingleSolution.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_SingleSolution, pStateMachine, pStateMachine->doFunctionHandler.SingleSolution.stack, sizeof( pStateMachine->doFunctionHandler.SingleSolution.stack) );
+  pStateMachine->doFunctionHandler.SingleSolution.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_SingleSolution, pStateMachine, pStateMachine->doFunctionHandler.SingleSolution.stack, sizeof( pStateMachine->doFunctionHandler.SingleSolution.stack) );
 }
 
 static void Paroot_Enter_Solutions(S_SM_Paroot_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Paroot_Solutions;
 
-  pStateMachine->doFunctionHandler.Solutions.threadHandle = Paroot_LanchDoAction( Paroot_DoAction_Solutions, pStateMachine, pStateMachine->doFunctionHandler.Solutions.stack, sizeof( pStateMachine->doFunctionHandler.Solutions.stack) );
+  pStateMachine->doFunctionHandler.Solutions.threadHandle = Paroot_LaunchDoAction( Paroot_DoAction_Solutions, pStateMachine, pStateMachine->doFunctionHandler.Solutions.stack, sizeof( pStateMachine->doFunctionHandler.Solutions.stack) );
 }
 
 static void Paroot_Exit_ReadA(S_SM_Paroot_t* pStateMachine )
@@ -613,7 +613,7 @@ static void Paroot_Exit_Solutions(S_SM_Paroot_t* pStateMachine )
   pStateMachine->doFunctionHandler.Solutions.threadHandle = 0;
 }
 
-static pthread_t Paroot_LanchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Paroot_LaunchDoAction( void *(*threadStart)(void *), S_SM_Paroot_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

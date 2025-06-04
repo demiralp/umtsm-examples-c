@@ -62,7 +62,7 @@ static void KeyPressEventGenerator_Init_Main( S_SM_KeyPressEventGenerator_t* pSt
 static void KeyPressEventGenerator_Init_KeyBaseEvent( S_SM_KeyPressEventGenerator_t* pStateMachine );
 static void KeyPressEventGenerator_Init_TimeBaseEvent( S_SM_KeyPressEventGenerator_t* pStateMachine );
 
-static pthread_t KeyPressEventGenerator_LanchDoAction( void *(*threadStart)(void *), S_SM_KeyPressEventGenerator_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t KeyPressEventGenerator_LaunchDoAction( void *(*threadStart)(void *), S_SM_KeyPressEventGenerator_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void KeyPressEventGenerator_HaltDoAction( pthread_t thr );
 
 void KeyPressEventGenerator_Initialize( S_SM_KeyPressEventGenerator_t* const pStateMachine )
@@ -285,14 +285,14 @@ static void KeyPressEventGenerator_Enter_KeyEvent(S_SM_KeyPressEventGenerator_t*
 {
   pStateMachine->runningState.KeyBaseEvent = E_KeyPressEventGenerator_KeyEvent;
 
-  pStateMachine->doFunctionHandler.KeyEvent.threadHandle = KeyPressEventGenerator_LanchDoAction( KeyPressEventGenerator_DoAction_KeyEvent, pStateMachine, pStateMachine->doFunctionHandler.KeyEvent.stack, sizeof( pStateMachine->doFunctionHandler.KeyEvent.stack) );
+  pStateMachine->doFunctionHandler.KeyEvent.threadHandle = KeyPressEventGenerator_LaunchDoAction( KeyPressEventGenerator_DoAction_KeyEvent, pStateMachine, pStateMachine->doFunctionHandler.KeyEvent.stack, sizeof( pStateMachine->doFunctionHandler.KeyEvent.stack) );
 }
 
 static void KeyPressEventGenerator_Enter_TimeCounter(S_SM_KeyPressEventGenerator_t* pStateMachine )
 {
   pStateMachine->runningState.TimeBaseEvent = E_KeyPressEventGenerator_TimeCounter;
 
-  pStateMachine->doFunctionHandler.TimeCounter.threadHandle = KeyPressEventGenerator_LanchDoAction( KeyPressEventGenerator_DoAction_TimeCounter, pStateMachine, pStateMachine->doFunctionHandler.TimeCounter.stack, sizeof( pStateMachine->doFunctionHandler.TimeCounter.stack) );
+  pStateMachine->doFunctionHandler.TimeCounter.threadHandle = KeyPressEventGenerator_LaunchDoAction( KeyPressEventGenerator_DoAction_TimeCounter, pStateMachine, pStateMachine->doFunctionHandler.TimeCounter.stack, sizeof( pStateMachine->doFunctionHandler.TimeCounter.stack) );
 }
 
 static void KeyPressEventGenerator_Exit_KeyEvent(S_SM_KeyPressEventGenerator_t* pStateMachine )
@@ -311,7 +311,7 @@ static void KeyPressEventGenerator_Exit_TimeCounter(S_SM_KeyPressEventGenerator_
   pStateMachine->doFunctionHandler.TimeCounter.threadHandle = 0;
 }
 
-static pthread_t KeyPressEventGenerator_LanchDoAction( void *(*threadStart)(void *), S_SM_KeyPressEventGenerator_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t KeyPressEventGenerator_LaunchDoAction( void *(*threadStart)(void *), S_SM_KeyPressEventGenerator_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

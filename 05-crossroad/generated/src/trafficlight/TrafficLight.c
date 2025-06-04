@@ -82,7 +82,7 @@ static void TrafficLight_Exit_Green_On_Flashing( S_SM_TrafficLight_t* pStateMach
 
 static void TrafficLight_Init_Main( S_SM_TrafficLight_t* pStateMachine );
 
-static pthread_t TrafficLight_LanchDoAction( void *(*threadStart)(void *), S_SM_TrafficLight_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t TrafficLight_LaunchDoAction( void *(*threadStart)(void *), S_SM_TrafficLight_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void TrafficLight_HaltDoAction( pthread_t thr );
 
 void TrafficLight_Initialize( S_SM_TrafficLight_t* const pStateMachine )
@@ -1429,7 +1429,7 @@ static void TrafficLight_Enter_Red_Off_Flashing(S_SM_TrafficLight_t* pStateMachi
 {
   pStateMachine->runningState.Top = E_TrafficLight_Red_Off_Flashing;
 
-  pStateMachine->doFunctionHandler.Red_Off_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Red_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_Off_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Red_Off_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Red_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_Off_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Red_On(S_SM_TrafficLight_t* pStateMachine )
@@ -1443,7 +1443,7 @@ static void TrafficLight_Enter_Red_On_Flashing(S_SM_TrafficLight_t* pStateMachin
 {
   pStateMachine->runningState.Top = E_TrafficLight_Red_On_Flashing;
 
-  pStateMachine->doFunctionHandler.Red_On_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Red_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_On_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Red_On_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Red_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Red_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Red_On_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Top_Black(S_SM_TrafficLight_t* pStateMachine )
@@ -1464,7 +1464,7 @@ static void TrafficLight_Enter_Amber_Off_Flashing(S_SM_TrafficLight_t* pStateMac
 {
   pStateMachine->runningState.Middle = E_TrafficLight_Amber_Off_Flashing;
 
-  pStateMachine->doFunctionHandler.Amber_Off_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Amber_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Amber_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Amber_Off_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Amber_Off_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Amber_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Amber_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Amber_Off_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Amber_On(S_SM_TrafficLight_t* pStateMachine )
@@ -1478,7 +1478,7 @@ static void TrafficLight_Enter_Amber_On_Flashing(S_SM_TrafficLight_t* pStateMach
 {
   pStateMachine->runningState.Middle = E_TrafficLight_Amber_On_Flashing;
 
-  pStateMachine->doFunctionHandler.Amber_On_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Amber_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Amber_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Amber_On_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Amber_On_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Amber_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Amber_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Amber_On_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Middle_Black(S_SM_TrafficLight_t* pStateMachine )
@@ -1499,7 +1499,7 @@ static void TrafficLight_Enter_Green_Off_Flashing(S_SM_TrafficLight_t* pStateMac
 {
   pStateMachine->runningState.Bottom = E_TrafficLight_Green_Off_Flashing;
 
-  pStateMachine->doFunctionHandler.Green_Off_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Green_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_Off_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Green_Off_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Green_Off_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_Off_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_Off_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Green_On(S_SM_TrafficLight_t* pStateMachine )
@@ -1513,7 +1513,7 @@ static void TrafficLight_Enter_Green_On_Flashing(S_SM_TrafficLight_t* pStateMach
 {
   pStateMachine->runningState.Bottom = E_TrafficLight_Green_On_Flashing;
 
-  pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = TrafficLight_LanchDoAction( TrafficLight_DoAction_Green_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_On_Flashing.stack) );
+  pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = TrafficLight_LaunchDoAction( TrafficLight_DoAction_Green_On_Flashing, pStateMachine, pStateMachine->doFunctionHandler.Green_On_Flashing.stack, sizeof( pStateMachine->doFunctionHandler.Green_On_Flashing.stack) );
 }
 
 static void TrafficLight_Enter_Bottom_Black(S_SM_TrafficLight_t* pStateMachine )
@@ -1571,7 +1571,7 @@ static void TrafficLight_Exit_Green_On_Flashing(S_SM_TrafficLight_t* pStateMachi
   pStateMachine->doFunctionHandler.Green_On_Flashing.threadHandle = 0;
 }
 
-static pthread_t TrafficLight_LanchDoAction( void *(*threadStart)(void *), S_SM_TrafficLight_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t TrafficLight_LaunchDoAction( void *(*threadStart)(void *), S_SM_TrafficLight_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

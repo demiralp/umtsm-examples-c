@@ -55,7 +55,7 @@ static void Command_Exit_WaitForInput( S_SM_Command_t* pStateMachine );
 
 static void Command_Init_Main( S_SM_Command_t* pStateMachine );
 
-static pthread_t Command_LanchDoAction( void *(*threadStart)(void *), S_SM_Command_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Command_LaunchDoAction( void *(*threadStart)(void *), S_SM_Command_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Command_HaltDoAction( pthread_t thr );
 
 void Command_Initialize( S_SM_Command_t* const pStateMachine )
@@ -259,7 +259,7 @@ static void Command_Enter_WaitForInput(S_SM_Command_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Command_WaitForInput;
 
-  pStateMachine->doFunctionHandler.WaitForInput.threadHandle = Command_LanchDoAction( Command_DoAction_WaitForInput, pStateMachine, pStateMachine->doFunctionHandler.WaitForInput.stack, sizeof( pStateMachine->doFunctionHandler.WaitForInput.stack) );
+  pStateMachine->doFunctionHandler.WaitForInput.threadHandle = Command_LaunchDoAction( Command_DoAction_WaitForInput, pStateMachine, pStateMachine->doFunctionHandler.WaitForInput.stack, sizeof( pStateMachine->doFunctionHandler.WaitForInput.stack) );
 }
 
 static void Command_Exit_WaitForInput(S_SM_Command_t* pStateMachine )
@@ -270,7 +270,7 @@ static void Command_Exit_WaitForInput(S_SM_Command_t* pStateMachine )
   pStateMachine->doFunctionHandler.WaitForInput.threadHandle = 0;
 }
 
-static pthread_t Command_LanchDoAction( void *(*threadStart)(void *), S_SM_Command_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Command_LaunchDoAction( void *(*threadStart)(void *), S_SM_Command_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

@@ -61,7 +61,7 @@ static void Dashboard_Exit_ReadDisableLane( S_SM_Dashboard_t* pStateMachine );
 
 static void Dashboard_Init_Main( S_SM_Dashboard_t* pStateMachine );
 
-static pthread_t Dashboard_LanchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Dashboard_LaunchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Dashboard_HaltDoAction( pthread_t thr );
 
 void Dashboard_Initialize( S_SM_Dashboard_t* const pStateMachine )
@@ -465,21 +465,21 @@ static void Dashboard_Enter_SimpleRead(S_SM_Dashboard_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Dashboard_SimpleRead;
 
-  pStateMachine->doFunctionHandler.SimpleRead.threadHandle = Dashboard_LanchDoAction( Dashboard_DoAction_SimpleRead, pStateMachine, pStateMachine->doFunctionHandler.SimpleRead.stack, sizeof( pStateMachine->doFunctionHandler.SimpleRead.stack) );
+  pStateMachine->doFunctionHandler.SimpleRead.threadHandle = Dashboard_LaunchDoAction( Dashboard_DoAction_SimpleRead, pStateMachine, pStateMachine->doFunctionHandler.SimpleRead.stack, sizeof( pStateMachine->doFunctionHandler.SimpleRead.stack) );
 }
 
 static void Dashboard_Enter_ReadEnableLane(S_SM_Dashboard_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Dashboard_ReadEnableLane;
 
-  pStateMachine->doFunctionHandler.ReadEnableLane.threadHandle = Dashboard_LanchDoAction( Dashboard_DoAction_ReadEnableLane, pStateMachine, pStateMachine->doFunctionHandler.ReadEnableLane.stack, sizeof( pStateMachine->doFunctionHandler.ReadEnableLane.stack) );
+  pStateMachine->doFunctionHandler.ReadEnableLane.threadHandle = Dashboard_LaunchDoAction( Dashboard_DoAction_ReadEnableLane, pStateMachine, pStateMachine->doFunctionHandler.ReadEnableLane.stack, sizeof( pStateMachine->doFunctionHandler.ReadEnableLane.stack) );
 }
 
 static void Dashboard_Enter_ReadDisableLane(S_SM_Dashboard_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Dashboard_ReadDisableLane;
 
-  pStateMachine->doFunctionHandler.ReadDisableLane.threadHandle = Dashboard_LanchDoAction( Dashboard_DoAction_ReadDisableLane, pStateMachine, pStateMachine->doFunctionHandler.ReadDisableLane.stack, sizeof( pStateMachine->doFunctionHandler.ReadDisableLane.stack) );
+  pStateMachine->doFunctionHandler.ReadDisableLane.threadHandle = Dashboard_LaunchDoAction( Dashboard_DoAction_ReadDisableLane, pStateMachine, pStateMachine->doFunctionHandler.ReadDisableLane.stack, sizeof( pStateMachine->doFunctionHandler.ReadDisableLane.stack) );
 }
 
 static void Dashboard_Exit_SimpleRead(S_SM_Dashboard_t* pStateMachine )
@@ -506,7 +506,7 @@ static void Dashboard_Exit_ReadDisableLane(S_SM_Dashboard_t* pStateMachine )
   pStateMachine->doFunctionHandler.ReadDisableLane.threadHandle = 0;
 }
 
-static pthread_t Dashboard_LanchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Dashboard_LaunchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

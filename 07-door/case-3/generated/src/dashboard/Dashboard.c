@@ -60,7 +60,7 @@ static void Dashboard_Exit_Display( S_SM_Dashboard_t* pStateMachine );
 
 static void Dashboard_Init_Main( S_SM_Dashboard_t* pStateMachine );
 
-static pthread_t Dashboard_LanchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Dashboard_LaunchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Dashboard_HaltDoAction( pthread_t thr );
 
 void Dashboard_Initialize( S_SM_Dashboard_t* const pStateMachine )
@@ -292,14 +292,14 @@ static void Dashboard_Enter_ReadKey(S_SM_Dashboard_t* pStateMachine )
 {
   pStateMachine->runningState.Keypad = E_Dashboard_ReadKey;
 
-  pStateMachine->doFunctionHandler.ReadKey.threadHandle = Dashboard_LanchDoAction( Dashboard_DoAction_ReadKey, pStateMachine, pStateMachine->doFunctionHandler.ReadKey.stack, sizeof( pStateMachine->doFunctionHandler.ReadKey.stack) );
+  pStateMachine->doFunctionHandler.ReadKey.threadHandle = Dashboard_LaunchDoAction( Dashboard_DoAction_ReadKey, pStateMachine, pStateMachine->doFunctionHandler.ReadKey.stack, sizeof( pStateMachine->doFunctionHandler.ReadKey.stack) );
 }
 
 static void Dashboard_Enter_Display(S_SM_Dashboard_t* pStateMachine )
 {
   pStateMachine->runningState.Monitor = E_Dashboard_Display;
 
-  pStateMachine->doFunctionHandler.Display.threadHandle = Dashboard_LanchDoAction( Dashboard_DoAction_Display, pStateMachine, pStateMachine->doFunctionHandler.Display.stack, sizeof( pStateMachine->doFunctionHandler.Display.stack) );
+  pStateMachine->doFunctionHandler.Display.threadHandle = Dashboard_LaunchDoAction( Dashboard_DoAction_Display, pStateMachine, pStateMachine->doFunctionHandler.Display.stack, sizeof( pStateMachine->doFunctionHandler.Display.stack) );
 }
 
 static void Dashboard_Exit_ReadKey(S_SM_Dashboard_t* pStateMachine )
@@ -318,7 +318,7 @@ static void Dashboard_Exit_Display(S_SM_Dashboard_t* pStateMachine )
   pStateMachine->doFunctionHandler.Display.threadHandle = 0;
 }
 
-static pthread_t Dashboard_LanchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Dashboard_LaunchDoAction( void *(*threadStart)(void *), S_SM_Dashboard_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

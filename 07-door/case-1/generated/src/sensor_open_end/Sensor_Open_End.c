@@ -58,7 +58,7 @@ static void Sensor_Open_End_Exit_Check( S_SM_Sensor_Open_End_t* pStateMachine );
 
 static void Sensor_Open_End_Init_Main( S_SM_Sensor_Open_End_t* pStateMachine );
 
-static pthread_t Sensor_Open_End_LanchDoAction( void *(*threadStart)(void *), S_SM_Sensor_Open_End_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Sensor_Open_End_LaunchDoAction( void *(*threadStart)(void *), S_SM_Sensor_Open_End_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Sensor_Open_End_HaltDoAction( pthread_t thr );
 
 void Sensor_Open_End_Initialize( S_SM_Sensor_Open_End_t* const pStateMachine )
@@ -239,14 +239,14 @@ static void Sensor_Open_End_Enter_Idle(S_SM_Sensor_Open_End_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Sensor_Open_End_Idle;
 
-  pStateMachine->doFunctionHandler.Idle.threadHandle = Sensor_Open_End_LanchDoAction( Sensor_Open_End_DoAction_Idle, pStateMachine, pStateMachine->doFunctionHandler.Idle.stack, sizeof( pStateMachine->doFunctionHandler.Idle.stack) );
+  pStateMachine->doFunctionHandler.Idle.threadHandle = Sensor_Open_End_LaunchDoAction( Sensor_Open_End_DoAction_Idle, pStateMachine, pStateMachine->doFunctionHandler.Idle.stack, sizeof( pStateMachine->doFunctionHandler.Idle.stack) );
 }
 
 static void Sensor_Open_End_Enter_Check(S_SM_Sensor_Open_End_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_Sensor_Open_End_Check;
 
-  pStateMachine->doFunctionHandler.Check.threadHandle = Sensor_Open_End_LanchDoAction( Sensor_Open_End_DoAction_Check, pStateMachine, pStateMachine->doFunctionHandler.Check.stack, sizeof( pStateMachine->doFunctionHandler.Check.stack) );
+  pStateMachine->doFunctionHandler.Check.threadHandle = Sensor_Open_End_LaunchDoAction( Sensor_Open_End_DoAction_Check, pStateMachine, pStateMachine->doFunctionHandler.Check.stack, sizeof( pStateMachine->doFunctionHandler.Check.stack) );
 }
 
 static void Sensor_Open_End_Exit_Idle(S_SM_Sensor_Open_End_t* pStateMachine )
@@ -265,7 +265,7 @@ static void Sensor_Open_End_Exit_Check(S_SM_Sensor_Open_End_t* pStateMachine )
   pStateMachine->doFunctionHandler.Check.threadHandle = 0;
 }
 
-static pthread_t Sensor_Open_End_LanchDoAction( void *(*threadStart)(void *), S_SM_Sensor_Open_End_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Sensor_Open_End_LaunchDoAction( void *(*threadStart)(void *), S_SM_Sensor_Open_End_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

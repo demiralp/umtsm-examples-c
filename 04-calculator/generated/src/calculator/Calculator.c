@@ -70,7 +70,7 @@ static void Calculator_Init_CalculatorKeypad( S_SM_Calculator_t* pStateMachine )
 static void Calculator_Init_Process( S_SM_Calculator_t* pStateMachine );
 static void Calculator_Init_CalculatorDisplay( S_SM_Calculator_t* pStateMachine );
 
-static pthread_t Calculator_LanchDoAction( void *(*threadStart)(void *), S_SM_Calculator_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t Calculator_LaunchDoAction( void *(*threadStart)(void *), S_SM_Calculator_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Calculator_HaltDoAction( pthread_t thr );
 
 void Calculator_Initialize( S_SM_Calculator_t* const pStateMachine )
@@ -1637,7 +1637,7 @@ static void Calculator_Enter_Process(S_SM_Calculator_t* pStateMachine )
 
   Calculator_ResetAccumulations( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.Process.threadHandle = Calculator_LanchDoAction( Calculator_DoAction_Process, pStateMachine, pStateMachine->doFunctionHandler.Process.stack, sizeof( pStateMachine->doFunctionHandler.Process.stack) );
+  pStateMachine->doFunctionHandler.Process.threadHandle = Calculator_LaunchDoAction( Calculator_DoAction_Process, pStateMachine, pStateMachine->doFunctionHandler.Process.stack, sizeof( pStateMachine->doFunctionHandler.Process.stack) );
 }
 
 static void Calculator_Enter_EnterBaseDigits(S_SM_Calculator_t* pStateMachine )
@@ -1721,7 +1721,7 @@ static void Calculator_Exit_CalculatorDisplay(S_SM_Calculator_t* pStateMachine )
   Display_Deinitialize( &pStateMachine->subsm.CalculatorDisplay );
 }
 
-static pthread_t Calculator_LanchDoAction( void *(*threadStart)(void *), S_SM_Calculator_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t Calculator_LaunchDoAction( void *(*threadStart)(void *), S_SM_Calculator_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 

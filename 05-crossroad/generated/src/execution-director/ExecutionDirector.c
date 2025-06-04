@@ -104,7 +104,7 @@ static void ExecutionDirector_Init_Operational( S_SM_ExecutionDirector_t* pState
 static void ExecutionDirector_Init_Uncontrolled( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Init_Controlled( S_SM_ExecutionDirector_t* pStateMachine );
 
-static pthread_t ExecutionDirector_LanchDoAction( void *(*threadStart)(void *), S_SM_ExecutionDirector_t* pStateMachine, void *stackAddr, size_t stackSize );
+static pthread_t ExecutionDirector_LaunchDoAction( void *(*threadStart)(void *), S_SM_ExecutionDirector_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void ExecutionDirector_HaltDoAction( pthread_t thr );
 
 void ExecutionDirector_Initialize( S_SM_ExecutionDirector_t* const pStateMachine )
@@ -2737,14 +2737,14 @@ static void ExecutionDirector_Enter_GoesToOperational(S_SM_ExecutionDirector_t* 
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_GoesToOperational;
 
-  pStateMachine->doFunctionHandler.GoesToOperational.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_GoesToOperational, pStateMachine, pStateMachine->doFunctionHandler.GoesToOperational.stack, sizeof( pStateMachine->doFunctionHandler.GoesToOperational.stack) );
+  pStateMachine->doFunctionHandler.GoesToOperational.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_GoesToOperational, pStateMachine, pStateMachine->doFunctionHandler.GoesToOperational.stack, sizeof( pStateMachine->doFunctionHandler.GoesToOperational.stack) );
 }
 
 static void ExecutionDirector_Enter_GoesToStandby(S_SM_ExecutionDirector_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
 
-  pStateMachine->doFunctionHandler.GoesToStandby.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_GoesToStandby, pStateMachine, pStateMachine->doFunctionHandler.GoesToStandby.stack, sizeof( pStateMachine->doFunctionHandler.GoesToStandby.stack) );
+  pStateMachine->doFunctionHandler.GoesToStandby.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_GoesToStandby, pStateMachine, pStateMachine->doFunctionHandler.GoesToStandby.stack, sizeof( pStateMachine->doFunctionHandler.GoesToStandby.stack) );
 }
 
 static void ExecutionDirector_Enter_SwitchControlState(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2753,7 +2753,7 @@ static void ExecutionDirector_Enter_SwitchControlState(S_SM_ExecutionDirector_t*
 
   ExecutionDirector_StopTraffic( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.SwitchControlState.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_SwitchControlState, pStateMachine, pStateMachine->doFunctionHandler.SwitchControlState.stack, sizeof( pStateMachine->doFunctionHandler.SwitchControlState.stack) );
+  pStateMachine->doFunctionHandler.SwitchControlState.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_SwitchControlState, pStateMachine, pStateMachine->doFunctionHandler.SwitchControlState.stack, sizeof( pStateMachine->doFunctionHandler.SwitchControlState.stack) );
 }
 
 static void ExecutionDirector_Enter_Uncontrolled(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2773,7 +2773,7 @@ static void ExecutionDirector_Enter_CheckRequests(S_SM_ExecutionDirector_t* pSta
 
   ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.CheckRequests.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_CheckRequests, pStateMachine, pStateMachine->doFunctionHandler.CheckRequests.stack, sizeof( pStateMachine->doFunctionHandler.CheckRequests.stack) );
+  pStateMachine->doFunctionHandler.CheckRequests.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_CheckRequests, pStateMachine, pStateMachine->doFunctionHandler.CheckRequests.stack, sizeof( pStateMachine->doFunctionHandler.CheckRequests.stack) );
 }
 
 static void ExecutionDirector_Enter_Controlled(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2793,7 +2793,7 @@ static void ExecutionDirector_Enter_OpenLane1(S_SM_ExecutionDirector_t* pStateMa
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OpenLane1.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OpenLane1, pStateMachine, pStateMachine->doFunctionHandler.OpenLane1.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane1.stack) );
+  pStateMachine->doFunctionHandler.OpenLane1.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenLane1, pStateMachine, pStateMachine->doFunctionHandler.OpenLane1.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane1.stack) );
 }
 
 static void ExecutionDirector_Enter_OnCloseLane1(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2804,7 +2804,7 @@ static void ExecutionDirector_Enter_OnCloseLane1(S_SM_ExecutionDirector_t* pStat
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OnCloseLane1, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane1.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane1.stack) );
+  pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane1, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane1.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane1.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane2(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2815,7 +2815,7 @@ static void ExecutionDirector_Enter_OpenLane2(S_SM_ExecutionDirector_t* pStateMa
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OpenLane2.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OpenLane2, pStateMachine, pStateMachine->doFunctionHandler.OpenLane2.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane2.stack) );
+  pStateMachine->doFunctionHandler.OpenLane2.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenLane2, pStateMachine, pStateMachine->doFunctionHandler.OpenLane2.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane2.stack) );
 }
 
 static void ExecutionDirector_Enter_OnCloseLane2(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2826,7 +2826,7 @@ static void ExecutionDirector_Enter_OnCloseLane2(S_SM_ExecutionDirector_t* pStat
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnCloseLane2.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OnCloseLane2, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane2.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane2.stack) );
+  pStateMachine->doFunctionHandler.OnCloseLane2.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane2, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane2.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane2.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane3(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2837,7 +2837,7 @@ static void ExecutionDirector_Enter_OpenLane3(S_SM_ExecutionDirector_t* pStateMa
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OpenLane3.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OpenLane3, pStateMachine, pStateMachine->doFunctionHandler.OpenLane3.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane3.stack) );
+  pStateMachine->doFunctionHandler.OpenLane3.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenLane3, pStateMachine, pStateMachine->doFunctionHandler.OpenLane3.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane3.stack) );
 }
 
 static void ExecutionDirector_Enter_OnCloseLane3(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2848,7 +2848,7 @@ static void ExecutionDirector_Enter_OnCloseLane3(S_SM_ExecutionDirector_t* pStat
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OnCloseLane3, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane3.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane3.stack) );
+  pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane3, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane3.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane3.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane4(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2859,7 +2859,7 @@ static void ExecutionDirector_Enter_OpenLane4(S_SM_ExecutionDirector_t* pStateMa
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OpenLane4.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OpenLane4, pStateMachine, pStateMachine->doFunctionHandler.OpenLane4.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane4.stack) );
+  pStateMachine->doFunctionHandler.OpenLane4.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenLane4, pStateMachine, pStateMachine->doFunctionHandler.OpenLane4.stack, sizeof( pStateMachine->doFunctionHandler.OpenLane4.stack) );
 }
 
 static void ExecutionDirector_Enter_OnCloseLane4(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2870,7 +2870,7 @@ static void ExecutionDirector_Enter_OnCloseLane4(S_SM_ExecutionDirector_t* pStat
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnCloseLane4.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OnCloseLane4, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane4.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane4.stack) );
+  pStateMachine->doFunctionHandler.OnCloseLane4.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane4, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane4.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane4.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenPedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2881,7 +2881,7 @@ static void ExecutionDirector_Enter_OpenPedestrianLanes(S_SM_ExecutionDirector_t
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OpenPedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack) );
+  pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenPedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack) );
 }
 
 static void ExecutionDirector_Enter_OnClosePedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2892,7 +2892,7 @@ static void ExecutionDirector_Enter_OnClosePedestrianLanes(S_SM_ExecutionDirecto
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = ExecutionDirector_LanchDoAction( ExecutionDirector_DoAction_OnClosePedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack) );
+  pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnClosePedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack) );
 }
 
 static void ExecutionDirector_Exit_StandBy(S_SM_ExecutionDirector_t* pStateMachine )
@@ -3021,7 +3021,7 @@ static void ExecutionDirector_Exit_OnClosePedestrianLanes(S_SM_ExecutionDirector
   pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = 0;
 }
 
-static pthread_t ExecutionDirector_LanchDoAction( void *(*threadStart)(void *), S_SM_ExecutionDirector_t* pStateMachine, void *stackAddr, size_t stackSize )
+static pthread_t ExecutionDirector_LaunchDoAction( void *(*threadStart)(void *), S_SM_ExecutionDirector_t* pStateMachine, void *stackAddr, size_t stackSize )
 {
   pthread_t thr = 0;
 
