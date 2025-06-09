@@ -42,6 +42,8 @@ extern "C"
 #include <stdbool.h>
 #include <stdint.h>
 
+#include <pthread.h>
+
 #include <Lane_DataType.h>
 
 typedef enum E_Lane_Main_States
@@ -83,6 +85,7 @@ typedef enum E_Lane_Status_States
 
 typedef struct S_SM_Lane
 {
+  pthread_mutex_t guard;
   struct
   {
     E_Lane_Main_States_t Main;

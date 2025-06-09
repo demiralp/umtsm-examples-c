@@ -33,6 +33,8 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 

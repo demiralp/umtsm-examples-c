@@ -315,9 +315,13 @@ void ExecutionDirector_PrepareForNextLane(
     {
       Lane_Run_Prepare( pLane4 );
     }
+    else if( posiablyLaneP )
+    {
+      /* Do Nothing */
+    }
     else
     {
-      /* not other availabe lanes */
+      /* No other availabe lanes */
     }
   }
   else if( Lane_IsIn_Open_State( pLane2 ) )
@@ -334,7 +338,7 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else if( posiablyLaneP )
     {
-      /* no Nothing */
+      /* Do Nothing */
     }
     else if( posiablyLane1 )
     {
@@ -342,7 +346,7 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else
     {
-      /* not other availabe lanes */
+      /* No other availabe lanes */
     }
   }
   else if( Lane_IsIn_Open_State( pLane3 ) )
@@ -355,7 +359,7 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else if( posiablyLaneP )
     {
-      /* no Nothing */
+      /* Do Nothing */
     }
     else if( posiablyLane1 )
     {
@@ -367,20 +371,16 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else
     {
-      /* not other availabe lanes */
+      /* No other availabe lanes */
     }
   }
   else if( Lane_IsIn_Open_State( pLane4 ) )
   {
     Lane_Run_Prepare( pLane4 );
 
-    if( posiablyLane4 )
+    if( posiablyLaneP )
     {
-      Lane_Run_Prepare( pLane4 );
-    }
-    else if( posiablyLaneP )
-    {
-      /* no Nothing */
+      /* Do Nothing */
     }
     else if( posiablyLane1 )
     {
@@ -396,7 +396,7 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else
     {
-      /* not other availabe lanes */
+      /* No other availabe lanes */
     }
   }
   else if( Lane_IsIn_Open_State( pPedestrianLanes ) )
@@ -421,28 +421,12 @@ void ExecutionDirector_PrepareForNextLane(
     }
     else
     {
-      /* not other availabe lanes */
+      /* No other availabe lanes */
     }
   }
-  else if( posiablyLane1 )
+  else
   {
-    Lane_Run_Prepare( pLane1 );
-  }
-  else if( posiablyLane2 )
-  {
-    Lane_Run_Prepare( pLane2 );
-  }
-  else if( posiablyLane3 )
-  {
-    Lane_Run_Prepare( pLane3 );
-  }
-  else if( posiablyLane4 )
-  {
-    Lane_Run_Prepare( pLane4 );
-  }
-  else if( posiablyLaneP )
-  {
-    Lane_Run_Prepare( pPedestrianLanes );
+      /* No other availabe lanes */
   }
 
 } /* End of action function: ExecutionDirector_PrepareForNextLane */

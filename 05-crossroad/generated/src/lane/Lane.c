@@ -36,6 +36,8 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -58,9 +60,18 @@ void Lane_Initialize( S_SM_Lane_t* const pStateMachine )
   {
     memset( pStateMachine, 0, sizeof( *pStateMachine ) );
 
+    pthread_mutexattr_t attr;
+    pthread_mutexattr_init( &attr );
+    pthread_mutex_init( &pStateMachine->guard, &attr );
+
+    pthread_mutex_lock( &pStateMachine->guard );
+
     Lane_DataType_Initialize( &pStateMachine->instanceData );
 
     pStateMachine->runningState.Main = E_Lane_init;
+
+    pthread_mutex_unlock( &pStateMachine->guard );
+    pthread_mutexattr_destroy( &attr );
   }
 }
 
@@ -68,10 +79,15 @@ void Lane_Deinitialize( S_SM_Lane_t* const pStateMachine )
 {
   if ( pStateMachine != NULL )
   {
+    pthread_mutex_lock( &pStateMachine->guard );
+
     Lane_Terminate( pStateMachine );
     pStateMachine->runningState.Main = E_Lane_final;
 
     Lane_DataType_Deinitialize( &pStateMachine->instanceData );
+
+    pthread_mutex_unlock( &pStateMachine->guard );
+    pthread_mutex_destroy( &pStateMachine->guard );
   }
 }
 
@@ -79,9 +95,13 @@ void Lane_Start( S_SM_Lane_t* pStateMachine )
 {
   if ( pStateMachine != NULL && ! Lane_IsIn_Main_Region( pStateMachine ) )
   {
+    pthread_mutex_lock( &pStateMachine->guard );
+
     pStateMachine->storedState.shallow_Availability = Lane_Load_Shallow_Availability( &pStateMachine->instanceData );
 
     Lane_Init_Main( pStateMachine );
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -262,6 +282,8 @@ void Lane_Run_Allowed( S_SM_Lane_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneAvailability = false;
 
+    pthread_mutex_lock( &pStateMachine->guard );
+
     if ( Lane_IsIn_Availability_Region( pStateMachine ) )
     {
       doneAvailability = true;
@@ -277,6 +299,8 @@ void Lane_Run_Allowed( S_SM_Lane_t* pStateMachine )
         doneAvailability = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -286,6 +310,8 @@ void Lane_Run_Close( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneStatus = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Status_Region( pStateMachine ) )
     {
@@ -307,6 +333,8 @@ void Lane_Run_Close( S_SM_Lane_t* pStateMachine )
         doneStatus = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -316,6 +344,8 @@ void Lane_Run_Disallowed( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneAvailability = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Availability_Region( pStateMachine ) )
     {
@@ -332,6 +362,8 @@ void Lane_Run_Disallowed( S_SM_Lane_t* pStateMachine )
         doneAvailability = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -341,6 +373,8 @@ void Lane_Run_Open( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneStatus = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Status_Region( pStateMachine ) )
     {
@@ -362,6 +396,8 @@ void Lane_Run_Open( S_SM_Lane_t* pStateMachine )
         doneStatus = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -371,6 +407,8 @@ void Lane_Run_Prepare( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneStatus = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Status_Region( pStateMachine ) )
     {
@@ -401,6 +439,8 @@ void Lane_Run_Prepare( S_SM_Lane_t* pStateMachine )
         doneStatus = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -410,6 +450,8 @@ void Lane_Run_StartControlling( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneControlling = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Controlling_Region( pStateMachine ) )
     {
@@ -440,6 +482,8 @@ void Lane_Run_StartControlling( S_SM_Lane_t* pStateMachine )
         doneControlling = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -449,6 +493,8 @@ void Lane_Run_StopControlling( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneControlling = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Controlling_Region( pStateMachine ) )
     {
@@ -468,6 +514,8 @@ void Lane_Run_StopControlling( S_SM_Lane_t* pStateMachine )
         doneControlling = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -477,6 +525,8 @@ void Lane_Run_SystemDisabled( S_SM_Lane_t* pStateMachine )
   {
     __attribute__( ( unused ) ) bool doneMain = false;
     __attribute__( ( unused ) ) bool doneControlling = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Lane_IsIn_Controlling_Region( pStateMachine ) )
     {
@@ -513,6 +563,8 @@ void Lane_Run_SystemDisabled( S_SM_Lane_t* pStateMachine )
         doneControlling = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 

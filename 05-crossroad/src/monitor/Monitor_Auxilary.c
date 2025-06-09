@@ -386,6 +386,7 @@ static void PrintHelp(
     }
   }
 
+  PrintHelpLine( "P", "Open the pedestrian lanes" );
   PrintHelpLine( "Q", "Quit" );
   PrintHelpLine( "Ctrl+C", "Terminate immediately" );
   PrintHelpLine( "SPACE", "Update this screen" );

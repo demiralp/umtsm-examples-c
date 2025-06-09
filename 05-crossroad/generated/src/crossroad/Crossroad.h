@@ -42,6 +42,8 @@ extern "C"
 #include <stdbool.h>
 #include <stdint.h>
 
+#include <pthread.h>
+
 #include <Crossroad_DataType.h>
 
 #include <Lane.h>
@@ -142,6 +144,7 @@ typedef enum E_Crossroad_SubstateMachines
 
 typedef struct S_SM_Crossroad
 {
+  pthread_mutex_t guard;
   struct
   {
     E_Crossroad_Main_States_t Main;

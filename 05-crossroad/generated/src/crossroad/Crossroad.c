@@ -36,6 +36,8 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -82,6 +84,12 @@ void Crossroad_Initialize( S_SM_Crossroad_t* const pStateMachine )
   {
     memset( pStateMachine, 0, sizeof( *pStateMachine ) );
 
+    pthread_mutexattr_t attr;
+    pthread_mutexattr_init( &attr );
+    pthread_mutex_init( &pStateMachine->guard, &attr );
+
+    pthread_mutex_lock( &pStateMachine->guard );
+
     Crossroad_DataType_Initialize( &pStateMachine->instanceData );
 
     pStateMachine->runningState.Main = E_Crossroad_init;
@@ -96,6 +104,8 @@ void Crossroad_Initialize( S_SM_Crossroad_t* const pStateMachine )
     TrafficLight_Initialize( &pStateMachine->subsm.TrafficLight3 );
     TrafficLight_Initialize( &pStateMachine->subsm.TrafficLight4 );
     PedestrianLights_Initialize( &pStateMachine->subsm.PedestrianLights );
+    pthread_mutex_unlock( &pStateMachine->guard );
+    pthread_mutexattr_destroy( &attr );
   }
 }
 
@@ -103,10 +113,15 @@ void Crossroad_Deinitialize( S_SM_Crossroad_t* const pStateMachine )
 {
   if ( pStateMachine != NULL )
   {
+    pthread_mutex_lock( &pStateMachine->guard );
+
     Crossroad_Terminate( pStateMachine );
     pStateMachine->runningState.Main = E_Crossroad_final;
 
     Crossroad_DataType_Deinitialize( &pStateMachine->instanceData );
+
+    pthread_mutex_unlock( &pStateMachine->guard );
+    pthread_mutex_destroy( &pStateMachine->guard );
   }
 }
 
@@ -114,7 +129,11 @@ void Crossroad_Start( S_SM_Crossroad_t* pStateMachine )
 {
   if ( pStateMachine != NULL && ! Crossroad_IsIn_Main_Region( pStateMachine ) )
   {
+    pthread_mutex_lock( &pStateMachine->guard );
+
     Crossroad_Init_Main( pStateMachine );
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -868,6 +887,8 @@ void Crossroad_Run_Allowed( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
 
+    pthread_mutex_lock( &pStateMachine->guard );
+
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
       doneRgLane1 = true;
@@ -937,6 +958,8 @@ void Crossroad_Run_Allowed( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -950,6 +973,8 @@ void Crossroad_Run_Check( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgTrafficLight1_Region( pStateMachine ) )
     {
@@ -1020,6 +1045,8 @@ void Crossroad_Run_Check( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLights = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1033,6 +1060,8 @@ void Crossroad_Run_Close( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1103,6 +1132,8 @@ void Crossroad_Run_Close( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1116,6 +1147,8 @@ void Crossroad_Run_Disallowed( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1186,6 +1219,8 @@ void Crossroad_Run_Disallowed( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1199,6 +1234,8 @@ void Crossroad_Run_Open( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1269,6 +1306,8 @@ void Crossroad_Run_Open( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1282,6 +1321,8 @@ void Crossroad_Run_Prepare( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1352,6 +1393,8 @@ void Crossroad_Run_Prepare( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1365,6 +1408,8 @@ void Crossroad_Run_StartControlling( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1435,6 +1480,8 @@ void Crossroad_Run_StartControlling( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1448,6 +1495,8 @@ void Crossroad_Run_StopControlling( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgLane3 = false;
     __attribute__( ( unused ) ) bool doneRgLane4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLanes = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1518,6 +1567,8 @@ void Crossroad_Run_StopControlling( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLanes = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1536,6 +1587,8 @@ void Crossroad_Run_SystemDisabled( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1676,6 +1729,8 @@ void Crossroad_Run_SystemDisabled( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLights = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 
@@ -1689,6 +1744,8 @@ void Crossroad_Run_SystemEnabled( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
     __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+
+    pthread_mutex_lock( &pStateMachine->guard );
 
     if ( Crossroad_IsIn_RgTrafficLight1_Region( pStateMachine ) )
     {
@@ -1759,6 +1816,8 @@ void Crossroad_Run_SystemEnabled( S_SM_Crossroad_t* pStateMachine )
         doneRgPedestrianLights = false;
       }
     }
+
+    pthread_mutex_unlock( &pStateMachine->guard );
   }
 }
 

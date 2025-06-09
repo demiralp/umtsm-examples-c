@@ -34,7 +34,6 @@
 void TrafficLight_DataType_Initialize(
   __attribute__( ( unused ) ) S_SM_TrafficLight_DataType_t* const instance )
 {
-  // instance->pCrossroad = NULL;
   instance->pLane              = NULL;
   instance->pMonitor           = NULL;
   instance->pExecutionDirector = NULL;

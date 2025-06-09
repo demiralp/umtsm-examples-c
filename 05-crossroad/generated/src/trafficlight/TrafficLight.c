@@ -575,13 +575,7 @@ void TrafficLight_Run_Check( S_SM_TrafficLight_t* pStateMachine )
               TrafficLight_Exit_Amber_Off_Flashing( pStateMachine );
               pStateMachine->runningState.Middle = E_TrafficLight_Amber_Off;
             }
-            else if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && TrafficLight_IsLaneOnClosing( pStateMachine, &pStateMachine->instanceData ) )
-            {
-              TrafficLight_Exit_Amber_Off_Flashing( pStateMachine );
-              TrafficLight_Enter_Amber_On( pStateMachine );
-              pStateMachine->runningState.Middle = E_TrafficLight_Amber_On;
-            }
-            else if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && TrafficLight_IsLaneOnOpening( pStateMachine, &pStateMachine->instanceData ) )
+            else if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && ( TrafficLight_IsLaneOnClosing( pStateMachine, &pStateMachine->instanceData ) || TrafficLight_IsLaneOnOpening( pStateMachine, &pStateMachine->instanceData ) ) )
             {
               TrafficLight_Exit_Amber_Off_Flashing( pStateMachine );
               TrafficLight_Enter_Amber_On( pStateMachine );
@@ -613,12 +607,7 @@ void TrafficLight_Run_Check( S_SM_TrafficLight_t* pStateMachine )
           }
           else
           {
-            if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && TrafficLight_IsLaneOnClosing( pStateMachine, &pStateMachine->instanceData ) )
-            {
-              TrafficLight_Enter_Amber_On( pStateMachine );
-              pStateMachine->runningState.Middle = E_TrafficLight_Amber_On;
-            }
-            else if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && TrafficLight_IsLaneOnOpening( pStateMachine, &pStateMachine->instanceData ) )
+            if ( TrafficLight_IsSystemOperational( pStateMachine, &pStateMachine->instanceData ) && ( TrafficLight_IsLaneOnClosing( pStateMachine, &pStateMachine->instanceData ) || TrafficLight_IsLaneOnOpening( pStateMachine, &pStateMachine->instanceData ) ) )
             {
               TrafficLight_Enter_Amber_On( pStateMachine );
               pStateMachine->runningState.Middle = E_TrafficLight_Amber_On;
