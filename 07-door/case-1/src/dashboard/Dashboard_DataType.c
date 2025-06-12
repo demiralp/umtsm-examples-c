@@ -46,7 +46,7 @@ void Dashboard_DataType_Initialize(
 void Dashboard_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Dashboard_DataType_t* const instance )
 {
-  /* blank */
+  /* do nothing */
 }
 
 /* End of Dashboard_DataType.c */

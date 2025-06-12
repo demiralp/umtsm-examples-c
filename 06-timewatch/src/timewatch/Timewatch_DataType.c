@@ -38,7 +38,7 @@ void Timewatch_DataType_Initialize(
 void Timewatch_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const instance )
 {
-  // blank
+  /* do nothing */
 }
 
 /* End of Timewatch_DataType.c */

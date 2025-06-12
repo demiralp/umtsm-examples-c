@@ -41,6 +41,7 @@ void Command_DataType_Initialize(
 void Command_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Command_DataType_t* const instance )
 {
+  /* do nothing */
 }
 
 /* End of Command_DataType.c */

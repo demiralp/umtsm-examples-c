@@ -40,7 +40,7 @@ void Button_DataType_Initialize(
 void Button_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Button_DataType_t* const instance )
 {
-  // blank
+  /* do nothing */
 }
 
 /* End of Button_DataType.c */

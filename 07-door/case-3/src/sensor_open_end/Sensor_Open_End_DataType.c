@@ -40,7 +40,7 @@ void Sensor_Open_End_DataType_Initialize(
 void Sensor_Open_End_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Sensor_Open_End_DataType_t* const instance )
 {
-  // blank
+  /* do nothing */
 }
 
 /* End of Sensor_Open_End_DataType.c */

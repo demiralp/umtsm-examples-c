@@ -74,6 +74,7 @@ sm NumberGuess
             [not IsANumberRead] -> GetEstimation / PrintNoNumberIsRead;
             [not IsNumberInRange] -> GetEstimation / PrintNumberIsNotInRange;
             [AreNumbersEqual] -> AskNewDeal / PrintConguratulation;
+
             -> GetEstimation / PrintHints;
         }
     }
@@ -98,5 +99,5 @@ sm NumberGuess
 
     abort -> terminate / PrintGoodBye;
     show / PrintShowNumber;
-    newgame -> PlayGame / Salute;
+    newgame --> PlayGame / Salute;
 }

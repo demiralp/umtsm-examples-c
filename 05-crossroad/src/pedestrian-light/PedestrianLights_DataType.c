@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "PedestrianLights_DataType.h"
 
@@ -42,7 +42,7 @@ void PedestrianLights_DataType_Initialize(
 void PedestrianLights_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_PedestrianLights_DataType_t* const instance )
 {
-  /* blank */
+  /* do nothing */
 }
 
 /* End of PedestrianLights_DataType.c */

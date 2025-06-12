@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Lane_Auxilary.h"
 
@@ -40,7 +40,7 @@
 /* The implementation of the guards */
 bool Lane_IsCheckAndGo(
   __attribute__( ( unused ) ) S_SM_Lane_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Lane_DataType_t const * const pInstance )
+  __attribute__( ( unused ) ) S_SM_Lane_DataType_t const* const pInstance )
 {
   bool const result = pInstance->UncontrolMode == E_CHECK;
   return result;
