@@ -31,6 +31,8 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <signal.h>
@@ -40,24 +42,24 @@
 /* The implementation of the actions */
 void Timewatch_Exit(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   raise( SIGINT );
 } /* End of action function: Timewatch_Exit */
 
 void Timewatch_InitPauseTime(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   time( &pOutputData->Run.Pause.start_pause_time );
 } /* End of action function: Timewatch_InitPauseTime */
 
 void Timewatch_InitWatchProperties(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   time( &pOutputData->Run.start_time );
   pOutputData->Run.suspended_duration= 0.0;
@@ -65,8 +67,8 @@ void Timewatch_InitWatchProperties(
 
 void Timewatch_PrintElapsedTime(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   time_t now;
   time( &now );
@@ -82,8 +84,8 @@ void Timewatch_PrintElapsedTime(
 
 void Timewatch_PrintHelp(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "H - Print help menu\n");
   refresh( );
@@ -105,8 +107,8 @@ void Timewatch_PrintHelp(
 
 void Timewatch_PrintStatusIdle(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "<IDLE>\n");
   refresh( );
@@ -114,8 +116,8 @@ void Timewatch_PrintStatusIdle(
 
 void Timewatch_PrintStatusPause(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "<PAUSE>\n");
   refresh( );
@@ -123,8 +125,8 @@ void Timewatch_PrintStatusPause(
 
 void Timewatch_PrintStatusReset(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "<RESTART>\n");
   refresh( );
@@ -132,16 +134,16 @@ void Timewatch_PrintStatusReset(
 
 void Timewatch_PrintStatusResume(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "<RESUME>\n");
 } /* End of action function: Timewatch_PrintStatusResume */
 
 void Timewatch_PrintStatusRun(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   printw( "<RUN>\n");
   refresh( );
@@ -149,8 +151,8 @@ void Timewatch_PrintStatusRun(
 
 void Timewatch_ReportTotalTime(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   time_t now;
   time( &now );
@@ -162,8 +164,8 @@ void Timewatch_ReportTotalTime(
 
 void Timewatch_UpdateSuspendentDuration(
   __attribute__( ( unused ) ) S_SM_Timewatch_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Timewatch_DataType_t* const pOutputData )
 {
   time_t now;
   time( &now );

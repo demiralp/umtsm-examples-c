@@ -25,20 +25,20 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Keypad_DataType.h"
 
 void Keypad_DataType_Initialize(
-  __attribute__((unused)) S_SM_Keypad_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_Keypad_DataType_t* const instance )
 {
  instance->LastInputKey = '\0';
 }
 
 void Keypad_DataType_Deinitialize(
-  __attribute__((unused)) S_SM_Keypad_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_Keypad_DataType_t* const instance )
 {
-  /* no need to deinitialize */
+  /* do nothing */
 }
 
 /* End of Keypad_DataType.c */

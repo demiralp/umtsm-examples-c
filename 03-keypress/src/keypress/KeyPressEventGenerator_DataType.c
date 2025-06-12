@@ -6,7 +6,7 @@
  *  ==============================================================================
  */
 
-/*  Copyright (C) 2023-2024 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
+/*  Copyright (C) 2023-2025 Fedem (Fehmi Demiralp) <f.demiralp@gmail.com>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -30,13 +30,13 @@
 #include "KeyPressEventGenerator_DataType.h"
 
 void KeyPressEventGenerator_DataType_Initialize(
-  __attribute__((unused)) S_SM_KeyPressEventGenerator_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t* const instance )
 {
   /* do nothing */
 }
 
 void KeyPressEventGenerator_DataType_Deinitialize(
-  __attribute__((unused)) S_SM_KeyPressEventGenerator_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t* const instance )
 {
   /* do nothing */
 }

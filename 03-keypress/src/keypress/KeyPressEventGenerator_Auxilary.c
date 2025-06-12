@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "KeyPressEventGenerator_Auxilary.h"
 #include "KeyPress.h"
@@ -44,8 +44,8 @@
 /* The implementation of the actions */
 void KeyPressEventGenerator_ReadKey(
   __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t* const pOutputData )
 {
   char prev= 0;
 
@@ -170,8 +170,8 @@ void KeyPressEventGenerator_ReadKey(
 
 void KeyPressEventGenerator_TimeBaseEventGenerator(
   __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_KeyPressEventGenerator_DataType_t* const pOutputData )
 {
   clock_t start, end;
   double duration;

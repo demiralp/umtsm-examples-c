@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Lane_DataType.h"
 
@@ -39,7 +39,7 @@ void Lane_DataType_Initialize(
 void Lane_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Lane_DataType_t* const instance )
 {
-  /* blank */
+  /* do nothing */
 }
 
 /* End of Lane_DataType.c */

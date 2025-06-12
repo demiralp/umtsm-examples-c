@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Display_Auxilary.h"
 #include "Display_DataType.h"
@@ -33,6 +33,8 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <pthread.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -40,38 +42,38 @@
 
 /* The implementation of the actions */
 void Display_DisplayDivisionByZeroError(
-  __attribute__((unused)) S_SM_Display_t* const smInfo,
-  __attribute__((unused)) S_SM_Display_DataType_t const * const pInputData,
-  __attribute__((unused)) S_SM_Display_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Display_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const pOutputData )
 {
   printw("\r<<DIVISION BY ZERO>>");
-}
+} /* End of action function: Display_DisplayDivisionByZeroError */
 
 void Display_DisplayFaultyError(
-  __attribute__((unused)) S_SM_Display_t* const smInfo,
-  __attribute__((unused)) S_SM_Display_DataType_t const * const pInputData,
-  __attribute__((unused)) S_SM_Display_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Display_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const pOutputData )
 {
   printw("\r<<ERROR>>");
-}
+} /* End of action function: Display_DisplayFaultyError */
 
 void Display_DisplayOverflowError(
-  __attribute__((unused)) S_SM_Display_t* const smInfo,
-  __attribute__((unused)) S_SM_Display_DataType_t const * const pInputData,
-  __attribute__((unused)) S_SM_Display_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Display_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const pOutputData )
 {
   printw("\r<<OVERFLOW ERROR>>");
-}
+} /* End of action function: Display_DisplayOverflowError */
 
 void Display_DisplayUpdate(
-  __attribute__((unused)) S_SM_Display_t* const smInfo,
-  __attribute__((unused)) S_SM_Display_DataType_t const * const pInputData,
-  __attribute__((unused)) S_SM_Display_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_Display_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const pOutputData )
 {
   char accdata[20];
   Display_GetAccumulatorData(pInputData, accdata, sizeof(accdata));
 
   printw("\r%-20s", accdata);
-}
+} /* End of action function: Display_DisplayUpdate */
 
 /* End of Display_Auxilary.c */

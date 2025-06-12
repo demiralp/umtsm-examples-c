@@ -41,7 +41,7 @@ void Door_DataType_Initialize(
 void Door_DataType_Deinitialize(
   __attribute__( ( unused ) ) S_SM_Door_DataType_t* const instance )
 {
-  // blank
+  /* do nothing */
 }
 
 /* End of Door_DataType.c */

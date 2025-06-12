@@ -25,12 +25,12 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Display_DataType.h"
 
 void Display_DataType_Initialize(
-  __attribute__((unused)) S_SM_Display_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const instance )
 {
   instance->BaseDigits[0] = '\0';
   instance->FractionalDigits[0] = '\0';
@@ -42,9 +42,9 @@ void Display_DataType_Initialize(
 }
 
 void Display_DataType_Deinitialize(
-  __attribute__((unused)) S_SM_Display_DataType_t* const instance )
+  __attribute__( ( unused ) ) S_SM_Display_DataType_t* const instance )
 {
-  /* no need to deinitialize */
+  /* do nothing */
 }
 
 /* End of Display_DataType.c */
