@@ -14,5 +14,5 @@
 #set(LIBTrafficLight_SOURCE_EXTRA )
 #set(LIBTrafficLight_HEADER_EXTRA )
 #set(LIBTrafficLight_LIB_EXTRA )
-#set(LIBTrafficLight_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBTrafficLight_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTTrafficLight_LIB_EXTRA )

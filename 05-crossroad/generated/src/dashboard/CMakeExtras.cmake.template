@@ -14,5 +14,5 @@
 #set(LIBDashboard_SOURCE_EXTRA )
 #set(LIBDashboard_HEADER_EXTRA )
 #set(LIBDashboard_LIB_EXTRA )
-#set(LIBDashboard_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBDashboard_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTDashboard_LIB_EXTRA )

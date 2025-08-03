@@ -14,5 +14,5 @@
 #set(LIBNumberGuess_SOURCE_EXTRA )
 #set(LIBNumberGuess_HEADER_EXTRA )
 #set(LIBNumberGuess_LIB_EXTRA )
-#set(LIBNumberGuess_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBNumberGuess_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTNumberGuess_LIB_EXTRA )

@@ -14,5 +14,5 @@
 #set(LIBSensor_Close_End_SOURCE_EXTRA )
 #set(LIBSensor_Close_End_HEADER_EXTRA )
 #set(LIBSensor_Close_End_LIB_EXTRA )
-#set(LIBSensor_Close_End_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBSensor_Close_End_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTSensor_Close_End_LIB_EXTRA )

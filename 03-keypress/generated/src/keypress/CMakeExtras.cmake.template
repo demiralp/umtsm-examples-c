@@ -14,7 +14,7 @@
 #set(LIBKeyPressEventGenerator_SOURCE_EXTRA )
 #set(LIBKeyPressEventGenerator_HEADER_EXTRA )
 #set(LIBKeyPressEventGenerator_LIB_EXTRA )
-#set(LIBKeyPressEventGenerator_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBKeyPressEventGenerator_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTKeyPressEventGenerator_LIB_EXTRA )
 
 #
@@ -23,5 +23,5 @@
 #set(LIBKeyPress_SOURCE_EXTRA )
 #set(LIBKeyPress_HEADER_EXTRA )
 #set(LIBKeyPress_LIB_EXTRA )
-#set(LIBKeyPress_INCLUDES_EXTRA "${CMAKE_CURRRENT_SOURCE_DIR}")
+#set(LIBKeyPress_INCLUDES_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}")
 #set(TESTKeyPress_LIB_EXTRA )
