@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "ExecutionDirector_Auxilary.h"
 #include "ExecutionDirector_DataType.h"
@@ -34,7 +34,6 @@
 #include <math.h>
 #include <memory.h>
 #include <pthread.h>
-#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -51,12 +50,12 @@
 #define RUN_LANE2_MS              ( RUN_LANE_MS )
 #define RUN_LANE3_MS              ( RUN_LANE_MS )
 #define RUN_LANE4_MS              ( RUN_LANE_MS )
-#define RUN_PEDESTRIANLANES_MS    ( 8 * MS_IN_US )
+#define RUN_PEDESTRIAN_LANES_MS    ( 8 * MS_IN_US )
 #define RUN_PREPARING_MS          ( 4 * MS_IN_US )
 #define RUN_STOPING_TRAFFIC_MS    ( RUN_LANE_MS )
 #define RUN_SWITCHING_TIME_MS     ( 7 * MS_IN_US )
 #define RUN_MIN_SWITCHING_TIME_MS ( 5 * MS_IN_US )
-#define RUN_INTERVAL_TIME_US      ( 3 * MS_IN_US  )
+#define RUN_INTERVAL_TIME_MS      ( 3 * MS_IN_US  )
 
 static void TellLaneAvailability(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -68,7 +67,7 @@ bool ExecutionDirector_IsControlledModeRequested(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInstance )
 {
-  bool const result = pInstance->ControlMode == CONTROLLED;
+  bool const result = pInstance->ControlModeStatus == CONTROLLED;
   return result;
 } /* End of guard function: ExecutionDirector_IsControlledModeRequested */
 
@@ -116,7 +115,7 @@ bool ExecutionDirector_IsUncontrolledModeRequested(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInstance )
 {
-  bool const result = pInstance->ControlMode == UNCONTROLLED;
+  bool const result = pInstance->ControlModeStatus == UNCONTROLLED;
   return result;
 } /* End of guard function: ExecutionDirector_IsUncontrolledModeRequested */
 
@@ -137,7 +136,7 @@ void ExecutionDirector_ClearControlMode(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  pOutputData->ControlMode = PERSISTENT_CONTROL_MODE;
+  pOutputData->ControlModeStatus = PERSISTENT_CONTROL_MODE;
 } /* End of action function: ExecutionDirector_ClearControlMode */
 
 void ExecutionDirector_DisableSystem(
@@ -165,6 +164,111 @@ void ExecutionDirector_NotifyCrossroad(
   Monitor_Run_Update( pOutputData->pMonitor );
 } /* End of action function: ExecutionDirector_NotifyCrossroad */
 
+void ExecutionDirector_OrderCloseLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  /// @todo
+  Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane1 );
+} /* End of action function: ExecutionDirector_OrderCloseLane1 */
+
+void ExecutionDirector_OrderCloseLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane2 );
+} /* End of action function: ExecutionDirector_OrderCloseLane2 */
+
+void ExecutionDirector_OrderCloseLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane3 );
+} /* End of action function: ExecutionDirector_OrderCloseLane3 */
+
+void ExecutionDirector_OrderCloseLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );
+} /* End of action function: ExecutionDirector_OrderCloseLane4 */
+
+void ExecutionDirector_OrderClosePedestrianLanes(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_PedestrianLanes );
+} /* End of action function: ExecutionDirector_OrderClosePedestrianLanes */
+
+void ExecutionDirector_OrderClosingLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane1 );  
+} /* End of action function: ExecutionDirector_OrderClosingLane1 */
+
+void ExecutionDirector_OrderClosingLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane2 );  
+} /* End of action function: ExecutionDirector_OrderClosingLane2 */
+
+void ExecutionDirector_OrderClosingLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane3 );  
+} /* End of action function: ExecutionDirector_OrderClosingLane3 */
+
+void ExecutionDirector_OrderClosingLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );  
+} /* End of action function: ExecutionDirector_OrderClosingLane4 */
+
+void ExecutionDirector_OrderOpeningLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+    Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane1 );  
+} /* End of action function: ExecutionDirector_OrderOpeningLane1 */
+
+void ExecutionDirector_OrderOpeningLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+    Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane2 );  
+} /* End of action function: ExecutionDirector_OrderOpeningLane2 */
+
+void ExecutionDirector_OrderOpeningLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+    Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane3 );  
+} /* End of action function: ExecutionDirector_OrderOpeningLane3 */
+
+void ExecutionDirector_OrderOpeningLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  Crossroad_SubSM_Run_Prepare( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );  
+} /* End of action function: ExecutionDirector_OrderOpeningLane4 */
+
 void ExecutionDirector_OrderOpenLane1(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
@@ -182,6 +286,7 @@ void ExecutionDirector_OrderOpenLane1(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane1( pOutputData->pCrossroad ) ) )
   {
     Crossroad_SubSM_Run_Open( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane1 );
+    pOutputData->CurrentLane = 1;
   }
   else
   {
@@ -206,6 +311,7 @@ void ExecutionDirector_OrderOpenLane2(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane2( pOutputData->pCrossroad ) ) )
   {
     Crossroad_SubSM_Run_Open( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane2 );
+    pOutputData->CurrentLane = 2;
   }
   else
   {
@@ -230,6 +336,7 @@ void ExecutionDirector_OrderOpenLane3(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane3( pOutputData->pCrossroad ) ) )
   {
     Crossroad_SubSM_Run_Open( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane3 );
+    pOutputData->CurrentLane = 3;
   }
   else
   {
@@ -254,6 +361,7 @@ void ExecutionDirector_OrderOpenLane4(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane4( pOutputData->pCrossroad ) ) )
   {
     Crossroad_SubSM_Run_Open( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );
+    pOutputData->CurrentLane = 4;
   }
   else
   {
@@ -275,6 +383,7 @@ void ExecutionDirector_OrderOpenPedestrianLanes(
   Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane3 );
   Crossroad_SubSM_Run_Close( pOutputData->pCrossroad, E_Crossroad_SubSM_Lane4 );
   Crossroad_SubSM_Run_Open( pOutputData->pCrossroad, E_Crossroad_SubSM_PedestrianLanes );
+  pOutputData->CurrentLane = 0;
 } /* End of action function: ExecutionDirector_OrderOpenPedestrianLanes */
 
 void ExecutionDirector_PrepareForNextLane(
@@ -293,142 +402,154 @@ void ExecutionDirector_PrepareForNextLane(
 
   TellLaneAvailability( smInfo, pInputData, pOutputData );
 
-  bool posiablyLane1 = Lane_IsIn_Available_State( pLane1 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 1 );
-  bool posiablyLane2 = Lane_IsIn_Available_State( pLane2 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 2 );
-  bool posiablyLane3 = Lane_IsIn_Available_State( pLane3 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 3 );
-  bool posiablyLane4 = Lane_IsIn_Available_State( pLane4 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 4 );
-  bool posiablyLaneP = Lane_IsIn_Available_State( pPedestrianLanes ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 0 );
+  bool possiblyLane1 = Lane_IsIn_Available_State( pLane1 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 1 );
+  bool possiblyLane2 = Lane_IsIn_Available_State( pLane2 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 2 );
+  bool possiblyLane3 = Lane_IsIn_Available_State( pLane3 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 3 );
+  bool possiblyLane4 = Lane_IsIn_Available_State( pLane4 ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 4 );
+  bool possiblyLaneP = Lane_IsIn_Available_State( pPedestrianLanes ) && ( pOutputData->NextLane == -1 || pOutputData->NextLane == 0 );
 
-  if( Lane_IsIn_Open_State( pLane1 ) )
+  if( pOutputData->CurrentLane == 1 )
   {
-    Lane_Run_Prepare( pLane1 );
-
-    if( posiablyLane2 )
+    if( possiblyLane2 )
     {
-      Lane_Run_Prepare( pLane2 );
+      pOutputData->NextLane = 2;
     }
-    else if( posiablyLane3 )
+    else if( possiblyLane3 )
     {
-      Lane_Run_Prepare( pLane3 );
+      pOutputData->NextLane = 3;
     }
-    else if( posiablyLane4 )
+    else if( possiblyLane4 )
     {
-      Lane_Run_Prepare( pLane4 );
+      pOutputData->NextLane = 4;
     }
-    else if( posiablyLaneP )
+    else if( possiblyLaneP )
     {
-      /* Do Nothing */
+      pOutputData->NextLane = 0;
     }
     else
     {
-      /* No other availabe lanes */
+      /* No other available lanes */
     }
   }
-  else if( Lane_IsIn_Open_State( pLane2 ) )
+  else if( pOutputData->CurrentLane == 2 )
   {
-    Lane_Run_Prepare( pLane2 );
-
-    if( posiablyLane3 )
+    if( possiblyLane3 )
     {
-      Lane_Run_Prepare( pLane3 );
+      pOutputData->NextLane = 3;
     }
-    else if( posiablyLane4 )
+    else if( possiblyLane4 )
     {
-      Lane_Run_Prepare( pLane4 );
+      pOutputData->NextLane = 4;
     }
-    else if( posiablyLaneP )
+    else if( possiblyLaneP )
     {
-      /* Do Nothing */
+      pOutputData->NextLane = 0;
     }
-    else if( posiablyLane1 )
+    else if( possiblyLane1 )
     {
-      Lane_Run_Prepare( pLane1 );
+      pOutputData->NextLane = 1;
     }
     else
     {
-      /* No other availabe lanes */
+      /* No other available lanes */
     }
   }
-  else if( Lane_IsIn_Open_State( pLane3 ) )
+  else if( pOutputData->CurrentLane == 3 )
   {
-    Lane_Run_Prepare( pLane3 );
-
-    if( posiablyLane4 )
+    if( possiblyLane4 )
     {
-      Lane_Run_Prepare( pLane4 );
+      pOutputData->NextLane = 4;
     }
-    else if( posiablyLaneP )
+    else if( possiblyLaneP )
     {
-      /* Do Nothing */
+      pOutputData->NextLane = 0;
     }
-    else if( posiablyLane1 )
+    else if( possiblyLane1 )
     {
-      Lane_Run_Prepare( pLane1 );
+      pOutputData->NextLane = 1;
     }
-    else if( posiablyLane2 )
+    else if( possiblyLane2 )
     {
-      Lane_Run_Prepare( pLane2 );
+      pOutputData->NextLane = 2;
     }
     else
     {
-      /* No other availabe lanes */
+      /* No other available lanes */
     }
   }
-  else if( Lane_IsIn_Open_State( pLane4 ) )
+  else if( pOutputData->CurrentLane == 4 )
   {
-    Lane_Run_Prepare( pLane4 );
-
-    if( posiablyLaneP )
+    if( possiblyLaneP )
     {
-      /* Do Nothing */
+      pOutputData->NextLane = 0;
     }
-    else if( posiablyLane1 )
+    else if( possiblyLane1 )
     {
-      Lane_Run_Prepare( pLane1 );
+      pOutputData->NextLane = 1;
     }
-    else if( posiablyLane2 )
+    else if( possiblyLane2 )
     {
-      Lane_Run_Prepare( pLane2 );
+      pOutputData->NextLane = 2;
     }
-    else if( posiablyLane3 )
+    else if( possiblyLane3 )
     {
-      Lane_Run_Prepare( pLane3 );
+      pOutputData->NextLane = 3;
     }
     else
     {
-      /* No other availabe lanes */
+      /* No other available lanes */
     }
   }
-  else if( Lane_IsIn_Open_State( pPedestrianLanes ) )
+  else if( pOutputData->CurrentLane == 0 )
   {
-    Lane_Run_Prepare( pPedestrianLanes );
-
-    if( posiablyLane1 )
+    if( possiblyLane1 )
     {
-      Lane_Run_Prepare( pLane1 );
+      pOutputData->NextLane = 1;
     }
-    else if( posiablyLane2 )
+    else if( possiblyLane2 )
     {
-      Lane_Run_Prepare( pLane2 );
+      pOutputData->NextLane = 2;
     }
-    else if( posiablyLane3 )
+    else if( possiblyLane3 )
     {
-      Lane_Run_Prepare( pLane3 );
+      pOutputData->NextLane = 3;
     }
-    else if( posiablyLane4 )
+    else if( possiblyLane4 )
     {
-      Lane_Run_Prepare( pLane4 );
+      pOutputData->NextLane = 4;
     }
     else
     {
-      /* No other availabe lanes */
+      /* No other available lanes */
     }
   }
   else
   {
-      /* No other availabe lanes */
+    if( possiblyLane1 )
+    {
+      pOutputData->NextLane = 1;
+    }
+    else if( possiblyLane2 )
+    {
+      pOutputData->NextLane = 2;
+    }
+    else if( possiblyLane3 )
+    {
+      pOutputData->NextLane = 3;
+    }
+    else if( possiblyLane4 )
+    {
+      pOutputData->NextLane = 4;
+    }
+    else if( possiblyLaneP )
+    {
+      pOutputData->NextLane = 0;
+    }
+    else
+    {
+      // No other available lanes
+    }
   }
-
 } /* End of action function: ExecutionDirector_PrepareForNextLane */
 
 void ExecutionDirector_SetControlledMode(
@@ -436,7 +557,7 @@ void ExecutionDirector_SetControlledMode(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  pOutputData->ControlMode = CONTROLLED;
+  pOutputData->ControlModeStatus = CONTROLLED;
 } /* End of action function: ExecutionDirector_SetControlledMode */
 
 void ExecutionDirector_SetDisableLane1(
@@ -588,7 +709,7 @@ void ExecutionDirector_SetUncontrolledMode(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  pOutputData->ControlMode = UNCONTROLLED;
+  pOutputData->ControlModeStatus = UNCONTROLLED;
 } /* End of action function: ExecutionDirector_SetUncontrolledMode */
 
 void ExecutionDirector_StartControlMode(
@@ -608,14 +729,15 @@ void ExecutionDirector_StartSystemSwitchingTimer(
   time( &pOutputData->StartSwitchingTime );
 } /* End of action function: ExecutionDirector_StartSystemSwitchingTimer */
 
-void ExecutionDirector_StartUncontrolMode(
+void ExecutionDirector_StartUncontrolledMode(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
   Crossroad_Run_StopControlling( pOutputData->pCrossroad );
   pOutputData->LaneRequested = -1;
-} /* End of action function: ExecutionDirector_StartUncontrolMode */
+  pOutputData->CurrentLane = -1;
+} /* End of action function: ExecutionDirector_StartUncontrolledMode */
 
 void ExecutionDirector_StopTraffic(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -640,12 +762,20 @@ void ExecutionDirector_Update(
   Monitor_Run_Update( pOutputData->pMonitor );
 } /* End of action function: ExecutionDirector_Update */
 
+void ExecutionDirector_WaitForClosingLane(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+  usleep( RUN_INTERVAL_TIME_MS );
+} /* End of action function: ExecutionDirector_WaitForClosingLane */
+
 void ExecutionDirector_WaitForInterval(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const * const pInputData,
-  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t * const pOutputData )
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  usleep( RUN_INTERVAL_TIME_US );
+  usleep( RUN_INTERVAL_TIME_MS );
 } /* End of action function: ExecutionDirector_WaitForInterval */
 
 void ExecutionDirector_WaitForLane1(
@@ -696,7 +826,7 @@ void ExecutionDirector_WaitForLane4(
   }
 } /* End of action function: ExecutionDirector_WaitForLane4 */
 
-void ExecutionDirector_WaitForNextLaneOpen(
+void ExecutionDirector_WaitForPedestrians(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
@@ -706,16 +836,16 @@ void ExecutionDirector_WaitForNextLaneOpen(
     usleep( RUN_PREPARING_MS );
     pOutputData->LaneClosingCompleted = true;
   }
-} /* End of action function: ExecutionDirector_WaitForNextLaneOpen */
+} /* End of action function: ExecutionDirector_WaitForPedestrians */
 
-void ExecutionDirector_WaitForPedestrians(
+void ExecutionDirector_WaitForSafety(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
   pOutputData->LaneClosingCompleted = false;
-  usleep( RUN_PEDESTRIANLANES_MS );
-} /* End of action function: ExecutionDirector_WaitForPedestrians */
+  usleep( RUN_PEDESTRIAN_LANES_MS );
+} /* End of action function: ExecutionDirector_WaitForSafety */
 
 void ExecutionDirector_WaitForSystemSwitchingTimer(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -724,13 +854,13 @@ void ExecutionDirector_WaitForSystemSwitchingTimer(
 {
   time_t now;
   time( &now );
-  double remainingtime = ceil( RUN_SWITCHING_TIME_MS - difftime( now, pInputData->StartSwitchingTime ) );
-  if( remainingtime < RUN_MIN_SWITCHING_TIME_MS )
+  double remainingTime = ceil( RUN_SWITCHING_TIME_MS - difftime( now, pInputData->StartSwitchingTime ) );
+  if( remainingTime < RUN_MIN_SWITCHING_TIME_MS )
   {
-    remainingtime = RUN_MIN_SWITCHING_TIME_MS;
+    remainingTime = RUN_MIN_SWITCHING_TIME_MS;
   }
 
-  usleep( remainingtime );
+  usleep( remainingTime );
 } /* End of action function: ExecutionDirector_WaitForSystemSwitchingTimer */
 
 void ExecutionDirector_WaitForTrafficStops(

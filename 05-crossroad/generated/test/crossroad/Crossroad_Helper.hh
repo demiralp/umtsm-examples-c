@@ -56,7 +56,7 @@ namespace sm
         static void JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgTrafficLight2_States_t state );
         static void JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgTrafficLight3_States_t state );
         static void JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgTrafficLight4_States_t state );
-        static void JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgPedestrianLights_States_t state );
+        static void JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgPedestrianLight_States_t state );
     };
 
     template< class FixtureType, class TestDataType >
@@ -138,11 +138,11 @@ namespace sm
     }
 
     template< class FixtureType, class TestDataType >
-    inline void TestFixture_Crossroad< FixtureType, TestDataType >::JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgPedestrianLights_States_t state )
+    inline void TestFixture_Crossroad< FixtureType, TestDataType >::JumpInState( S_SM_Crossroad_t* sm, E_Crossroad_RgPedestrianLight_States_t state )
     {
       sm->runningState.Main = E_Crossroad_Main;
       sm->runningState.Main = E_Crossroad_Main;
-      sm->runningState.RgPedestrianLights = state;
+      sm->runningState.RgPedestrianLight = state;
     }
   } // End namespace test
 } // End namespace sm

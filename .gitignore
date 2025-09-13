@@ -56,3 +56,4 @@ generate.sh
 set-date.sh
 Makefile
 *.drawio
+.cache

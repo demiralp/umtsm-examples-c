@@ -32,11 +32,12 @@
 void ExecutionDirector_DataType_Initialize(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const instance )
 {
-  instance->ControlMode          = PERSISTENT_CONTROL_MODE;
+  instance->ControlModeStatus          = PERSISTENT_CONTROL_MODE;
   instance->StartSwitchingTime   = 0;
   instance->pCrossroad           = NULL;
   instance->pMonitor             = NULL;
   instance->LaneClosingCompleted = false;
+  instance->CurrentLane             = -1;
   instance->LaneRequested        = -1;
   instance->NextLane             = -1;
   instance->LaneCmd1             = E_CMD_NOPE;

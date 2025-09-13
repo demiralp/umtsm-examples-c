@@ -42,7 +42,7 @@ bool Lane_IsCheckAndGo(
   __attribute__( ( unused ) ) S_SM_Lane_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_Lane_DataType_t const* const pInstance )
 {
-  bool const result = pInstance->UncontrolMode == E_CHECK;
+  bool const result = pInstance->UncontrolledMode == E_CHECK;
   return result;
 } /* End of guard function: Lane_IsCheckAndGo */
 

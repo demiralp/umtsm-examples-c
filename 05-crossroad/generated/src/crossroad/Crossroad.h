@@ -118,12 +118,12 @@ typedef enum E_Crossroad_RgTrafficLight4_States
   E_Crossroad_RgTrafficLight4_final
 } E_Crossroad_RgTrafficLight4_States_t;
 
-typedef enum E_Crossroad_RgPedestrianLights_States
+typedef enum E_Crossroad_RgPedestrianLight_States
 {
-  E_Crossroad_RgPedestrianLights_init,
-  E_Crossroad_PedestrianLights,
-  E_Crossroad_RgPedestrianLights_final
-} E_Crossroad_RgPedestrianLights_States_t;
+  E_Crossroad_RgPedestrianLight_init,
+  E_Crossroad_PedestrianLight,
+  E_Crossroad_RgPedestrianLight_final
+} E_Crossroad_RgPedestrianLight_States_t;
 
 typedef enum E_Crossroad_SubstateMachines
 {
@@ -137,7 +137,7 @@ typedef enum E_Crossroad_SubstateMachines
   E_Crossroad_SubSM_TrafficLight2,
   E_Crossroad_SubSM_TrafficLight3,
   E_Crossroad_SubSM_TrafficLight4,
-  E_Crossroad_SubSM_PedestrianLights
+  E_Crossroad_SubSM_PedestrianLight
 } E_Crossroad_SubstateMachines_t;
 
 typedef struct S_SM_Crossroad
@@ -154,7 +154,7 @@ typedef struct S_SM_Crossroad
     E_Crossroad_RgTrafficLight2_States_t RgTrafficLight2;
     E_Crossroad_RgTrafficLight3_States_t RgTrafficLight3;
     E_Crossroad_RgTrafficLight4_States_t RgTrafficLight4;
-    E_Crossroad_RgPedestrianLights_States_t RgPedestrianLights;
+    E_Crossroad_RgPedestrianLight_States_t RgPedestrianLight;
   } runningState;
   struct
   {
@@ -167,7 +167,7 @@ typedef struct S_SM_Crossroad
     S_SM_TrafficLight_t TrafficLight2;
     S_SM_TrafficLight_t TrafficLight3;
     S_SM_TrafficLight_t TrafficLight4;
-    S_SM_PedestrianLights_t PedestrianLights;
+    S_SM_PedestrianLights_t PedestrianLight;
   } subsm;
   S_SM_Crossroad_DataType_t instanceData;
 } S_SM_Crossroad_t;
@@ -187,7 +187,7 @@ bool Crossroad_IsIn_RgTrafficLight1_Region( S_SM_Crossroad_t* const pStateMachin
 bool Crossroad_IsIn_RgTrafficLight2_Region( S_SM_Crossroad_t* const pStateMachine );
 bool Crossroad_IsIn_RgTrafficLight3_Region( S_SM_Crossroad_t* const pStateMachine );
 bool Crossroad_IsIn_RgTrafficLight4_Region( S_SM_Crossroad_t* const pStateMachine );
-bool Crossroad_IsIn_RgPedestrianLights_Region( S_SM_Crossroad_t* const pStateMachine );
+bool Crossroad_IsIn_RgPedestrianLight_Region( S_SM_Crossroad_t* const pStateMachine );
 
 bool Crossroad_IsIn_Main_State( S_SM_Crossroad_t* const pStateMachine );
 bool Crossroad_IsIn_Lane1_State( S_SM_Crossroad_t* const pStateMachine );
@@ -199,7 +199,7 @@ bool Crossroad_IsIn_TrafficLight1_State( S_SM_Crossroad_t* const pStateMachine )
 bool Crossroad_IsIn_TrafficLight2_State( S_SM_Crossroad_t* const pStateMachine );
 bool Crossroad_IsIn_TrafficLight3_State( S_SM_Crossroad_t* const pStateMachine );
 bool Crossroad_IsIn_TrafficLight4_State( S_SM_Crossroad_t* const pStateMachine );
-bool Crossroad_IsIn_PedestrianLights_State( S_SM_Crossroad_t* const pStateMachine );
+bool Crossroad_IsIn_PedestrianLight_State( S_SM_Crossroad_t* const pStateMachine );
 
 void Crossroad_Run_Allowed( S_SM_Crossroad_t* pStateMachine );
 void Crossroad_Run_Check( S_SM_Crossroad_t* pStateMachine );
@@ -223,7 +223,7 @@ S_SM_TrafficLight_DataType_t* Crossroad_GetSMData_TrafficLight1( S_SM_Crossroad_
 S_SM_TrafficLight_DataType_t* Crossroad_GetSMData_TrafficLight2( S_SM_Crossroad_t* const pStateMachine );
 S_SM_TrafficLight_DataType_t* Crossroad_GetSMData_TrafficLight3( S_SM_Crossroad_t* const pStateMachine );
 S_SM_TrafficLight_DataType_t* Crossroad_GetSMData_TrafficLight4( S_SM_Crossroad_t* const pStateMachine );
-S_SM_PedestrianLights_DataType_t* Crossroad_GetSMData_PedestrianLights( S_SM_Crossroad_t* const pStateMachine );
+S_SM_PedestrianLights_DataType_t* Crossroad_GetSMData_PedestrianLight( S_SM_Crossroad_t* const pStateMachine );
 
 S_SM_Lane_t* Crossroad_GetSubSM_Lane1( S_SM_Crossroad_t* const pStateMachine );
 S_SM_Lane_t* Crossroad_GetSubSM_Lane2( S_SM_Crossroad_t* const pStateMachine );
@@ -234,7 +234,7 @@ S_SM_TrafficLight_t* Crossroad_GetSubSM_TrafficLight1( S_SM_Crossroad_t* const p
 S_SM_TrafficLight_t* Crossroad_GetSubSM_TrafficLight2( S_SM_Crossroad_t* const pStateMachine );
 S_SM_TrafficLight_t* Crossroad_GetSubSM_TrafficLight3( S_SM_Crossroad_t* const pStateMachine );
 S_SM_TrafficLight_t* Crossroad_GetSubSM_TrafficLight4( S_SM_Crossroad_t* const pStateMachine );
-S_SM_PedestrianLights_t* Crossroad_GetSubSM_PedestrianLights( S_SM_Crossroad_t* const pStateMachine );
+S_SM_PedestrianLights_t* Crossroad_GetSubSM_PedestrianLight( S_SM_Crossroad_t* const pStateMachine );
 
 void Crossroad_SubSM_Run_Allowed( S_SM_Crossroad_t* pStateMachine, E_Crossroad_SubstateMachines_t subsm );
 void Crossroad_SubSM_Run_Check( S_SM_Crossroad_t* pStateMachine, E_Crossroad_SubstateMachines_t subsm );

@@ -44,12 +44,12 @@ extern "C"
 #include <ExecutionDirector_UserType.h>
 
 /* ----- Enumeration Type definitions ----- */
-typedef enum E_ControlMode
+typedef enum E_ControlModeStatus
 {
   PERSISTENT_CONTROL_MODE,
   CONTROLLED,
   UNCONTROLLED
-} E_ControlMode_t;
+} E_ControlModeStatus_t;
 
 typedef enum E_Lane_Command
 {

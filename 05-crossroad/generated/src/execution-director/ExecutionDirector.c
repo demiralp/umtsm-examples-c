@@ -52,16 +52,25 @@ static void* ExecutionDirector_DoAction_GoesToOperational( void* statemachinePtr
 static void* ExecutionDirector_DoAction_GoesToStandby( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_SwitchControlState( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_CheckRequests( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_Hold( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_OnOpeningLane1( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OpenLane1( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OnCloseLane1( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_CloseLane1( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_OnOpeningLane2( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OpenLane2( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OnCloseLane2( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_CloseLane2( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_OnOpeningLane3( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OpenLane3( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OnCloseLane3( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_CloseLane3( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_OnOpeningLane4( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OpenLane4( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OnCloseLane4( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_CloseLane4( void* statemachinePtr );
 static void* ExecutionDirector_DoAction_OpenPedestrianLanes( void* statemachinePtr );
-static void* ExecutionDirector_DoAction_OnClosePedestrianLanes( void* statemachinePtr );
+static void* ExecutionDirector_DoAction_ClosePedestrianLanes( void* statemachinePtr );
 
 static void ExecutionDirector_Enter_StandBy( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_SwitchSystem( S_SM_ExecutionDirector_t* pStateMachine );
@@ -71,16 +80,25 @@ static void ExecutionDirector_Enter_SwitchControlState( S_SM_ExecutionDirector_t
 static void ExecutionDirector_Enter_Uncontrolled( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_CheckRequests( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_Controlled( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_Hold( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_OnOpeningLane1( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OpenLane1( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OnCloseLane1( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_CloseLane1( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_OnOpeningLane2( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OpenLane2( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OnCloseLane2( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_CloseLane2( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_OnOpeningLane3( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OpenLane3( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OnCloseLane3( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_CloseLane3( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_OnOpeningLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OpenLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OnCloseLane4( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_CloseLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Enter_OpenPedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
-static void ExecutionDirector_Enter_OnClosePedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Enter_ClosePedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
 
 static void ExecutionDirector_Exit_StandBy( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_GoesToOperational( S_SM_ExecutionDirector_t* pStateMachine );
@@ -88,16 +106,25 @@ static void ExecutionDirector_Exit_GoesToStandby( S_SM_ExecutionDirector_t* pSta
 static void ExecutionDirector_Exit_SwitchControlState( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_Operational( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_CheckRequests( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_Hold( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_OnOpeningLane1( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OpenLane1( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OnCloseLane1( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_CloseLane1( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_OnOpeningLane2( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OpenLane2( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OnCloseLane2( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_CloseLane2( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_OnOpeningLane3( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OpenLane3( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OnCloseLane3( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_CloseLane3( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_OnOpeningLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OpenLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OnCloseLane4( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_CloseLane4( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Exit_OpenPedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
-static void ExecutionDirector_Exit_OnClosePedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
+static void ExecutionDirector_Exit_ClosePedestrianLanes( S_SM_ExecutionDirector_t* pStateMachine );
 
 static void ExecutionDirector_Init_Main( S_SM_ExecutionDirector_t* pStateMachine );
 static void ExecutionDirector_Init_Operational( S_SM_ExecutionDirector_t* pStateMachine );
@@ -181,16 +208,25 @@ bool ExecutionDirector_IsIn_Main_State( S_SM_ExecutionDirector_t* const pStateMa
       ( pStateMachine->runningState.Main == E_ExecutionDirector_Uncontrolled ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_Controlled ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_CheckRequests ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_Hold ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane4 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenPedestrianLanes ) || 
-      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnClosePedestrianLanes ) );
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_ClosePedestrianLanes ) );
 
   return result;
 }
@@ -250,16 +286,25 @@ bool ExecutionDirector_IsIn_Operational_State( S_SM_ExecutionDirector_t* const p
       ( pStateMachine->runningState.Main == E_ExecutionDirector_Uncontrolled ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_Controlled ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_CheckRequests ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_Hold ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane4 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenPedestrianLanes ) || 
-      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnClosePedestrianLanes ) );
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_ClosePedestrianLanes ) );
 
   return result;
 }
@@ -288,16 +333,43 @@ bool ExecutionDirector_IsIn_Controlled_State( S_SM_ExecutionDirector_t* const pS
   bool const result = ( pStateMachine != NULL ) &&
     ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
     ( ( pStateMachine->runningState.Main == E_ExecutionDirector_Controlled ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_Hold ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane1 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane1 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane2 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane2 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane3 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane3 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane4 ) || 
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane4 ) || 
       ( pStateMachine->runningState.Main == E_ExecutionDirector_OpenPedestrianLanes ) || 
-      ( pStateMachine->runningState.Main == E_ExecutionDirector_OnClosePedestrianLanes ) );
+      ( pStateMachine->runningState.Main == E_ExecutionDirector_ClosePedestrianLanes ) );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_Hold_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_Hold );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_OnOpeningLane1_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane1 );
 
   return result;
 }
@@ -320,6 +392,24 @@ bool ExecutionDirector_IsIn_OnCloseLane1_State( S_SM_ExecutionDirector_t* const 
   return result;
 }
 
+bool ExecutionDirector_IsIn_CloseLane1_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane1 );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_OnOpeningLane2_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane2 );
+
+  return result;
+}
+
 bool ExecutionDirector_IsIn_OpenLane2_State( S_SM_ExecutionDirector_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
@@ -334,6 +424,24 @@ bool ExecutionDirector_IsIn_OnCloseLane2_State( S_SM_ExecutionDirector_t* const 
   bool const result = ( pStateMachine != NULL ) &&
     ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
     ( pStateMachine->runningState.Main == E_ExecutionDirector_OnCloseLane2 );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_CloseLane2_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane2 );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_OnOpeningLane3_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane3 );
 
   return result;
 }
@@ -356,6 +464,24 @@ bool ExecutionDirector_IsIn_OnCloseLane3_State( S_SM_ExecutionDirector_t* const 
   return result;
 }
 
+bool ExecutionDirector_IsIn_CloseLane3_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane3 );
+
+  return result;
+}
+
+bool ExecutionDirector_IsIn_OnOpeningLane4_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_OnOpeningLane4 );
+
+  return result;
+}
+
 bool ExecutionDirector_IsIn_OpenLane4_State( S_SM_ExecutionDirector_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
@@ -374,6 +500,15 @@ bool ExecutionDirector_IsIn_OnCloseLane4_State( S_SM_ExecutionDirector_t* const 
   return result;
 }
 
+bool ExecutionDirector_IsIn_CloseLane4_State( S_SM_ExecutionDirector_t* const pStateMachine )
+{
+  bool const result = ( pStateMachine != NULL ) &&
+    ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_CloseLane4 );
+
+  return result;
+}
+
 bool ExecutionDirector_IsIn_OpenPedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
@@ -383,11 +518,11 @@ bool ExecutionDirector_IsIn_OpenPedestrianLanes_State( S_SM_ExecutionDirector_t*
   return result;
 }
 
-bool ExecutionDirector_IsIn_OnClosePedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine )
+bool ExecutionDirector_IsIn_ClosePedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
     ExecutionDirector_IsIn_Main_Region( pStateMachine ) &&
-    ( pStateMachine->runningState.Main == E_ExecutionDirector_OnClosePedestrianLanes );
+    ( pStateMachine->runningState.Main == E_ExecutionDirector_ClosePedestrianLanes );
 
   return result;
 }
@@ -446,11 +581,27 @@ void ExecutionDirector_Run_DisableLane1( S_SM_ExecutionDirector_t* pStateMachine
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -462,11 +613,27 @@ void ExecutionDirector_Run_DisableLane1( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -478,11 +645,15 @@ void ExecutionDirector_Run_DisableLane1( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -554,11 +725,27 @@ void ExecutionDirector_Run_DisableLane2( S_SM_ExecutionDirector_t* pStateMachine
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -570,11 +757,27 @@ void ExecutionDirector_Run_DisableLane2( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -586,11 +789,15 @@ void ExecutionDirector_Run_DisableLane2( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -662,11 +869,27 @@ void ExecutionDirector_Run_DisableLane3( S_SM_ExecutionDirector_t* pStateMachine
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -678,11 +901,27 @@ void ExecutionDirector_Run_DisableLane3( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -694,11 +933,15 @@ void ExecutionDirector_Run_DisableLane3( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -770,11 +1013,27 @@ void ExecutionDirector_Run_DisableLane4( S_SM_ExecutionDirector_t* pStateMachine
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -786,11 +1045,27 @@ void ExecutionDirector_Run_DisableLane4( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -802,11 +1077,15 @@ void ExecutionDirector_Run_DisableLane4( S_SM_ExecutionDirector_t* pStateMachine
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetDisableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -878,11 +1157,27 @@ void ExecutionDirector_Run_EnableLane1( S_SM_ExecutionDirector_t* pStateMachine 
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -894,11 +1189,27 @@ void ExecutionDirector_Run_EnableLane1( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -910,11 +1221,15 @@ void ExecutionDirector_Run_EnableLane1( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -986,11 +1301,27 @@ void ExecutionDirector_Run_EnableLane2( S_SM_ExecutionDirector_t* pStateMachine 
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1002,11 +1333,27 @@ void ExecutionDirector_Run_EnableLane2( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1018,11 +1365,15 @@ void ExecutionDirector_Run_EnableLane2( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1094,11 +1445,27 @@ void ExecutionDirector_Run_EnableLane3( S_SM_ExecutionDirector_t* pStateMachine 
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1110,11 +1477,27 @@ void ExecutionDirector_Run_EnableLane3( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1126,11 +1509,15 @@ void ExecutionDirector_Run_EnableLane3( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1202,11 +1589,27 @@ void ExecutionDirector_Run_EnableLane4( S_SM_ExecutionDirector_t* pStateMachine 
         }
         else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
         {
-          if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+          if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1218,11 +1621,27 @@ void ExecutionDirector_Run_EnableLane4( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
           else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
+          else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1234,11 +1653,15 @@ void ExecutionDirector_Run_EnableLane4( S_SM_ExecutionDirector_t* pStateMachine 
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
+          else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+          {
+            ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+          }
           else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
-          else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+          else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
           {
             ExecutionDirector_SetEnableLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
           }
@@ -1272,12 +1695,32 @@ void ExecutionDirector_Run_OpenLane1( S_SM_ExecutionDirector_t* pStateMachine )
 
     if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1292,12 +1735,32 @@ void ExecutionDirector_Run_OpenLane1( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1312,12 +1775,17 @@ void ExecutionDirector_Run_OpenLane1( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1343,12 +1811,32 @@ void ExecutionDirector_Run_OpenLane2( S_SM_ExecutionDirector_t* pStateMachine )
 
     if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1363,12 +1851,32 @@ void ExecutionDirector_Run_OpenLane2( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1383,12 +1891,17 @@ void ExecutionDirector_Run_OpenLane2( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1414,12 +1927,32 @@ void ExecutionDirector_Run_OpenLane3( S_SM_ExecutionDirector_t* pStateMachine )
 
     if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1434,12 +1967,32 @@ void ExecutionDirector_Run_OpenLane3( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1454,12 +2007,17 @@ void ExecutionDirector_Run_OpenLane3( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1485,12 +2043,32 @@ void ExecutionDirector_Run_OpenLane4( S_SM_ExecutionDirector_t* pStateMachine )
 
     if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1505,12 +2083,32 @@ void ExecutionDirector_Run_OpenLane4( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1525,12 +2123,17 @@ void ExecutionDirector_Run_OpenLane4( S_SM_ExecutionDirector_t* pStateMachine )
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1556,12 +2159,32 @@ void ExecutionDirector_Run_OpenPedestrianLanes( S_SM_ExecutionDirector_t* pState
 
     if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1576,12 +2199,32 @@ void ExecutionDirector_Run_OpenPedestrianLanes( S_SM_ExecutionDirector_t* pState
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
       else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1596,12 +2239,17 @@ void ExecutionDirector_Run_OpenPedestrianLanes( S_SM_ExecutionDirector_t* pState
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+        ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetNextOpenLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
         ExecutionDirector_Update( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1653,7 +2301,25 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
     }
     else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
     {
-      if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+      if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_Hold( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_OnOpeningLane1( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
       {
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
@@ -1667,6 +2333,24 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
         ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_CloseLane1( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_OnOpeningLane2( pStateMachine );
         ExecutionDirector_Exit_Operational( pStateMachine );
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
@@ -1689,6 +2373,24 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
       }
+      else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_CloseLane2( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_OnOpeningLane3( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
       else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
       {
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1703,6 +2405,24 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
         ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_CloseLane3( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
+      else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_OnOpeningLane4( pStateMachine );
         ExecutionDirector_Exit_Operational( pStateMachine );
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
@@ -1725,6 +2445,15 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
       }
+      else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+      {
+        ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+        ExecutionDirector_Exit_CloseLane4( pStateMachine );
+        ExecutionDirector_Exit_Operational( pStateMachine );
+        ExecutionDirector_Enter_SwitchControlState( pStateMachine );
+        pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
+      }
       else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
@@ -1734,11 +2463,11 @@ void ExecutionDirector_Run_ReleaseControl( S_SM_ExecutionDirector_t* pStateMachi
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
       }
-      else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+      else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
       {
         ExecutionDirector_SetUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-        ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
+        ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
         ExecutionDirector_Exit_Operational( pStateMachine );
         ExecutionDirector_Enter_SwitchControlState( pStateMachine );
         pStateMachine->runningState.Main = E_ExecutionDirector_SwitchControlState;
@@ -1804,7 +2533,23 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
       }
       else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
       {
-        if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+        if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_Hold( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_OnOpeningLane1( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
         {
           ExecutionDirector_Exit_OpenLane1( pStateMachine );
           ExecutionDirector_Exit_Operational( pStateMachine );
@@ -1815,6 +2560,22 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
         else if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
         {
           ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_CloseLane1( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_OnOpeningLane2( pStateMachine );
           ExecutionDirector_Exit_Operational( pStateMachine );
           ExecutionDirector_Enter_SwitchSystem( pStateMachine );
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
@@ -1836,6 +2597,22 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
           pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
         }
+        else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_CloseLane2( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_OnOpeningLane3( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
         else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
         {
           ExecutionDirector_Exit_OpenLane3( pStateMachine );
@@ -1847,6 +2624,22 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
         else if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
         {
           ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_CloseLane3( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_OnOpeningLane4( pStateMachine );
           ExecutionDirector_Exit_Operational( pStateMachine );
           ExecutionDirector_Enter_SwitchSystem( pStateMachine );
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
@@ -1868,6 +2661,14 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
           pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
         }
+        else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+        {
+          ExecutionDirector_Exit_CloseLane4( pStateMachine );
+          ExecutionDirector_Exit_Operational( pStateMachine );
+          ExecutionDirector_Enter_SwitchSystem( pStateMachine );
+          ExecutionDirector_Enter_GoesToStandby( pStateMachine );
+          pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
+        }
         else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
         {
           ExecutionDirector_Exit_OpenPedestrianLanes( pStateMachine );
@@ -1876,9 +2677,9 @@ void ExecutionDirector_Run_SystemDisabled( S_SM_ExecutionDirector_t* pStateMachi
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
           pStateMachine->runningState.Main = E_ExecutionDirector_GoesToStandby;
         }
-        else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+        else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
         {
-          ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
+          ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
           ExecutionDirector_Exit_Operational( pStateMachine );
           ExecutionDirector_Enter_SwitchSystem( pStateMachine );
           ExecutionDirector_Enter_GoesToStandby( pStateMachine );
@@ -2049,7 +2850,23 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
       }
       else if ( ExecutionDirector_IsIn_Controlled_State( pStateMachine ) )
       {
-        if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
+        if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.Hold.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.Hold.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.Hold.threadHandle );
+            pStateMachine->doFunctionHandler.Hold.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle );
+            pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_OpenLane1_State( pStateMachine ) )
         {
           if ( pStateMachine->doFunctionHandler.OpenLane1.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OpenLane1.threadHandle, pthread_self( ) ) )
           {
@@ -2063,6 +2880,22 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
           {
             pthread_cancel( pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle );
             pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.CloseLane1.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.CloseLane1.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.CloseLane1.threadHandle );
+            pStateMachine->doFunctionHandler.CloseLane1.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle );
+            pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle = 0;
           }
         }
         else if ( ExecutionDirector_IsIn_OpenLane2_State( pStateMachine ) )
@@ -2081,6 +2914,22 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
             pStateMachine->doFunctionHandler.OnCloseLane2.threadHandle = 0;
           }
         }
+        else if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.CloseLane2.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.CloseLane2.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.CloseLane2.threadHandle );
+            pStateMachine->doFunctionHandler.CloseLane2.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle );
+            pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle = 0;
+          }
+        }
         else if ( ExecutionDirector_IsIn_OpenLane3_State( pStateMachine ) )
         {
           if ( pStateMachine->doFunctionHandler.OpenLane3.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OpenLane3.threadHandle, pthread_self( ) ) )
@@ -2095,6 +2944,22 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
           {
             pthread_cancel( pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle );
             pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.CloseLane3.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.CloseLane3.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.CloseLane3.threadHandle );
+            pStateMachine->doFunctionHandler.CloseLane3.threadHandle = 0;
+          }
+        }
+        else if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle );
+            pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle = 0;
           }
         }
         else if ( ExecutionDirector_IsIn_OpenLane4_State( pStateMachine ) )
@@ -2113,6 +2978,14 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
             pStateMachine->doFunctionHandler.OnCloseLane4.threadHandle = 0;
           }
         }
+        else if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+        {
+          if ( pStateMachine->doFunctionHandler.CloseLane4.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.CloseLane4.threadHandle, pthread_self( ) ) )
+          {
+            pthread_cancel( pStateMachine->doFunctionHandler.CloseLane4.threadHandle );
+            pStateMachine->doFunctionHandler.CloseLane4.threadHandle = 0;
+          }
+        }
         else if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
         {
           if ( pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle, pthread_self( ) ) )
@@ -2121,12 +2994,12 @@ static void ExecutionDirector_Finalize_Main(S_SM_ExecutionDirector_t* pStateMach
             pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle = 0;
           }
         }
-        else if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+        else if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
         {
-          if ( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle, pthread_self( ) ) )
+          if ( pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle != 0 && ! pthread_equal( pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle, pthread_self( ) ) )
           {
-            pthread_cancel( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle );
-            pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = 0;
+            pthread_cancel( pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle );
+            pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle = 0;
           }
         }
         else
@@ -2200,10 +3073,8 @@ static void ExecutionDirector_Init_Uncontrolled( S_SM_ExecutionDirector_t* pStat
 
 static void ExecutionDirector_Init_Controlled( S_SM_ExecutionDirector_t* pStateMachine )
 {
-  ExecutionDirector_StopTraffic( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
-
-  ExecutionDirector_Enter_OnClosePedestrianLanes( pStateMachine );
-  pStateMachine->runningState.Main = E_ExecutionDirector_OnClosePedestrianLanes;
+  ExecutionDirector_Enter_Hold( pStateMachine );
+  pStateMachine->runningState.Main = E_ExecutionDirector_Hold;
   pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
   ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
 }
@@ -2318,6 +3189,50 @@ static void* ExecutionDirector_DoAction_CheckRequests( void* statemachinePtr )
   return NULL;
 }
 
+static void* ExecutionDirector_DoAction_Hold( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_Hold_State( pStateMachine ) )
+  {
+    ExecutionDirector_Exit_Hold( pStateMachine );
+    ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_OnOpeningLane1( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_OnOpeningLane1_State( pStateMachine ) )
+  {
+    ExecutionDirector_Exit_OnOpeningLane1( pStateMachine );
+    ExecutionDirector_Enter_OpenLane1( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
 static void* ExecutionDirector_DoAction_OpenLane1( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
@@ -2344,39 +3259,71 @@ static void* ExecutionDirector_DoAction_OnCloseLane1( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
 
-  ExecutionDirector_WaitForNextLaneOpen( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_WaitForClosingLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pthread_mutex_lock( &pStateMachine->guard );
 
   if ( ExecutionDirector_IsIn_OnCloseLane1_State( pStateMachine ) )
   {
-    if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
+    ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
+    ExecutionDirector_Enter_CloseLane1( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane1;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_CloseLane1( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_CloseLane1_State( pStateMachine ) )
+  {
+    ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+    if ( ExecutionDirector_IsNextLane1( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
-      ExecutionDirector_Enter_OpenLane2( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
+      pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+      ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+    }
+    else if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
+    {
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane2( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane3( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
-      ExecutionDirector_Enter_OpenLane3( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane3( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane4( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
-      ExecutionDirector_Enter_OpenLane4( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane4( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
       ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
       pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
@@ -2384,12 +3331,34 @@ static void* ExecutionDirector_DoAction_OnCloseLane1( void* statemachinePtr )
     }
     else
     {
-      ExecutionDirector_Exit_OnCloseLane1( pStateMachine );
-      ExecutionDirector_Enter_OpenLane2( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+      ExecutionDirector_Exit_CloseLane1( pStateMachine );
+      ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_OnOpeningLane2( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_OnOpeningLane2_State( pStateMachine ) )
+  {
+    ExecutionDirector_Exit_OnOpeningLane2( pStateMachine );
+    ExecutionDirector_Enter_OpenLane2( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
   }
 
   pthread_mutex_unlock( &pStateMachine->guard );
@@ -2423,39 +3392,71 @@ static void* ExecutionDirector_DoAction_OnCloseLane2( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
 
-  ExecutionDirector_WaitForNextLaneOpen( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_WaitForClosingLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pthread_mutex_lock( &pStateMachine->guard );
 
   if ( ExecutionDirector_IsIn_OnCloseLane2_State( pStateMachine ) )
   {
+    ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
+    ExecutionDirector_Enter_CloseLane2( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane2;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_CloseLane2( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_CloseLane2_State( pStateMachine ) )
+  {
+    ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
     if ( ExecutionDirector_IsNextLane1( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
-      ExecutionDirector_Enter_OpenLane1( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
+      pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+      ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+    }
+    else if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
+    {
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane2( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane3( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
-      ExecutionDirector_Enter_OpenLane3( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane3( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane4( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
-      ExecutionDirector_Enter_OpenLane4( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane4( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
       ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
       pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
@@ -2463,12 +3464,34 @@ static void* ExecutionDirector_DoAction_OnCloseLane2( void* statemachinePtr )
     }
     else
     {
-      ExecutionDirector_Exit_OnCloseLane2( pStateMachine );
-      ExecutionDirector_Enter_OpenLane3( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+      ExecutionDirector_Exit_CloseLane2( pStateMachine );
+      ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_OnOpeningLane3( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_OnOpeningLane3_State( pStateMachine ) )
+  {
+    ExecutionDirector_Exit_OnOpeningLane3( pStateMachine );
+    ExecutionDirector_Enter_OpenLane3( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
   }
 
   pthread_mutex_unlock( &pStateMachine->guard );
@@ -2502,39 +3525,71 @@ static void* ExecutionDirector_DoAction_OnCloseLane3( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
 
-  ExecutionDirector_WaitForNextLaneOpen( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_WaitForClosingLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pthread_mutex_lock( &pStateMachine->guard );
 
   if ( ExecutionDirector_IsIn_OnCloseLane3_State( pStateMachine ) )
   {
+    ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
+    ExecutionDirector_Enter_CloseLane3( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane3;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_CloseLane3( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_CloseLane3_State( pStateMachine ) )
+  {
+    ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
     if ( ExecutionDirector_IsNextLane1( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
-      ExecutionDirector_Enter_OpenLane1( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
-      ExecutionDirector_Enter_OpenLane2( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane2( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
+      pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+      ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+    }
+    else if ( ExecutionDirector_IsNextLane3( pStateMachine, &pStateMachine->instanceData ) )
+    {
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane3( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane4( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
-      ExecutionDirector_Enter_OpenLane4( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane4( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
       ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
       pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
@@ -2542,12 +3597,34 @@ static void* ExecutionDirector_DoAction_OnCloseLane3( void* statemachinePtr )
     }
     else
     {
-      ExecutionDirector_Exit_OnCloseLane3( pStateMachine );
-      ExecutionDirector_Enter_OpenLane4( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+      ExecutionDirector_Exit_CloseLane3( pStateMachine );
+      ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_OnOpeningLane4( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_OnOpeningLane4_State( pStateMachine ) )
+  {
+    ExecutionDirector_Exit_OnOpeningLane4( pStateMachine );
+    ExecutionDirector_Enter_OpenLane4( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
   }
 
   pthread_mutex_unlock( &pStateMachine->guard );
@@ -2581,39 +3658,71 @@ static void* ExecutionDirector_DoAction_OnCloseLane4( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
 
-  ExecutionDirector_WaitForNextLaneOpen( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_WaitForClosingLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pthread_mutex_lock( &pStateMachine->guard );
 
   if ( ExecutionDirector_IsIn_OnCloseLane4_State( pStateMachine ) )
   {
+    ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
+    ExecutionDirector_Enter_CloseLane4( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane4;
+    pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+    ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+  }
+
+  pthread_mutex_unlock( &pStateMachine->guard );
+
+  return NULL;
+}
+
+static void* ExecutionDirector_DoAction_CloseLane4( void* statemachinePtr )
+{
+  S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
+
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pthread_mutex_lock( &pStateMachine->guard );
+
+  if ( ExecutionDirector_IsIn_CloseLane4_State( pStateMachine ) )
+  {
+    ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
     if ( ExecutionDirector_IsNextLane1( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
-      ExecutionDirector_Enter_OpenLane1( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
-      ExecutionDirector_Enter_OpenLane2( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane2( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane3( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
-      ExecutionDirector_Enter_OpenLane3( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane3( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
+      pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+      ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+    }
+    else if ( ExecutionDirector_IsNextLane4( pStateMachine, &pStateMachine->instanceData ) )
+    {
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane4( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
       ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
       pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
@@ -2621,7 +3730,7 @@ static void* ExecutionDirector_DoAction_OnCloseLane4( void* statemachinePtr )
     }
     else
     {
-      ExecutionDirector_Exit_OnCloseLane4( pStateMachine );
+      ExecutionDirector_Exit_CloseLane4( pStateMachine );
       ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
       pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
@@ -2645,8 +3754,8 @@ static void* ExecutionDirector_DoAction_OpenPedestrianLanes( void* statemachineP
   if ( ExecutionDirector_IsIn_OpenPedestrianLanes_State( pStateMachine ) )
   {
     ExecutionDirector_Exit_OpenPedestrianLanes( pStateMachine );
-    ExecutionDirector_Enter_OnClosePedestrianLanes( pStateMachine );
-    pStateMachine->runningState.Main = E_ExecutionDirector_OnClosePedestrianLanes;
+    ExecutionDirector_Enter_ClosePedestrianLanes( pStateMachine );
+    pStateMachine->runningState.Main = E_ExecutionDirector_ClosePedestrianLanes;
     pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
     ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
   }
@@ -2656,53 +3765,63 @@ static void* ExecutionDirector_DoAction_OpenPedestrianLanes( void* statemachineP
   return NULL;
 }
 
-static void* ExecutionDirector_DoAction_OnClosePedestrianLanes( void* statemachinePtr )
+static void* ExecutionDirector_DoAction_ClosePedestrianLanes( void* statemachinePtr )
 {
   S_SM_ExecutionDirector_t* pStateMachine = (S_SM_ExecutionDirector_t*)statemachinePtr;
 
-  ExecutionDirector_WaitForNextLaneOpen( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_WaitForSafety( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pthread_mutex_lock( &pStateMachine->guard );
 
-  if ( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pStateMachine ) )
+  if ( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pStateMachine ) )
   {
+    ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
     if ( ExecutionDirector_IsNextLane1( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
-      ExecutionDirector_Enter_OpenLane1( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane1( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane2( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
-      ExecutionDirector_Enter_OpenLane2( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane2;
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane2( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane3( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
-      ExecutionDirector_Enter_OpenLane3( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane3( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else if ( ExecutionDirector_IsNextLane4( pStateMachine, &pStateMachine->instanceData ) )
     {
-      ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
-      ExecutionDirector_Enter_OpenLane4( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane4;
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OnOpeningLane4( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
+      pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
+      ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
+    }
+    else if ( ExecutionDirector_IsNextLanePedestrianLanes( pStateMachine, &pStateMachine->instanceData ) )
+    {
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
     else
     {
-      ExecutionDirector_Exit_OnClosePedestrianLanes( pStateMachine );
-      ExecutionDirector_Enter_OpenLane1( pStateMachine );
-      pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
+      ExecutionDirector_Exit_ClosePedestrianLanes( pStateMachine );
+      ExecutionDirector_Enter_OpenPedestrianLanes( pStateMachine );
+      pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
       pStateMachine->storedState.shallow_Operational = E_ExecutionDirector_Controlled;
       ExecutionDirector_Store_Shallow_Operational( pStateMachine->storedState.shallow_Operational, &pStateMachine->instanceData );
     }
@@ -2760,7 +3879,7 @@ static void ExecutionDirector_Enter_Uncontrolled(S_SM_ExecutionDirector_t* pStat
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_Uncontrolled;
 
-  ExecutionDirector_StartUncontrolMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_StartUncontrolledMode( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 }
@@ -2785,6 +3904,28 @@ static void ExecutionDirector_Enter_Controlled(S_SM_ExecutionDirector_t* pStateM
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 }
 
+static void ExecutionDirector_Enter_Hold(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_Hold;
+
+  ExecutionDirector_StopTraffic( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.Hold.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_Hold, pStateMachine, pStateMachine->doFunctionHandler.Hold.stack, sizeof( pStateMachine->doFunctionHandler.Hold.stack) );
+}
+
+static void ExecutionDirector_Enter_OnOpeningLane1(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
+
+  ExecutionDirector_OrderOpeningLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnOpeningLane1, pStateMachine, pStateMachine->doFunctionHandler.OnOpeningLane1.stack, sizeof( pStateMachine->doFunctionHandler.OnOpeningLane1.stack) );
+}
+
 static void ExecutionDirector_Enter_OpenLane1(S_SM_ExecutionDirector_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
@@ -2800,11 +3941,33 @@ static void ExecutionDirector_Enter_OnCloseLane1(S_SM_ExecutionDirector_t* pStat
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OnCloseLane1;
 
-  ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_OrderClosingLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane1, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane1.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane1.stack) );
+}
+
+static void ExecutionDirector_Enter_CloseLane1(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane1;
+
+  ExecutionDirector_OrderCloseLane1( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.CloseLane1.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_CloseLane1, pStateMachine, pStateMachine->doFunctionHandler.CloseLane1.stack, sizeof( pStateMachine->doFunctionHandler.CloseLane1.stack) );
+}
+
+static void ExecutionDirector_Enter_OnOpeningLane2(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
+
+  ExecutionDirector_OrderOpeningLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnOpeningLane2, pStateMachine, pStateMachine->doFunctionHandler.OnOpeningLane2.stack, sizeof( pStateMachine->doFunctionHandler.OnOpeningLane2.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane2(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2822,11 +3985,33 @@ static void ExecutionDirector_Enter_OnCloseLane2(S_SM_ExecutionDirector_t* pStat
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OnCloseLane2;
 
-  ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_OrderClosingLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pStateMachine->doFunctionHandler.OnCloseLane2.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane2, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane2.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane2.stack) );
+}
+
+static void ExecutionDirector_Enter_CloseLane2(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane2;
+
+  ExecutionDirector_OrderCloseLane2( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.CloseLane2.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_CloseLane2, pStateMachine, pStateMachine->doFunctionHandler.CloseLane2.stack, sizeof( pStateMachine->doFunctionHandler.CloseLane2.stack) );
+}
+
+static void ExecutionDirector_Enter_OnOpeningLane3(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
+
+  ExecutionDirector_OrderOpeningLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnOpeningLane3, pStateMachine, pStateMachine->doFunctionHandler.OnOpeningLane3.stack, sizeof( pStateMachine->doFunctionHandler.OnOpeningLane3.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane3(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2844,11 +4029,33 @@ static void ExecutionDirector_Enter_OnCloseLane3(S_SM_ExecutionDirector_t* pStat
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OnCloseLane3;
 
-  ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_OrderClosingLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane3, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane3.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane3.stack) );
+}
+
+static void ExecutionDirector_Enter_CloseLane3(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane3;
+
+  ExecutionDirector_OrderCloseLane3( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.CloseLane3.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_CloseLane3, pStateMachine, pStateMachine->doFunctionHandler.CloseLane3.stack, sizeof( pStateMachine->doFunctionHandler.CloseLane3.stack) );
+}
+
+static void ExecutionDirector_Enter_OnOpeningLane4(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
+
+  ExecutionDirector_OrderOpeningLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnOpeningLane4, pStateMachine, pStateMachine->doFunctionHandler.OnOpeningLane4.stack, sizeof( pStateMachine->doFunctionHandler.OnOpeningLane4.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenLane4(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2866,11 +4073,22 @@ static void ExecutionDirector_Enter_OnCloseLane4(S_SM_ExecutionDirector_t* pStat
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OnCloseLane4;
 
-  ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_OrderClosingLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   pStateMachine->doFunctionHandler.OnCloseLane4.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnCloseLane4, pStateMachine, pStateMachine->doFunctionHandler.OnCloseLane4.stack, sizeof( pStateMachine->doFunctionHandler.OnCloseLane4.stack) );
+}
+
+static void ExecutionDirector_Enter_CloseLane4(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane4;
+
+  ExecutionDirector_OrderCloseLane4( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+
+  pStateMachine->doFunctionHandler.CloseLane4.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_CloseLane4, pStateMachine, pStateMachine->doFunctionHandler.CloseLane4.stack, sizeof( pStateMachine->doFunctionHandler.CloseLane4.stack) );
 }
 
 static void ExecutionDirector_Enter_OpenPedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2884,15 +4102,15 @@ static void ExecutionDirector_Enter_OpenPedestrianLanes(S_SM_ExecutionDirector_t
   pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OpenPedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OpenPedestrianLanes.stack) );
 }
 
-static void ExecutionDirector_Enter_OnClosePedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
+static void ExecutionDirector_Enter_ClosePedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
 {
-  pStateMachine->runningState.Main = E_ExecutionDirector_OnClosePedestrianLanes;
+  pStateMachine->runningState.Main = E_ExecutionDirector_ClosePedestrianLanes;
 
-  ExecutionDirector_PrepareForNextLane( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
+  ExecutionDirector_OrderClosePedestrianLanes( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
   ExecutionDirector_NotifyCrossroad( pStateMachine, &pStateMachine->instanceData, &pStateMachine->instanceData );
 
-  pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_OnClosePedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.stack) );
+  pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle = ExecutionDirector_LaunchDoAction( ExecutionDirector_DoAction_ClosePedestrianLanes, pStateMachine, pStateMachine->doFunctionHandler.ClosePedestrianLanes.stack, sizeof( pStateMachine->doFunctionHandler.ClosePedestrianLanes.stack) );
 }
 
 static void ExecutionDirector_Exit_StandBy(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2941,6 +4159,22 @@ static void ExecutionDirector_Exit_CheckRequests(S_SM_ExecutionDirector_t* pStat
   pStateMachine->doFunctionHandler.CheckRequests.threadHandle = 0;
 }
 
+static void ExecutionDirector_Exit_Hold(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_Hold;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.Hold.threadHandle );
+  pStateMachine->doFunctionHandler.Hold.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_OnOpeningLane1(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane1;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle );
+  pStateMachine->doFunctionHandler.OnOpeningLane1.threadHandle = 0;
+}
+
 static void ExecutionDirector_Exit_OpenLane1(S_SM_ExecutionDirector_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane1;
@@ -2955,6 +4189,22 @@ static void ExecutionDirector_Exit_OnCloseLane1(S_SM_ExecutionDirector_t* pState
 
   ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle );
   pStateMachine->doFunctionHandler.OnCloseLane1.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_CloseLane1(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane1;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.CloseLane1.threadHandle );
+  pStateMachine->doFunctionHandler.CloseLane1.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_OnOpeningLane2(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane2;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle );
+  pStateMachine->doFunctionHandler.OnOpeningLane2.threadHandle = 0;
 }
 
 static void ExecutionDirector_Exit_OpenLane2(S_SM_ExecutionDirector_t* pStateMachine )
@@ -2973,6 +4223,22 @@ static void ExecutionDirector_Exit_OnCloseLane2(S_SM_ExecutionDirector_t* pState
   pStateMachine->doFunctionHandler.OnCloseLane2.threadHandle = 0;
 }
 
+static void ExecutionDirector_Exit_CloseLane2(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane2;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.CloseLane2.threadHandle );
+  pStateMachine->doFunctionHandler.CloseLane2.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_OnOpeningLane3(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane3;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle );
+  pStateMachine->doFunctionHandler.OnOpeningLane3.threadHandle = 0;
+}
+
 static void ExecutionDirector_Exit_OpenLane3(S_SM_ExecutionDirector_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OpenLane3;
@@ -2987,6 +4253,22 @@ static void ExecutionDirector_Exit_OnCloseLane3(S_SM_ExecutionDirector_t* pState
 
   ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle );
   pStateMachine->doFunctionHandler.OnCloseLane3.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_CloseLane3(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane3;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.CloseLane3.threadHandle );
+  pStateMachine->doFunctionHandler.CloseLane3.threadHandle = 0;
+}
+
+static void ExecutionDirector_Exit_OnOpeningLane4(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_OnOpeningLane4;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle );
+  pStateMachine->doFunctionHandler.OnOpeningLane4.threadHandle = 0;
 }
 
 static void ExecutionDirector_Exit_OpenLane4(S_SM_ExecutionDirector_t* pStateMachine )
@@ -3005,6 +4287,14 @@ static void ExecutionDirector_Exit_OnCloseLane4(S_SM_ExecutionDirector_t* pState
   pStateMachine->doFunctionHandler.OnCloseLane4.threadHandle = 0;
 }
 
+static void ExecutionDirector_Exit_CloseLane4(S_SM_ExecutionDirector_t* pStateMachine )
+{
+  pStateMachine->runningState.Main = E_ExecutionDirector_CloseLane4;
+
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.CloseLane4.threadHandle );
+  pStateMachine->doFunctionHandler.CloseLane4.threadHandle = 0;
+}
+
 static void ExecutionDirector_Exit_OpenPedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
 {
   pStateMachine->runningState.Main = E_ExecutionDirector_OpenPedestrianLanes;
@@ -3013,12 +4303,12 @@ static void ExecutionDirector_Exit_OpenPedestrianLanes(S_SM_ExecutionDirector_t*
   pStateMachine->doFunctionHandler.OpenPedestrianLanes.threadHandle = 0;
 }
 
-static void ExecutionDirector_Exit_OnClosePedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
+static void ExecutionDirector_Exit_ClosePedestrianLanes(S_SM_ExecutionDirector_t* pStateMachine )
 {
-  pStateMachine->runningState.Main = E_ExecutionDirector_OnClosePedestrianLanes;
+  pStateMachine->runningState.Main = E_ExecutionDirector_ClosePedestrianLanes;
 
-  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle );
-  pStateMachine->doFunctionHandler.OnClosePedestrianLanes.threadHandle = 0;
+  ExecutionDirector_HaltDoAction( pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle );
+  pStateMachine->doFunctionHandler.ClosePedestrianLanes.threadHandle = 0;
 }
 
 static pthread_t ExecutionDirector_LaunchDoAction( void *(*threadStart)(void *), S_SM_ExecutionDirector_t* pStateMachine, void *stackAddr, size_t stackSize )

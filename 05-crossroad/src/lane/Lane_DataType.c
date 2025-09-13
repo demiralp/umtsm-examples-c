@@ -33,7 +33,7 @@ void Lane_DataType_Initialize(
   __attribute__( ( unused ) ) S_SM_Lane_DataType_t* const instance )
 {
   instance->Id[ 0 ] = '\0';
-  instance->UncontrolMode = E_STOP_AND_CHECK;
+  instance->UncontrolledMode = E_STOP_AND_CHECK;
 }
 
 void Lane_DataType_Deinitialize(

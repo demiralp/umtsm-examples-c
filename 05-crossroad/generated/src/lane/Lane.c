@@ -291,6 +291,11 @@ void Lane_Run_Close( S_SM_Lane_t* pStateMachine )
     {
       doneStatus = true;
 
+      if ( Lane_IsIn_Ready_State( pStateMachine ) )
+      {
+        pStateMachine->runningState.Status = E_Lane_Close;
+      }
+
       if ( Lane_IsIn_Open_State( pStateMachine ) )
       {
         if ( Lane_IsIn_PrepareToStop_State( pStateMachine ) )
@@ -356,6 +361,11 @@ void Lane_Run_Open( S_SM_Lane_t* pStateMachine )
         {
           pStateMachine->runningState.Status = E_Lane_Open;
         }
+      }
+
+      if ( Lane_IsIn_PrepareToStop_State( pStateMachine ) )
+      {
+        pStateMachine->runningState.Status = E_Lane_Open;
       }
       else
       {

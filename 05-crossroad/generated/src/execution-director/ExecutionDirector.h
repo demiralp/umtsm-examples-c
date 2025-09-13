@@ -59,16 +59,25 @@ typedef enum E_ExecutionDirector_Main_States
   E_ExecutionDirector_Uncontrolled,
   E_ExecutionDirector_CheckRequests,
   E_ExecutionDirector_Controlled,
+  E_ExecutionDirector_Hold,
+  E_ExecutionDirector_OnOpeningLane1,
   E_ExecutionDirector_OpenLane1,
   E_ExecutionDirector_OnCloseLane1,
+  E_ExecutionDirector_CloseLane1,
+  E_ExecutionDirector_OnOpeningLane2,
   E_ExecutionDirector_OpenLane2,
   E_ExecutionDirector_OnCloseLane2,
+  E_ExecutionDirector_CloseLane2,
+  E_ExecutionDirector_OnOpeningLane3,
   E_ExecutionDirector_OpenLane3,
   E_ExecutionDirector_OnCloseLane3,
+  E_ExecutionDirector_CloseLane3,
+  E_ExecutionDirector_OnOpeningLane4,
   E_ExecutionDirector_OpenLane4,
   E_ExecutionDirector_OnCloseLane4,
+  E_ExecutionDirector_CloseLane4,
   E_ExecutionDirector_OpenPedestrianLanes,
-  E_ExecutionDirector_OnClosePedestrianLanes,
+  E_ExecutionDirector_ClosePedestrianLanes,
   E_ExecutionDirector_final
 } E_ExecutionDirector_Main_States_t;
 
@@ -114,12 +123,32 @@ typedef struct S_SM_ExecutionDirector
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
+          } Hold;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } OnOpeningLane1;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
           } OpenLane1;
           struct
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
           } OnCloseLane1;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } CloseLane1;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } OnOpeningLane2;
           struct
           {
             pthread_t threadHandle;
@@ -134,12 +163,32 @@ typedef struct S_SM_ExecutionDirector
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
+          } CloseLane2;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } OnOpeningLane3;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
           } OpenLane3;
           struct
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
           } OnCloseLane3;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } CloseLane3;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
+          } OnOpeningLane4;
           struct
           {
             pthread_t threadHandle;
@@ -154,12 +203,17 @@ typedef struct S_SM_ExecutionDirector
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
+          } CloseLane4;
+          struct
+          {
+            pthread_t threadHandle;
+            uint8_t stack[4224U];
           } OpenPedestrianLanes;
           struct
           {
             pthread_t threadHandle;
             uint8_t stack[4224U];
-          } OnClosePedestrianLanes;
+          } ClosePedestrianLanes;
         };
       };
     };
@@ -188,16 +242,25 @@ bool ExecutionDirector_IsIn_Operational_State( S_SM_ExecutionDirector_t* const p
 bool ExecutionDirector_IsIn_Uncontrolled_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_CheckRequests_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_Controlled_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_Hold_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_OnOpeningLane1_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OpenLane1_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OnCloseLane1_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_CloseLane1_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_OnOpeningLane2_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OpenLane2_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OnCloseLane2_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_CloseLane2_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_OnOpeningLane3_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OpenLane3_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OnCloseLane3_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_CloseLane3_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_OnOpeningLane4_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OpenLane4_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OnCloseLane4_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_CloseLane4_State( S_SM_ExecutionDirector_t* const pStateMachine );
 bool ExecutionDirector_IsIn_OpenPedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine );
-bool ExecutionDirector_IsIn_OnClosePedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine );
+bool ExecutionDirector_IsIn_ClosePedestrianLanes_State( S_SM_ExecutionDirector_t* const pStateMachine );
 
 void ExecutionDirector_Run_DisableLane1( S_SM_ExecutionDirector_t* pStateMachine );
 void ExecutionDirector_Run_DisableLane2( S_SM_ExecutionDirector_t* pStateMachine );

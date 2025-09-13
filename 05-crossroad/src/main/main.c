@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include <Crossroad.h>
 #include <Dashboard.h>
@@ -92,7 +92,7 @@ int main( )
   clear( );
   refresh( );
 
-  /* Initilaize entire the state machines */
+  /* Initialize entire the state machines */
   Monitor_Initialize( &monitor );
   Dashboard_Initialize( &dashboard );
   ExecutionDirector_Initialize( &executor );
@@ -118,44 +118,44 @@ int main( )
   /* Configure Crossroad.Lane1 */
   S_SM_Lane_DataType_t* pLane1 = Crossroad_GetSMData_Lane1( &crossroad );
   strcpy( pLane1->Id, "1" );
-  pLane1->UncontrolMode = E_STOP_AND_CHECK;
+  pLane1->UncontrolledMode = E_STOP_AND_CHECK;
   /* Configure Crossroad.Lane2 */
   S_SM_Lane_DataType_t* pLane2 = Crossroad_GetSMData_Lane2( &crossroad );
   strcpy( pLane2->Id, "2" );
-  pLane2->UncontrolMode = E_STOP_AND_CHECK;
+  pLane2->UncontrolledMode = E_STOP_AND_CHECK;
   /* Configure Crossroad.Lane3 */
   S_SM_Lane_DataType_t* pLane3 = Crossroad_GetSMData_Lane3( &crossroad );
   strcpy( pLane3->Id, "3" );
-  pLane3->UncontrolMode = E_CHECK;
+  pLane3->UncontrolledMode = E_CHECK;
   /* Configure Crossroad.Lane4 */
   S_SM_Lane_DataType_t* pLane4 = Crossroad_GetSMData_Lane4( &crossroad );
   strcpy( pLane4->Id, "4" );
-  pLane4->UncontrolMode = E_CHECK;
+  pLane4->UncontrolledMode = E_CHECK;
   /* Configure Crossroad.PedestrianLanes */
   S_SM_Lane_DataType_t* pPedestrianLanes = Crossroad_GetSMData_PedestrianLanes( &crossroad );
   strcpy( pPedestrianLanes->Id, "P" );
-  /* Configure Crossroad.TraficLight1 */
+  /* Configure Crossroad.TrafficLight1 */
   S_SM_TrafficLight_DataType_t* pTrafficLight1 = Crossroad_GetSMData_TrafficLight1( &crossroad );
   pTrafficLight1->pLane                        = Crossroad_GetSubSM_Lane1( &crossroad );
   pTrafficLight1->pMonitor                     = &monitor;
   pTrafficLight1->pExecutionDirector           = &executor;
-  /* Configure Crossroad.TraficLight2 */
+  /* Configure Crossroad.TrafficLight2 */
   S_SM_TrafficLight_DataType_t* pTrafficLight2 = Crossroad_GetSMData_TrafficLight2( &crossroad );
   pTrafficLight2->pLane                        = Crossroad_GetSubSM_Lane2( &crossroad );
   pTrafficLight2->pMonitor                     = &monitor;
   pTrafficLight2->pExecutionDirector           = &executor;
-  /* Configure Crossroad.TraficLight3 */
+  /* Configure Crossroad.TrafficLight3 */
   S_SM_TrafficLight_DataType_t* pTrafficLight3 = Crossroad_GetSMData_TrafficLight3( &crossroad );
   pTrafficLight3->pLane                        = Crossroad_GetSubSM_Lane3( &crossroad );
   pTrafficLight3->pMonitor                     = &monitor;
   pTrafficLight3->pExecutionDirector           = &executor;
-  /* Configure Crossroad.TraficLight4 */
+  /* Configure Crossroad.TrafficLight4 */
   S_SM_TrafficLight_DataType_t* pTrafficLight4 = Crossroad_GetSMData_TrafficLight4( &crossroad );
   pTrafficLight4->pLane                        = Crossroad_GetSubSM_Lane4( &crossroad );
   pTrafficLight4->pMonitor                     = &monitor;
   pTrafficLight4->pExecutionDirector           = &executor;
   /* Configure Crossroad.PedestrianLights */
-  S_SM_PedestrianLights_DataType_t* pPedestrianLights = Crossroad_GetSMData_PedestrianLights( &crossroad );
+  S_SM_PedestrianLights_DataType_t* pPedestrianLights = Crossroad_GetSMData_PedestrianLight( &crossroad );
   pPedestrianLights->pExecutionDirector               = &executor;
   pPedestrianLights->pMonitor                         = &monitor;
   pPedestrianLights->pCrossroad                       = &crossroad;

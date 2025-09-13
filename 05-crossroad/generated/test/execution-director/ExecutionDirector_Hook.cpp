@@ -50,6 +50,12 @@ extern "C"
     return result;
   }
 
+  bool ExecutionDirector_IsNextLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance )
+  {
+    bool const result = ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_IsNextLane1( smInfo, &smInfo->instanceData );
+    return result;
+  }
+
   bool ExecutionDirector_IsNextLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance )
   {
     bool const result = ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_IsNextLane2( smInfo, &smInfo->instanceData );
@@ -71,12 +77,6 @@ extern "C"
   bool ExecutionDirector_IsNextLanePedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance )
   {
     bool const result = ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_IsNextLanePedestrianLanes( smInfo, &smInfo->instanceData );
-    return result;
-  }
-
-  bool ExecutionDirector_IsNextLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance )
-  {
-    bool const result = ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_IsNextLane1( smInfo, &smInfo->instanceData );
     return result;
   }
 
@@ -131,9 +131,9 @@ extern "C"
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForTrafficStops( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
-  void ExecutionDirector_StartUncontrolMode( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  void ExecutionDirector_StartUncontrolledMode( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
-    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_StartUncontrolMode( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_StartUncontrolledMode( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
   void ExecutionDirector_CheckRouteRequest( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
@@ -156,6 +156,16 @@ extern "C"
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_StartControlMode( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
+  void ExecutionDirector_WaitForSafety( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForSafety( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderOpeningLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpeningLane1( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
   void ExecutionDirector_OrderOpenLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpenLane1( smInfo, &smInfo->instanceData, &smInfo->instanceData );
@@ -166,14 +176,29 @@ extern "C"
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForLane1( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
+  void ExecutionDirector_OrderClosingLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderClosingLane1( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_WaitForClosingLane( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForClosingLane( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderCloseLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderCloseLane1( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
   void ExecutionDirector_PrepareForNextLane( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_PrepareForNextLane( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
-  void ExecutionDirector_WaitForNextLaneOpen( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  void ExecutionDirector_OrderOpeningLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
-    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForNextLaneOpen( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpeningLane2( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
   void ExecutionDirector_OrderOpenLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
@@ -186,6 +211,21 @@ extern "C"
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForLane2( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
+  void ExecutionDirector_OrderClosingLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderClosingLane2( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderCloseLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderCloseLane2( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderOpeningLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpeningLane3( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
   void ExecutionDirector_OrderOpenLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpenLane3( smInfo, &smInfo->instanceData, &smInfo->instanceData );
@@ -194,6 +234,21 @@ extern "C"
   void ExecutionDirector_WaitForLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForLane3( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderClosingLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderClosingLane3( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderCloseLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderCloseLane3( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderOpeningLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpeningLane4( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
   void ExecutionDirector_OrderOpenLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
@@ -206,6 +261,16 @@ extern "C"
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForLane4( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
+  void ExecutionDirector_OrderClosingLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderClosingLane4( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderCloseLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderCloseLane4( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
   void ExecutionDirector_OrderOpenPedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderOpenPedestrianLanes( smInfo, &smInfo->instanceData, &smInfo->instanceData );
@@ -214,6 +279,11 @@ extern "C"
   void ExecutionDirector_WaitForPedestrians( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
   {
     ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_WaitForPedestrians( smInfo, &smInfo->instanceData, &smInfo->instanceData );
+  }
+
+  void ExecutionDirector_OrderClosePedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )
+  {
+    ExecutionDirector_Fixture::GetMock( ).ExecutionDirector_OrderClosePedestrianLanes( smInfo, &smInfo->instanceData, &smInfo->instanceData );
   }
 
   void ExecutionDirector_SetNextOpenLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t* const pOutputData )

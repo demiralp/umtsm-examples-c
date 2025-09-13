@@ -43,11 +43,11 @@ extern "C"
 #include <Lane_UserType.h>
 
 /* ----- Enumeration Type definitions ----- */
-typedef enum E_UncontrolModeType
+typedef enum E_UncontrolledModeType
 {
   E_STOP_AND_CHECK,
   E_CHECK
-} E_UncontrolModeType_t;
+} E_UncontrolledModeType_t;
 
 #ifdef __cplusplus
 }

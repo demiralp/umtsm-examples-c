@@ -45,7 +45,7 @@ extern "C"
 typedef struct S_SM_Lane_DataType
 {
   char Id[ 16 ];
-  E_UncontrolModeType_t UncontrolMode;
+  E_UncontrolledModeType_t UncontrolledMode;
 } S_SM_Lane_DataType_t;
 
 void Lane_DataType_Initialize( S_SM_Lane_DataType_t* const instance );

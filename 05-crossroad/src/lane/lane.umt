@@ -25,9 +25,9 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
-enumeration UncontrolModeType
+enumeration UncontrolledModeType
 {
     E_STOP_AND_CHECK,
     E_CHECK
@@ -44,7 +44,7 @@ sm Lane
     properties
     {
         char Id[ 16 ];
-        UncontrolModeType UncontrolMode;
+        UncontrolledModeType UncontrolledMode;
     }
 
     init -> Unmanaged;
@@ -78,9 +78,9 @@ sm Lane
 
             state Uncontrolled
             {
-                init -> ChoiceUncontrolMode;
+                init -> ChoiceUncontrolledMode;
 
-                choice ChoiceUncontrolMode
+                choice ChoiceUncontrolledMode
                 {
                     [IsCheckAndGo] -> CheckAndGo;
                     -> StopAndCheck;
@@ -117,18 +117,18 @@ sm Lane
 
             state Ready
             {
-                // blank
+                Close --> Close;
             }
         }
 
         state Open
         {
-            Prepare ->PrepareToStop;
+            Prepare -> PrepareToStop;
             Close -> Close;
 
             state PrepareToStop
             {
-                // blank
+                Open --> Open;
             }
         }
     }

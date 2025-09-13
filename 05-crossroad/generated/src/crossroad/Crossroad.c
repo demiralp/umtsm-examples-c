@@ -49,7 +49,7 @@ static void Crossroad_Finalize_RgTrafficLight1( S_SM_Crossroad_t* pStateMachine 
 static void Crossroad_Finalize_RgTrafficLight2( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Finalize_RgTrafficLight3( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Finalize_RgTrafficLight4( S_SM_Crossroad_t* pStateMachine );
-static void Crossroad_Finalize_RgPedestrianLights( S_SM_Crossroad_t* pStateMachine );
+static void Crossroad_Finalize_RgPedestrianLight( S_SM_Crossroad_t* pStateMachine );
 
 static void Crossroad_Terminate( S_SM_Crossroad_t* pStateMachine );
 
@@ -62,7 +62,7 @@ static void Crossroad_Exit_TrafficLight1( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Exit_TrafficLight2( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Exit_TrafficLight3( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Exit_TrafficLight4( S_SM_Crossroad_t* pStateMachine );
-static void Crossroad_Exit_PedestrianLights( S_SM_Crossroad_t* pStateMachine );
+static void Crossroad_Exit_PedestrianLight( S_SM_Crossroad_t* pStateMachine );
 
 static void Crossroad_Init_Main( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Init_Lane1( S_SM_Crossroad_t* pStateMachine );
@@ -74,7 +74,7 @@ static void Crossroad_Init_TrafficLight1( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Init_TrafficLight2( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Init_TrafficLight3( S_SM_Crossroad_t* pStateMachine );
 static void Crossroad_Init_TrafficLight4( S_SM_Crossroad_t* pStateMachine );
-static void Crossroad_Init_PedestrianLights( S_SM_Crossroad_t* pStateMachine );
+static void Crossroad_Init_PedestrianLight( S_SM_Crossroad_t* pStateMachine );
 
 void Crossroad_Initialize( S_SM_Crossroad_t* const pStateMachine )
 {
@@ -95,7 +95,7 @@ void Crossroad_Initialize( S_SM_Crossroad_t* const pStateMachine )
     TrafficLight_Initialize( &pStateMachine->subsm.TrafficLight2 );
     TrafficLight_Initialize( &pStateMachine->subsm.TrafficLight3 );
     TrafficLight_Initialize( &pStateMachine->subsm.TrafficLight4 );
-    PedestrianLights_Initialize( &pStateMachine->subsm.PedestrianLights );
+    PedestrianLights_Initialize( &pStateMachine->subsm.PedestrianLight );
   }
 }
 
@@ -217,11 +217,11 @@ bool Crossroad_IsIn_RgTrafficLight4_Region( S_SM_Crossroad_t* const pStateMachin
   return result;
 }
 
-bool Crossroad_IsIn_RgPedestrianLights_Region( S_SM_Crossroad_t* const pStateMachine )
+bool Crossroad_IsIn_RgPedestrianLight_Region( S_SM_Crossroad_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
-                      ( pStateMachine->runningState.RgPedestrianLights != E_Crossroad_RgPedestrianLights_init ) &&
-                      ( pStateMachine->runningState.RgPedestrianLights != E_Crossroad_RgPedestrianLights_final ) &&
+                      ( pStateMachine->runningState.RgPedestrianLight != E_Crossroad_RgPedestrianLight_init ) &&
+                      ( pStateMachine->runningState.RgPedestrianLight != E_Crossroad_RgPedestrianLight_final ) &&
                       Crossroad_IsIn_Main_State( pStateMachine );
 
   return result;
@@ -317,11 +317,11 @@ bool Crossroad_IsIn_TrafficLight4_State( S_SM_Crossroad_t* const pStateMachine )
   return result;
 }
 
-bool Crossroad_IsIn_PedestrianLights_State( S_SM_Crossroad_t* const pStateMachine )
+bool Crossroad_IsIn_PedestrianLight_State( S_SM_Crossroad_t* const pStateMachine )
 {
   bool const result = ( pStateMachine != NULL ) &&
-    Crossroad_IsIn_RgPedestrianLights_Region( pStateMachine ) &&
-    ( pStateMachine->runningState.RgPedestrianLights == E_Crossroad_PedestrianLights );
+    Crossroad_IsIn_RgPedestrianLight_Region( pStateMachine ) &&
+    ( pStateMachine->runningState.RgPedestrianLight == E_Crossroad_PedestrianLight );
 
   return result;
 }
@@ -386,9 +386,9 @@ S_SM_TrafficLight_DataType_t* Crossroad_GetSMData_TrafficLight4( S_SM_Crossroad_
   return pCustomData;
 }
 
-S_SM_PedestrianLights_DataType_t* Crossroad_GetSMData_PedestrianLights( S_SM_Crossroad_t* const pStateMachine )
+S_SM_PedestrianLights_DataType_t* Crossroad_GetSMData_PedestrianLight( S_SM_Crossroad_t* const pStateMachine )
 {
-  S_SM_PedestrianLights_DataType_t* const pCustomData = ( pStateMachine != NULL ) ? &pStateMachine->subsm.PedestrianLights.instanceData : NULL;
+  S_SM_PedestrianLights_DataType_t* const pCustomData = ( pStateMachine != NULL ) ? &pStateMachine->subsm.PedestrianLight.instanceData : NULL;
   return pCustomData;
 }
 
@@ -446,9 +446,9 @@ S_SM_TrafficLight_t* Crossroad_GetSubSM_TrafficLight4( S_SM_Crossroad_t* const p
   return pSubSM;
 }
 
-S_SM_PedestrianLights_t* Crossroad_GetSubSM_PedestrianLights( S_SM_Crossroad_t* const pStateMachine )
+S_SM_PedestrianLights_t* Crossroad_GetSubSM_PedestrianLight( S_SM_Crossroad_t* const pStateMachine )
 {
-  S_SM_PedestrianLights_t* const pSubSM = ( pStateMachine != NULL ) ? &pStateMachine->subsm.PedestrianLights : NULL;
+  S_SM_PedestrianLights_t* const pSubSM = ( pStateMachine != NULL ) ? &pStateMachine->subsm.PedestrianLight : NULL;
   return pSubSM;
 }
 
@@ -528,9 +528,9 @@ void Crossroad_SubSM_Run_Check( S_SM_Crossroad_t* pStateMachine, E_Crossroad_Sub
         TrafficLight_Run_Check( &pStateMachine->subsm.TrafficLight4 );
         break;
       }
-      case E_Crossroad_SubSM_PedestrianLights:
+      case E_Crossroad_SubSM_PedestrianLight:
       {
-        PedestrianLights_Run_Check( &pStateMachine->subsm.PedestrianLights );
+        PedestrianLights_Run_Check( &pStateMachine->subsm.PedestrianLight );
         break;
       }
       default:
@@ -843,9 +843,9 @@ void Crossroad_SubSM_Run_SystemEnabled( S_SM_Crossroad_t* pStateMachine, E_Cross
         TrafficLight_Run_SystemEnabled( &pStateMachine->subsm.TrafficLight4 );
         break;
       }
-      case E_Crossroad_SubSM_PedestrianLights:
+      case E_Crossroad_SubSM_PedestrianLight:
       {
-        PedestrianLights_Run_SystemEnabled( &pStateMachine->subsm.PedestrianLights );
+        PedestrianLights_Run_SystemEnabled( &pStateMachine->subsm.PedestrianLight );
         break;
       }
       default:
@@ -949,7 +949,7 @@ void Crossroad_Run_Check( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight2 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
-    __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+    __attribute__( ( unused ) ) bool doneRgPedestrianLight = false;
 
     if ( Crossroad_IsIn_RgTrafficLight1_Region( pStateMachine ) )
     {
@@ -1007,17 +1007,17 @@ void Crossroad_Run_Check( S_SM_Crossroad_t* pStateMachine )
       }
     }
 
-    if ( Crossroad_IsIn_RgPedestrianLights_Region( pStateMachine ) )
+    if ( Crossroad_IsIn_RgPedestrianLight_Region( pStateMachine ) )
     {
-      doneRgPedestrianLights = true;
+      doneRgPedestrianLight = true;
 
-      if ( Crossroad_IsIn_PedestrianLights_State( pStateMachine ) )
+      if ( Crossroad_IsIn_PedestrianLight_State( pStateMachine ) )
       {
-        PedestrianLights_Run_Check( &pStateMachine->subsm.PedestrianLights );
+        PedestrianLights_Run_Check( &pStateMachine->subsm.PedestrianLight );
       }
       else
       {
-        doneRgPedestrianLights = false;
+        doneRgPedestrianLight = false;
       }
     }
   }
@@ -1535,7 +1535,7 @@ void Crossroad_Run_SystemDisabled( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight2 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
-    __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+    __attribute__( ( unused ) ) bool doneRgPedestrianLight = false;
 
     if ( Crossroad_IsIn_RgLane1_Region( pStateMachine ) )
     {
@@ -1663,17 +1663,17 @@ void Crossroad_Run_SystemDisabled( S_SM_Crossroad_t* pStateMachine )
       }
     }
 
-    if ( Crossroad_IsIn_RgPedestrianLights_Region( pStateMachine ) )
+    if ( Crossroad_IsIn_RgPedestrianLight_Region( pStateMachine ) )
     {
-      doneRgPedestrianLights = true;
+      doneRgPedestrianLight = true;
 
-      if ( Crossroad_IsIn_PedestrianLights_State( pStateMachine ) )
+      if ( Crossroad_IsIn_PedestrianLight_State( pStateMachine ) )
       {
-        PedestrianLights_Run_SystemDisabled( &pStateMachine->subsm.PedestrianLights );
+        PedestrianLights_Run_SystemDisabled( &pStateMachine->subsm.PedestrianLight );
       }
       else
       {
-        doneRgPedestrianLights = false;
+        doneRgPedestrianLight = false;
       }
     }
   }
@@ -1688,7 +1688,7 @@ void Crossroad_Run_SystemEnabled( S_SM_Crossroad_t* pStateMachine )
     __attribute__( ( unused ) ) bool doneRgTrafficLight2 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight3 = false;
     __attribute__( ( unused ) ) bool doneRgTrafficLight4 = false;
-    __attribute__( ( unused ) ) bool doneRgPedestrianLights = false;
+    __attribute__( ( unused ) ) bool doneRgPedestrianLight = false;
 
     if ( Crossroad_IsIn_RgTrafficLight1_Region( pStateMachine ) )
     {
@@ -1746,17 +1746,17 @@ void Crossroad_Run_SystemEnabled( S_SM_Crossroad_t* pStateMachine )
       }
     }
 
-    if ( Crossroad_IsIn_RgPedestrianLights_Region( pStateMachine ) )
+    if ( Crossroad_IsIn_RgPedestrianLight_Region( pStateMachine ) )
     {
-      doneRgPedestrianLights = true;
+      doneRgPedestrianLight = true;
 
-      if ( Crossroad_IsIn_PedestrianLights_State( pStateMachine ) )
+      if ( Crossroad_IsIn_PedestrianLight_State( pStateMachine ) )
       {
-        PedestrianLights_Run_SystemEnabled( &pStateMachine->subsm.PedestrianLights );
+        PedestrianLights_Run_SystemEnabled( &pStateMachine->subsm.PedestrianLight );
       }
       else
       {
-        doneRgPedestrianLights = false;
+        doneRgPedestrianLight = false;
       }
     }
   }
@@ -1842,11 +1842,11 @@ static void Crossroad_Finalize_RgTrafficLight4(S_SM_Crossroad_t* pStateMachine )
   }
 }
 
-static void Crossroad_Finalize_RgPedestrianLights(S_SM_Crossroad_t* pStateMachine )
+static void Crossroad_Finalize_RgPedestrianLight(S_SM_Crossroad_t* pStateMachine )
 {
-  if ( Crossroad_IsIn_RgPedestrianLights_Region( pStateMachine ) )
+  if ( Crossroad_IsIn_RgPedestrianLight_Region( pStateMachine ) )
   {
-    pStateMachine->runningState.RgPedestrianLights = E_Crossroad_RgPedestrianLights_final;
+    pStateMachine->runningState.RgPedestrianLight = E_Crossroad_RgPedestrianLight_final;
   }
 }
 
@@ -1902,10 +1902,10 @@ static void Crossroad_Init_Main( S_SM_Crossroad_t* pStateMachine )
   Crossroad_Init_TrafficLight4( pStateMachine );
   pStateMachine->runningState.RgTrafficLight4 = E_Crossroad_TrafficLight4;
 
-  // fork destination -> `:RgPedestrianLights:PedestrianLights`
+  // fork destination -> `:RgPedestrianLight:PedestrianLight`
   pStateMachine->runningState.Main = E_Crossroad_Main;
-  Crossroad_Init_PedestrianLights( pStateMachine );
-  pStateMachine->runningState.RgPedestrianLights = E_Crossroad_PedestrianLights;
+  Crossroad_Init_PedestrianLight( pStateMachine );
+  pStateMachine->runningState.RgPedestrianLight = E_Crossroad_PedestrianLight;
 }
 
 static void Crossroad_Init_Lane1( S_SM_Crossroad_t* pStateMachine )
@@ -1953,9 +1953,9 @@ static void Crossroad_Init_TrafficLight4( S_SM_Crossroad_t* pStateMachine )
   TrafficLight_Start( &pStateMachine->subsm.TrafficLight4 );
 }
 
-static void Crossroad_Init_PedestrianLights( S_SM_Crossroad_t* pStateMachine )
+static void Crossroad_Init_PedestrianLight( S_SM_Crossroad_t* pStateMachine )
 {
-  PedestrianLights_Start( &pStateMachine->subsm.PedestrianLights );
+  PedestrianLights_Start( &pStateMachine->subsm.PedestrianLight );
 }
 
 static void Crossroad_Exit_Lane1(S_SM_Crossroad_t* pStateMachine )
@@ -2021,11 +2021,11 @@ static void Crossroad_Exit_TrafficLight4(S_SM_Crossroad_t* pStateMachine )
   TrafficLight_Deinitialize( &pStateMachine->subsm.TrafficLight4 );
 }
 
-static void Crossroad_Exit_PedestrianLights(S_SM_Crossroad_t* pStateMachine )
+static void Crossroad_Exit_PedestrianLight(S_SM_Crossroad_t* pStateMachine )
 {
-  pStateMachine->runningState.RgPedestrianLights = E_Crossroad_PedestrianLights;
+  pStateMachine->runningState.RgPedestrianLight = E_Crossroad_PedestrianLight;
 
-  PedestrianLights_Deinitialize( &pStateMachine->subsm.PedestrianLights );
+  PedestrianLights_Deinitialize( &pStateMachine->subsm.PedestrianLight );
 }
 
 /* End of Crossroad.c */

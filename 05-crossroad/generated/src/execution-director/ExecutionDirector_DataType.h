@@ -48,11 +48,12 @@ typedef struct S_SM_Monitor S_SM_Monitor_t;
 
 typedef struct S_SM_ExecutionDirector_DataType
 {
-  E_ControlMode_t ControlMode;
+  E_ControlModeStatus_t ControlModeStatus;
   time_t StartSwitchingTime;
   bool LaneClosingCompleted;
   S_SM_Crossroad_t *pCrossroad;
   S_SM_Monitor_t *pMonitor;
+  int CurrentLane;
   int LaneRequested;
   int NextLane;
   E_Lane_Command_t LaneCmd1;

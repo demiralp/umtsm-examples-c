@@ -46,11 +46,11 @@ namespace sm
         // The mock interface of the guards
         virtual bool ExecutionDirector_IsControlledModeRequested( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
         virtual bool ExecutionDirector_IsUncontrolledModeRequested( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
+        virtual bool ExecutionDirector_IsNextLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
         virtual bool ExecutionDirector_IsNextLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
         virtual bool ExecutionDirector_IsNextLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
         virtual bool ExecutionDirector_IsNextLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
         virtual bool ExecutionDirector_IsNextLanePedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
-        virtual bool ExecutionDirector_IsNextLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInstance ) = 0;
 
         // The mock interface of the actions
         virtual void ExecutionDirector_StopTraffic( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
@@ -63,23 +63,37 @@ namespace sm
         virtual void ExecutionDirector_StartSystemSwitchingTimer( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForSystemSwitchingTimer( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForTrafficStops( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
-        virtual void ExecutionDirector_StartUncontrolMode( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_StartUncontrolledMode( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_CheckRouteRequest( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_Update( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForInterval( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_StartControlMode( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_WaitForSafety( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderOpeningLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_OrderOpenLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderClosingLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_WaitForClosingLane( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderCloseLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_PrepareForNextLane( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
-        virtual void ExecutionDirector_WaitForNextLaneOpen( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderOpeningLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_OrderOpenLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderClosingLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderCloseLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderOpeningLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_OrderOpenLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderClosingLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderCloseLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderOpeningLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_OrderOpenLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderClosingLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderCloseLane4( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_OrderOpenPedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_WaitForPedestrians( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
+        virtual void ExecutionDirector_OrderClosePedestrianLanes( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_SetNextOpenLane1( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_SetNextOpenLane2( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;
         virtual void ExecutionDirector_SetNextOpenLane3( S_SM_ExecutionDirector_t* const smInfo, S_SM_ExecutionDirector_DataType_t const * const pInputData, S_SM_ExecutionDirector_DataType_t * const pOutputData ) = 0;

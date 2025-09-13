@@ -133,6 +133,97 @@ void ExecutionDirector_NotifyCrossroad(
 {
 } /* End of action function: ExecutionDirector_NotifyCrossroad */
 
+void ExecutionDirector_OrderCloseLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderCloseLane1 */
+
+void ExecutionDirector_OrderCloseLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderCloseLane2 */
+
+void ExecutionDirector_OrderCloseLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderCloseLane3 */
+
+void ExecutionDirector_OrderCloseLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderCloseLane4 */
+
+void ExecutionDirector_OrderClosePedestrianLanes(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderClosePedestrianLanes */
+
+void ExecutionDirector_OrderClosingLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderClosingLane1 */
+
+void ExecutionDirector_OrderClosingLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderClosingLane2 */
+
+void ExecutionDirector_OrderClosingLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderClosingLane3 */
+
+void ExecutionDirector_OrderClosingLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderClosingLane4 */
+
+void ExecutionDirector_OrderOpeningLane1(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderOpeningLane1 */
+
+void ExecutionDirector_OrderOpeningLane2(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderOpeningLane2 */
+
+void ExecutionDirector_OrderOpeningLane3(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderOpeningLane3 */
+
+void ExecutionDirector_OrderOpeningLane4(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_OrderOpeningLane4 */
+
 void ExecutionDirector_OrderOpenLane1(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
@@ -294,12 +385,12 @@ void ExecutionDirector_StartSystemSwitchingTimer(
 {
 } /* End of action function: ExecutionDirector_StartSystemSwitchingTimer */
 
-void ExecutionDirector_StartUncontrolMode(
+void ExecutionDirector_StartUncontrolledMode(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-} /* End of action function: ExecutionDirector_StartUncontrolMode */
+} /* End of action function: ExecutionDirector_StartUncontrolledMode */
 
 void ExecutionDirector_StopTraffic(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -314,6 +405,13 @@ void ExecutionDirector_Update(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
 } /* End of action function: ExecutionDirector_Update */
+
+void ExecutionDirector_WaitForClosingLane(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_WaitForClosingLane */
 
 void ExecutionDirector_WaitForInterval(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -350,19 +448,19 @@ void ExecutionDirector_WaitForLane4(
 {
 } /* End of action function: ExecutionDirector_WaitForLane4 */
 
-void ExecutionDirector_WaitForNextLaneOpen(
-  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
-  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
-  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
-{
-} /* End of action function: ExecutionDirector_WaitForNextLaneOpen */
-
 void ExecutionDirector_WaitForPedestrians(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
 } /* End of action function: ExecutionDirector_WaitForPedestrians */
+
+void ExecutionDirector_WaitForSafety(
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
+  __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
+{
+} /* End of action function: ExecutionDirector_WaitForSafety */
 
 void ExecutionDirector_WaitForSystemSwitchingTimer(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,

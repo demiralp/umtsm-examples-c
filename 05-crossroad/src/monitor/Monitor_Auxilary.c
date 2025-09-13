@@ -25,7 +25,7 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
-*/
+ */
 
 #include "Monitor_Auxilary.h"
 #include "Monitor_DataType.h"
@@ -33,10 +33,8 @@
 #include <assert.h>
 #include <memory.h>
 #include <pthread.h>
-#include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 #include <ncurses.h>
@@ -49,7 +47,7 @@
 
 #include <ExecutionDirector_Auxilary.h>
 
-static char const* LaneNo2Name( int no );
+static char const* LaneNumberToName( int no );
 static void PrintHelpLine( char const * const key, char const * const summary );
 static void PrintHelp(
   __attribute__( ( unused ) ) S_SM_Monitor_t* const smInfo,
@@ -84,7 +82,7 @@ void Monitor_DisplayStatusOfLanes(
   pTrafficLight[ 2 ] = Crossroad_GetSubSM_TrafficLight3( pOutputData->pCrossroad );
   pTrafficLight[ 3 ] = Crossroad_GetSubSM_TrafficLight4( pOutputData->pCrossroad );
 
-  S_SM_PedestrianLights_t* pPedestrianLights = Crossroad_GetSubSM_PedestrianLights( pOutputData->pCrossroad );
+  S_SM_PedestrianLights_t* pPedestrianLights = Crossroad_GetSubSM_PedestrianLight( pOutputData->pCrossroad );
 
   while( true )
   {
@@ -116,7 +114,7 @@ void Monitor_DisplayStatusOfLanes(
     {
       printw( "LANE4 IS ON CLOSING" );
     }
-    else if( ExecutionDirector_IsIn_OnClosePedestrianLanes_State( pOutputData->pExecutionDirector ) )
+    else if( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pOutputData->pExecutionDirector ) )
     {
       printw( "PEDESTRIAN LANES ARE ON CLOSING" );
     }
@@ -184,7 +182,7 @@ void Monitor_DisplayStatusOfLanes(
     }
     else
     {
-      printw( "UNKNOWN" );
+      printw( "SAFETY GAP" );
     }
     attroff( COLOR_PAIR( 2 ) );
 
@@ -257,7 +255,7 @@ void Monitor_DisplayStatusOfLanes(
     attroff( COLOR_PAIR( 1 ) );
 
     attron( COLOR_PAIR( 2 ) );
-    printw( "Next -> %s Requested -> %s\n", LaneNo2Name( pExecutorData->NextLane ), LaneNo2Name( pExecutorData->LaneRequested ) );
+    printw( "Requested -> %s\n", LaneNumberToName( pExecutorData->LaneRequested ) );
     attroff( COLOR_PAIR( 2 ) );
 
     attron( COLOR_PAIR( 1 ) );
@@ -285,7 +283,7 @@ void Monitor_RequestUpdate(
 } /* End of action function: Monitor_RequestUpdate */
 
 /* internal functions */
-static char const* LaneNo2Name( int no )
+static char const* LaneNumberToName( int no )
 {
   static char const* const name[] = {
     "Pedestrian Lanes",

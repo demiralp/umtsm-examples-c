@@ -60,7 +60,7 @@ namespace
     EXPECT_EQ( sm.runningState.RgTrafficLight2, E_Crossroad_TrafficLight2 );
     EXPECT_EQ( sm.runningState.RgTrafficLight3, E_Crossroad_TrafficLight3 );
     EXPECT_EQ( sm.runningState.RgTrafficLight4, E_Crossroad_TrafficLight4 );
-    EXPECT_EQ( sm.runningState.RgPedestrianLights, E_Crossroad_PedestrianLights );
+    EXPECT_EQ( sm.runningState.RgPedestrianLight, E_Crossroad_PedestrianLight );
   }
 } // namespace
 
