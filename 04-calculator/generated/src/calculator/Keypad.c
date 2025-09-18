@@ -53,7 +53,6 @@ static void Keypad_Enter_Main( S_SM_Keypad_t* pStateMachine );
 
 static void Keypad_Exit_Main( S_SM_Keypad_t* pStateMachine );
 
-
 static pthread_t Keypad_LaunchDoAction( void *(*threadStart)(void *), S_SM_Keypad_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Keypad_HaltDoAction( pthread_t thr );
 

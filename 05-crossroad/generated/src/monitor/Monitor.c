@@ -53,7 +53,6 @@ static void Monitor_Enter_Main( S_SM_Monitor_t* pStateMachine );
 
 static void Monitor_Exit_Main( S_SM_Monitor_t* pStateMachine );
 
-
 static pthread_t Monitor_LaunchDoAction( void *(*threadStart)(void *), S_SM_Monitor_t* pStateMachine, void *stackAddr, size_t stackSize );
 static void Monitor_HaltDoAction( pthread_t thr );
 

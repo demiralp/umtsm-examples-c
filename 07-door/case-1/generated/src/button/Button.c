@@ -43,7 +43,6 @@ static void Button_Finalize_Main( S_SM_Button_t* pStateMachine );
 
 static void Button_Terminate( S_SM_Button_t* pStateMachine );
 
-
 void Button_Initialize( S_SM_Button_t* const pStateMachine )
 {
   if ( pStateMachine != NULL )
