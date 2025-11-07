@@ -56,4 +56,5 @@ generate.sh
 set-date.sh
 Makefile
 *.drawio
+.vscode
 .cache

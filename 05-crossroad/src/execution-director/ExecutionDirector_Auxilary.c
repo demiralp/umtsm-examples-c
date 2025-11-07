@@ -44,18 +44,19 @@
 #include <Crossroad.h>
 #include <Monitor.h>
 
-#define MS_IN_US                  ( 1000000 )
-#define RUN_LANE_MS               ( 10 * MS_IN_US )
-#define RUN_LANE1_MS              ( RUN_LANE_MS )
-#define RUN_LANE2_MS              ( RUN_LANE_MS )
-#define RUN_LANE3_MS              ( RUN_LANE_MS )
-#define RUN_LANE4_MS              ( RUN_LANE_MS )
-#define RUN_PEDESTRIAN_LANES_MS    ( 8 * MS_IN_US )
-#define RUN_PREPARING_MS          ( 4 * MS_IN_US )
-#define RUN_STOPING_TRAFFIC_MS    ( RUN_LANE_MS )
-#define RUN_SWITCHING_TIME_MS     ( 7 * MS_IN_US )
-#define RUN_MIN_SWITCHING_TIME_MS ( 5 * MS_IN_US )
-#define RUN_INTERVAL_TIME_MS      ( 3 * MS_IN_US  )
+#define SEC_IN_US(SEC)            ( 1000000 * (SEC) )
+
+#define RUN_LANE_US               SEC_IN_US( 10 )
+#define RUN_LANE1_US              ( RUN_LANE_US )
+#define RUN_LANE2_US              ( RUN_LANE_US )
+#define RUN_LANE3_US              ( RUN_LANE_US )
+#define RUN_LANE4_US              ( RUN_LANE_US )
+#define RUN_PEDESTRIAN_LANES_US   SEC_IN_US( 8 )
+#define RUN_PREPARING_US          SEC_IN_US( 4 )
+#define RUN_STOPING_TRAFFIC_US    ( RUN_LANE_US )
+#define RUN_SWITCHING_TIME_US     SEC_IN_US( 7 )
+#define RUN_MIN_SWITCHING_TIME_US SEC_IN_US( 5 )
+#define RUN_INTERVAL_TIME_US      SEC_IN_US( 3  )
 
 static void TellLaneAvailability(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_t* const smInfo,
@@ -767,7 +768,7 @@ void ExecutionDirector_WaitForClosingLane(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  usleep( RUN_INTERVAL_TIME_MS );
+  usleep( RUN_INTERVAL_TIME_US );
 } /* End of action function: ExecutionDirector_WaitForClosingLane */
 
 void ExecutionDirector_WaitForInterval(
@@ -775,7 +776,7 @@ void ExecutionDirector_WaitForInterval(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  usleep( RUN_INTERVAL_TIME_MS );
+  usleep( RUN_INTERVAL_TIME_US );
 } /* End of action function: ExecutionDirector_WaitForInterval */
 
 void ExecutionDirector_WaitForLane1(
@@ -786,7 +787,7 @@ void ExecutionDirector_WaitForLane1(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane1( pOutputData->pCrossroad ) ) )
   {
     pOutputData->LaneClosingCompleted = false;
-    usleep( RUN_LANE1_MS );
+    usleep( RUN_LANE1_US );
   }
 } /* End of action function: ExecutionDirector_WaitForLane1 */
 
@@ -798,7 +799,7 @@ void ExecutionDirector_WaitForLane2(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane2( pOutputData->pCrossroad ) ) )
   {
     pOutputData->LaneClosingCompleted = false;
-    usleep( RUN_LANE2_MS );
+    usleep( RUN_LANE2_US );
   }
 } /* End of action function: ExecutionDirector_WaitForLane2 */
 
@@ -810,7 +811,7 @@ void ExecutionDirector_WaitForLane3(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane3( pOutputData->pCrossroad ) ) )
   {
     pOutputData->LaneClosingCompleted = false;
-    usleep( RUN_LANE3_MS );
+    usleep( RUN_LANE3_US );
   }
 } /* End of action function: ExecutionDirector_WaitForLane3 */
 
@@ -822,7 +823,7 @@ void ExecutionDirector_WaitForLane4(
   if( Lane_IsIn_Available_State( Crossroad_GetSubSM_Lane4( pOutputData->pCrossroad ) ) )
   {
     pOutputData->LaneClosingCompleted = false;
-    usleep( RUN_LANE4_MS );
+    usleep( RUN_LANE4_US );
   }
 } /* End of action function: ExecutionDirector_WaitForLane4 */
 
@@ -833,7 +834,7 @@ void ExecutionDirector_WaitForPedestrians(
 {
   if( ! pInputData->LaneClosingCompleted )
   {
-    usleep( RUN_PREPARING_MS );
+    usleep( RUN_PREPARING_US );
     pOutputData->LaneClosingCompleted = true;
   }
 } /* End of action function: ExecutionDirector_WaitForPedestrians */
@@ -844,7 +845,7 @@ void ExecutionDirector_WaitForSafety(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
   pOutputData->LaneClosingCompleted = false;
-  usleep( RUN_PEDESTRIAN_LANES_MS );
+  usleep( RUN_PEDESTRIAN_LANES_US );
 } /* End of action function: ExecutionDirector_WaitForSafety */
 
 void ExecutionDirector_WaitForSystemSwitchingTimer(
@@ -854,10 +855,10 @@ void ExecutionDirector_WaitForSystemSwitchingTimer(
 {
   time_t now;
   time( &now );
-  double remainingTime = ceil( RUN_SWITCHING_TIME_MS - difftime( now, pInputData->StartSwitchingTime ) );
-  if( remainingTime < RUN_MIN_SWITCHING_TIME_MS )
+  double remainingTime = ceil( RUN_SWITCHING_TIME_US - difftime( now, pInputData->StartSwitchingTime ) );
+  if( remainingTime < RUN_MIN_SWITCHING_TIME_US )
   {
-    remainingTime = RUN_MIN_SWITCHING_TIME_MS;
+    remainingTime = RUN_MIN_SWITCHING_TIME_US;
   }
 
   usleep( remainingTime );
@@ -868,7 +869,7 @@ void ExecutionDirector_WaitForTrafficStops(
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t const* const pInputData,
   __attribute__( ( unused ) ) S_SM_ExecutionDirector_DataType_t* const pOutputData )
 {
-  usleep( RUN_STOPING_TRAFFIC_MS );
+  usleep( RUN_STOPING_TRAFFIC_US );
 } /* End of action function: ExecutionDirector_WaitForTrafficStops */
 
 /* The implementation of the Persistency Functions */

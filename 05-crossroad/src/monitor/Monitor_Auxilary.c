@@ -114,9 +114,21 @@ void Monitor_DisplayStatusOfLanes(
     {
       printw( "LANE4 IS ON CLOSING" );
     }
-    else if( ExecutionDirector_IsIn_ClosePedestrianLanes_State( pOutputData->pExecutionDirector ) )
+    else if( ExecutionDirector_IsIn_OnOpeningLane1_State( pOutputData->pExecutionDirector ) )
     {
-      printw( "PEDESTRIAN LANES ARE ON CLOSING" );
+      printw( "LANE1 IS ON OPENING" );
+    }
+    else if( ExecutionDirector_IsIn_OnOpeningLane2_State( pOutputData->pExecutionDirector ) )
+    {
+      printw( "LANE2 IS ON OPENING" );
+    }
+    else if( ExecutionDirector_IsIn_OnOpeningLane3_State( pOutputData->pExecutionDirector ) )
+    {
+      printw( "LANE3 IS ON OPENING" );
+    }
+    else if( ExecutionDirector_IsIn_OnOpeningLane4_State( pOutputData->pExecutionDirector ) )
+    {
+      printw( "LANE4 IS ON OPENING" );
     }
     else if( ExecutionDirector_IsIn_OpenLane1_State( pOutputData->pExecutionDirector ) )
     {
