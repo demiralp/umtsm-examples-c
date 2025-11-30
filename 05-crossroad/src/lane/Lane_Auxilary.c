@@ -97,8 +97,10 @@ E_Lane_Availability_States_t Lane_Load_Shallow_Availability(
   if( fd != NULL )
   {
     uint16_t sdata;
-    fread( &sdata, sizeof( sdata ), 1, fd );
-    result = (E_Lane_Main_States_t)sdata;
+    if ( fread( &sdata, sizeof( sdata ), 1, fd ) )
+    {
+      result = (E_Lane_Main_States_t)sdata;
+    }
     fclose( fd );
   }
 

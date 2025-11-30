@@ -151,8 +151,10 @@ E_Door_Main_States_t Door_Load_Deep_Main(
   if( fd != NULL )
   {
     uint16_t sdata;
-    fread( &sdata, sizeof( sdata ), 1, fd );
-    result = (E_Door_Main_States_t)sdata;
+    if ( fread( &sdata, sizeof( sdata ), 1, fd ) )
+    {
+      result = (E_Door_Main_States_t)sdata;
+    }
     fclose( fd );
   }
 

@@ -39,14 +39,14 @@ sm Paroot
 {
     properties
     {
-        float32 paramA;
-        float32 paramB;
-        float32 paramC;
-        float32 delta;
-        float32 root1Real;
-        float32 root1Imag;
-        float32 root2Real;
-        float32 root2Imag;
+        float64 paramA;
+        float64 paramB;
+        float64 paramC;
+        float64 delta;
+        float64 root1Real;
+        float64 root1Imag;
+        float64 root2Real;
+        float64 root2Imag;
         Paroot_Solution solutionType;
     }
 

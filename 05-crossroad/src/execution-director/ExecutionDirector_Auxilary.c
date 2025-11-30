@@ -919,8 +919,10 @@ E_ExecutionDirector_Main_States_t ExecutionDirector_Load_Shallow_Operational(
   if( fd != NULL )
   {
     uint16_t sdata;
-    fread( &sdata, sizeof( sdata ), 1, fd );
-    result = (E_ExecutionDirector_Main_States_t)sdata;
+    if ( fread( &sdata, sizeof( sdata ), 1, fd ) )
+    {
+      result = (E_ExecutionDirector_Main_States_t)sdata;
+    }
     fclose( fd );
   }
 
